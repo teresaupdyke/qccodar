@@ -1,0 +1,10 @@
+docopt
+numpy
+geopy
+
+[qcviz]
+matplotlib
+ipython
+
+[tests]
+nose

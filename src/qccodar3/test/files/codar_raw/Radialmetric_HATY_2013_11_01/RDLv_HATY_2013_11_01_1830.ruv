@@ -1,0 +1,75 @@
+%CTF: 1.00
+%FileType: LLUV rdls "RadialMap"
+%LLUVSpec: 1.18  2012 05 07
+%UUID: 25278593-E6AB-4540-849C-7D97093F6BF9
+%Manufacturer: CODAR Ocean Sensors. SeaSonde
+%Site: HATY ""
+%TimeStamp: 2013 11 01  18 30 00
+%TimeZone: "UTC" +0.000 0 "Atlantic/Reykjavik"
+%TimeCoverage: 60.000 Minutes
+%Origin:  35.2572667  -75.5200500
+%GreatCircle: "WGS84" 6378137.000  298.257223562997
+%GeodVersion: "CGEO" 1.57  2009 03 10
+%LLUVTrustData: all %% all lluv xyuv rbvd
+%RangeResolutionKMeters: 5.824900
+%AntennaBearing: 127.0 True
+%ReferenceBearing: 0 True
+%AngularResolution: 1 Deg
+%SpatialResolution: 5 Deg
+%PatternType: Ideal
+%PatternDate: 2009 04 30  11 21 12
+%PatternResolution: 1.0 deg
+%TransmitCenterFreqMHz: 4.537183
+%DopplerResolutionHzPerBin: 0.000488281
+%FirstOrderMethod: 0
+%BraggSmoothingPoints: 3
+%CurrentVelocityLimit: 250.0
+%BraggHasSecondOrder: 0
+%RadialBraggPeakDropOff: 398.110
+%RadialBraggPeakNull: 100.000
+%RadialBraggNoiseThreshold: 5.000
+%PatternAmplitudeCorrections: 1.0000  1.0000
+%PatternPhaseCorrections: 70.00  35.00
+%PatternAmplitudeCalculations: 999.0000  999.0000
+%PatternPhaseCalculations: 17.80  38.60
+%RadialMusicParameters: 40.000 20.000 2.000
+%FirstOrderCalc: 1
+%PatternMethod: 1 PatternVectors
+%TransmitSweepRateHz: 1.000000
+%TransmitBandwidthKHz: -25.733913
+%SpectraRangeCells: 63
+%SpectraDopplerCells: 2048
+%TableType: LLUV RDM1
+%TableColumns: 30
+%TableColumnTypes: LOND LATD VELU VELV VFLG RNGE BEAR VELO HEAD SPRC SPDC MSEL MSA1 MDA1 MDA2 MSP1 MDP1 MDP2 MSW1 MDW1 MDW2 MSR1 MDR1 MDR2 MA1S MA2S MA3S MEI1 MEI2 MEI3 
+%TableStart:
+%%   Longitude   Latitude    U comp   V comp  VectorFlag   Range   Bearing   Velocity  Direction   Spectra  Spectra  Ang   MusicSngl MusicDual MusicDual MusicSngl MusicDual MusicDual MusicSngl MusicDual MusicDual MusicSngl MusicDual MusicDual SpectraA1 SpectraA2 SpectraA3     Eigen         Eigen         Eigen    
+%%     (deg)       (deg)     (cm/s)   (cm/s)  (GridCode)    (km)    (True)    (cm/s)     (True)    RngCell  DopCell Select   (True)    (True)    (True)  Pwr (dB)  Pwr1 (dB) Pwr2 (dB) Pk Width  Pk1 Width Pk2 Width Peak Resp Peak1Resp Peak2Resp  S/N(dB)   S/N(dB)   S/N(dB)     Value 1       Value 2       Value 3   
+%TableEnd:
+%%
+%TableType: rads rad1
+%TableColumns: 31
+%TableColumnTypes: TIME AMP1 AMP2 PH13 PH23 CPH1 CPH2 SNF1 SNF2 SNF3 SSN1 SSN2 SSN3 DGRC DOPV DDAP RADV RAPR RARC RADR RMCV RACV RABA RTYP STYP TYRS TMON TDAY THRS TMIN TSEC 
+%TableRows: 2
+%TableStart: 2
+%%   Time       Calculated      Calculated     Corrected        Noise Floor     SignalToNoise   Diag  Valid  Dual  Radial RadsV Rads   Max   Vel    Vel    Bearing  Radial Spectra Time
+%% FromStart   Amp1    Amp2   Phase13 Phase23 Phase1 Phase2   NF1   NF2   NF3   SN1  SN2  SN3   Range Dopplr Angle Vector  per  Range Range  Max    Aver   Average   Type   Type   Year Mo Dy  Hr Mn  S
+%%  Seconds  (1/v^2) (1/v^2)   (deg)   (deg)   (deg)  (deg)  (dBm) (dBm) (dBm)  (dB) (dB) (dB)  Cell  Cells  Prcnt Count  Range Cells  (km) (cm/s) (cm/s) (deg CWN)
+%     -1800   0.0000  0.0000    18.1    38.6    70.0   35.0  -152. -154. -162.   +4.  +4.  +6.   19       0     0     0      0     1    0.0    0.0    0.0     0.0       1     68   2013 11 01  18 00 00
+%         0   0.0000  0.0000    17.8    38.6    70.0   35.0  -153. -154. -155.   +3.  +3.  +5.    5       0     0     0      0     1    0.0    0.0    0.0     0.0       1     68   2013 11 01  18 30 00
+%TableEnd: 2
+%%
+%TableType: RINF r001
+%TableColumns: 14
+%TableColumnTypes: RNGC DIST NF01 NF02 NF03 ALM1 ALM2 ALM3 ALM4 BRJN BRJP NVSA NVDA NVCT 
+%TableRows: 1
+%TableStart: 3
+%% Range   Range  NoiseA1 NoiseA2 NoiseA3 FOL N1  FOL N2  FOL P1  FOL P2  N.Bragg P.Bragg  Single  Dual    All   
+%%  Cell    (km)   (dBm)   (dBm)   (dBm)  DopIndx DopIndx DopIndx DopIndx Reject  Reject  Vectors Vectors Vectors
+%      0   0.000                                                                                  0       0       0
+%TableEnd: 3
+%%
+%ProcessedTimeStamp: 2014 10 17  15 36 44
+%ProcessingTool: "SpectraToRadial" 11.2.2
+%ProcessingTool: "RadialArchiver" 11.3.3
+%End:

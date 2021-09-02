@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: qccodar3
+Version: 2.0.1
+Summary: Apply quality controls to improve CODAR ouput
+Home-page: http://nccoos.unc.edu
+Author: Sara Haines
+Author-email: sarahaines@unc.edu
+Maintainer: Sara Haines
+Maintainer-email: sarahaines@unc.edu
+License: GNU
+Description: UNKNOWN
+Keywords: qc codar radials currents ocean science data
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Provides-Extra: tests
+Provides-Extra: qcviz
