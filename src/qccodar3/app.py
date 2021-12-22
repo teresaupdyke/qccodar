@@ -21,11 +21,20 @@ from pkg_resources import get_distribution
 import time
 
 from .qcutils import do_qc, recursive_glob
-from .codarutils import run_LLUVMerger, get_radialmetric_foldername
+from .codarutils import run_LLUVMerger, get_radialmetric_foldername, check_headertime
 
 __version__ = get_distribution("qccodar3").version
 
 debug = 1
+qccodar_values = dict(
+    qc_doa_half_power_width=dict(doa_half_power_width_max=50.0),
+    qc_doa_peak_power=dict(doa_peak_power_min=5.0),
+    qc_monopole_snr=dict(monopole_snr_min=5.0),
+    qc_loop_snr=dict(loop_snr_min=5.0),
+    qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=1.0),
+    weighted_shorts=dict(numdegrees=3,weight_parameter='MP', table_type='RDL7'),
+    merge=dict(css_interval_minutes=30.0,number_of_css=5.0)
+)
 
 def manual(datadir, pattern):
     """ Manual mode runs qc and merge on all files in datadir """
@@ -37,7 +46,7 @@ def manual(datadir, pattern):
     # handle if no files to process
     if not fns:
         print("Warn: qccodar manual --datadir %s --pattern %s" % (datadir, pattern))
-        print("No files RDL*.ruv found in %s" % fulldatadir)
+        print("No files RDL*.ruv found in %s" % os.path.join(datadir, rmfoldername, pattern))
         return
 
     print('qccodar (manual) -- qc step ...')
@@ -46,7 +55,7 @@ def manual(datadir, pattern):
     for fullfn in fns:
         print('... input: %s' % fullfn)
         fn = os.path.basename(fullfn)
-        ofn = do_qc(datadir, fn, pattern)
+        ofn = do_qc(datadir, fn, pattern, qccodar_values)
         print('... output: %s' % ofn)
 
     # get file list of RadialShorts
@@ -59,7 +68,10 @@ def manual(datadir, pattern):
     for fullfn in fns:
         print('... input: %s' % fullfn)
         fn = os.path.basename(fullfn)
-        ofn = run_LLUVMerger(datadir, fn, pattern)
+        ofn = run_LLUVMerger(datadir, fn, pattern, **qccodar_values['merge'])
+        # add in code to read the merged file, check if time in file name matches time in header
+        # and correct if times do not match
+        check_headertime(fullfn)
         print('... output: %s' % ofn)
 
 def auto(datadir, pattern, fullfn):
@@ -95,7 +107,7 @@ def auto(datadir, pattern, fullfn):
     try:
         print('... qc input: %s' % fullfn)
         fn = os.path.basename(fullfn)
-        rsdfn = do_qc(datadir, fn, pattern)
+        rsdfn = do_qc(datadir, fn, pattern, qccodar_values)
         print('... qc output: %s' % rsdfn)
     except EOFError as e:
         print('Encountered empty file in qc process ... wait for next file event to process')
@@ -114,7 +126,7 @@ def auto(datadir, pattern, fullfn):
         fullfn = fns[idx]
         print('... merge input: %s' % fullfn)        
         fn = os.path.basename(fullfn)
-        ofn = run_LLUVMerger(datadir, fn, pattern)
+        ofn = run_LLUVMerger(datadir, fn, pattern, **qccodar_values['merge'])
         print('... merge output: %s' % ofn)
 
 def catchup(datadir, pattern):

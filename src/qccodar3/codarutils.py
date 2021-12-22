@@ -7,6 +7,7 @@
 import sys
 import os
 import re
+import copy
 import fnmatch
 import datetime
 
@@ -15,110 +16,120 @@ import geopy.distance
 
 import numpy
 numpy.set_printoptions(suppress=True)
+import pandas as pd
 from io import StringIO
+from hfradar.src.radials import Radial
+
 
 debug = 1
 
-def load_data(inFile):
-    lines=None
-    if os.path.exists(inFile):
-        f = open(inFile, 'r')
-        lines = f.readlines()
-        f.close()
-        if len(lines)<=0:
-            print('Empty file: '+ inFile)
-            raise EOFError('Empty File: %s' % inFile)
-    else:
-        print('File does not exist: '+ inFile)
-        raise IOError('Error opening %s' % inFile)
-    return lines
+#def load_data(inFile):
+#    lines=None
+#    if os.path.exists(inFile):
+#        f = open(inFile, 'r')
+#        lines = f.readlines()
+#        f.close()
+#        if len(lines)<=0:
+#            print('Empty file: '+ inFile)
+#            raise EOFError('Empty File: %s' % inFile)
+#   return lines
 
-def write_output(ofn, header, d, footer):
+#def write_output(ofn, header, d, footer):
+def write_output(r,ofn,export_type='radial'):
+    r.export(ofn, export_type)
     """Write header, radialmetric data, and footer. """
-    f = open(ofn, 'w')
-    if header[-1] == '\n':
-        f.write(header)
-    else:
-        f.write(header+'\n')
-    # if there is any data, save to the file)
-    if d.size > 0:
-        numpy.savetxt(f, d, fmt='%g')
-    f.write(footer)
-    f.close()
+#    f = open(ofn, 'w')
+#    if header[-1] == '\n':
+#        f.write(header)
+#    else:
+#        f.write(header+'\n')
+#    # if there is any data, save to the file)
+#    if d.size > 0:
+#        numpy.savetxt(f, d, fmt='%g')
+#    f.write(footer)
+#    f.close()
+
+
 
 def read_lluv_file(ifn):
-    """Reads header, CSV table, and tail of LLUV files.  
+    """Reads LLUV file using HFRadarPy toolbox"""
+    if os.path.exists(ifn):
+        r = Radial(ifn, mask_over_land=False)
+    else:
+        print('File does not exist: '+ ifn)
+        raise IOError('Error opening %s' % ifn)
+    return r
 
-    Extracts LLUV data into numpy array for further processing. If
-    there is radial data in the file, these lines are found in the
-    middle and each line has no '%'. All header and footer lines start
-    with '%'. The middle is bracketed by header and footer lines. This
-    routine searches for a header, middle, and footer.  If no midde is
-    found, it is assumed that no radial data exists for the site and
-    time.  If no middle, all the comment lines fall in the header and
-    the footer is empty.
-
-    Parameter
-    ---------
-    ifn : string
-       The input filename and path.
-
-    Returns
-    -------
-    d : ndarray
-       The radial data bound by header and footer.  If there is no data, 
-       d is an empty array (d.size==0), then no radial table was found.
-    types_str : string 
-       The order and label of columns in d array.  If there is no data,
-       types_str is an empty string ('').
-    header : string 
-       All the '%' commented lines preceding '%TableStart:'
-    footer : string
-       All the '%' commented lines after the data table, starting with '%TableEnd:'
-
-    """
-    lines = load_data(ifn)
-    m=re.match(r'(?P<header>(%.*\n)*)(?P<middle>([\d\s-].*\n)*)(?P<tail>(%.*\n)*)', \
-               ''.join(lines))
-    header  = m.group('header')
-    footer = m.group('tail')
-    types_str = ''
-
-    # did not find a middle, so all comments are in header, and footer is empty
-    if len(footer)<=0:
-        m = re.findall(r'^(%.*):\s*(.*)$', header, re.MULTILINE)
-        for k,v in m:
-            if k == '%TableColumnTypes':
-                types_str = v
-                break            
-      
-        print('No Radial Data in '+ ifn)
-        return numpy.array([]), types_str, header, footer
-
-    # read header that match '%(k): (v)\n' pairs on each line
-    m = re.findall(r'^(%.*):\s*(.*)$', header, re.MULTILINE)
-    for k,v in m:
-        ### print k+', '+v
-        if k == '%TimeStamp':
-            #sample_dt = scanf_datetime(v, fmt='%Y %m %d %H %M %S')
-            pass
-        elif k == '%TableType':
-            ftype = v
-        elif k == '%TableColumns':
-            ncol = int(v)
-        elif k == '%TableRows':
-            nrow = int(v)
-        elif k == '%TableColumnTypes':
-            types_str = v
-        elif k == '%TableStart':
-            break
-
-    # use file object from lines to extract 
-    s = StringIO(''.join(lines))
-    s.seek(0) # ensures start posn of file-like string s
-    d = numpy.loadtxt(s, comments='%')
-    # lat, lon, u, v = numpy.loadtxt(s, usecols=(0,1,2,3), comments='%', unpack=True)
-    return d, types_str, header, footer
+    # """Extracts LLUV data into numpy array for further processing. If
+    # there is radial data in the file, these lines are found in the
+    # middle and each line has no '%'. All header and footer lines start
+    # with '%'. The middle is bracketed by header and footer lines. This
+    # routine searches for a header, middle, and footer.  If no midde is
+    # found, it is assumed that no radial data exists for the site and
+    # time.  If no middle, all the comment lines fall in the header and
+    # the footer is empty.
+    #
+    # Parameter
+    # ---------
+    # ifn : string
+    #    The input filename and path.
+    #
+    # Returns
+    # -------
+    # d : ndarray
+    #    The radial data bound by header and footer.  If there is no data,
+    #    d is an empty array (d.size==0), then no radial table was found.
+    # types_str : string
+    #    The order and label of columns in d array.  If there is no data,
+    #    types_str is an empty string ('').
+    # header : string
+    #    All the '%' commented lines preceding '%TableStart:'
+    # footer : string
+    #    All the '%' commented lines after the data table, starting with '%TableEnd:'
+    #
+    # """
+    # lines = load_data(ifn)
+    # m=re.match(r'(?P<header>(%.*\n)*)(?P<middle>([\d\s-].*\n)*)(?P<tail>(%.*\n)*)', \
+    #            ''.join(lines))
+    # header  = m.group('header')
+    # footer = m.group('tail')
+    # types_str = ''
+    #
+    # # did not find a middle, so all comments are in header, and footer is empty
+    # if len(footer)<=0:
+    #     m = re.findall(r'^(%.*):\s*(.*)$', header, re.MULTILINE)
+    #     for k,v in m:
+    #         if k == '%TableColumnTypes':
+    #             types_str = v
+    #             break
+    #
+    #     print('No Radial Data in '+ ifn)
+    #     return numpy.array([]), types_str, header, footer
+    #
+    # # read header that match '%(k): (v)\n' pairs on each line
+    # m = re.findall(r'^(%.*):\s*(.*)$', header, re.MULTILINE)
+    # for k,v in m:
+    #     ### print k+', '+v
+    #     if k == '%TimeStamp':
+    #         #sample_dt = scanf_datetime(v, fmt='%Y %m %d %H %M %S')
+    #         pass
+    #     elif k == '%TableType':
+    #         ftype = v
+    #     elif k == '%TableColumns':
+    #         ncol = int(v)
+    #     elif k == '%TableRows':
+    #         nrow = int(v)
+    #     elif k == '%TableColumnTypes':
+    #         types_str = v
+    #     elif k == '%TableStart':
+    #         break
+    #
+    # # use file object from lines to extract
+    # s = StringIO(''.join(lines))
+    # s.seek(0) # ensures start posn of file-like string s
+    # d = numpy.loadtxt(s, comments='%')
+    # # lat, lon, u, v = numpy.loadtxt(s, usecols=(0,1,2,3), comments='%', unpack=True)
+    # return d, types_str, header, footer
 
 def get_radialmetric_foldername(datadir, pattern='?adial*etric*'):
     """ Slightly different variances in the name of the folder for RadialMetric[s] data"""
@@ -139,6 +150,115 @@ def get_columns(types_str):
     for label in column_labels:
         c[label]=m.index(label) # c['VFLG']=4
     return c
+
+
+def generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_parameter='MP'):
+    """Generates radialshort (rsd) data array.
+
+    This function generates radialshort data (rsd) array based on data
+    from weighted average data (xd).  It is the output CSV data table
+    (middle) of CODAR LLUV format with header, middle, and footer.
+
+    If xd is empty, return empty rsd for writing out empty LLUV files.
+
+    Each LATD, LOND is computed using Vincenty's algorithm for
+    destination along a BEAR (NCW) and a distance of RNGE (km) from
+    point of origin (lat1,lon1).  Vincenty's GC is great circle
+    distance on an WGS-84 ellipsoid model between two points. This
+    requires having the CODAR Site location, and range resolution from
+    the header data or config data.
+
+    Parameters
+    ----------
+    xd : ndarray
+       QC'd and weighted average radials for each range, bearing where data were found
+    table_type : string
+
+    Returns
+    -------
+    rs: Radial object
+    """
+    from qccodar3.qcutils import weighted_velocities
+
+    if table_type == 'LLUV RDL7':
+
+        rs = Radial('/Users/teresa/Desktop/Codar_Files/Software_Projects/git/qccodar3/src/qccodar3/file_formats/radialshort_LLUV_RDL7.ruv',empty_radial=True)
+    else:
+        print('generate_radial_array() : Unrecognized table_type "%s"' % (table_type,))
+        return numpy.array([]), ''
+
+    # copy over the file information, header, name, tables
+    rs.metadata = r.metadata
+    #  '% PatternMethod: 1 PatternVectors' should be added but I'm not sure how to
+    #   insert at a specific position in Ordered dictionary
+    rs.diagnostics_radial = r.diagnostics_radial
+    rs.diagnostics_hardware = r.diagnostics_hardware
+    # the range information table changes in the processing from radial metric to radial short
+    # but I have simply copied over the metric version for now
+    rs.range_information = r.range_information
+
+    for key in rs._tables.keys():
+        table = rs._tables[key]
+        if 'LLUV' in table['TableType']:
+            rs._tables[key]['data'] = rs.data
+            rs._tables[key]['TableRows'] = str(rs.data.shape[0])
+        elif 'rads' in table['TableType']:
+            rs._tables[key]['data'] = rs.diagnostics_radial
+            rs._tables[key]['TableRows'] = str(rs.diagnostics_radial.shape[0])
+        elif 'rcvr' in table['TableType']:
+            rs._tables[key]['data'] = rs.diagnostics_hardware
+            rs._tables[key]['TableRows'] = str(rs.diagnostics_hardware.shape[0])
+        elif 'RINF' in table['TableType']:
+            rs._tables[key]['data'] = rs.range_information
+            rs._tables[key]['TableRows'] = str(rs.range_information.shape[0])
+
+    #rs.file_path = r.file_path
+    fn = r.file_name.replace('RDLv', 'RDLx')
+    fn = fn.replace('RDLw', 'RDLy')
+    rs.file_name = fn
+    #rs.full_file = r.full_file
+    rs.is_wera = False
+    rs._iscorrupt = False
+    rs.time = datetime.datetime(*[int(s) for s in r.metadata['TimeStamp'].split()])
+
+    origin = r.metadata['Origin']
+    lat1, lon1 = [float(x) for x in origin.split()]
+    range_resolution = float(r.metadata['RangeResolutionKMeters'])
+
+    xd = weighted_velocities(r, numdegrees, weight_parameter)
+
+    if xd.size == 0:
+        return rs
+
+    rs.data['VFLG'] = xd['VFLG']
+    rs.data['SPRC'] = xd['SPRC']
+    rs.data['BEAR'] = xd['BEAR']
+    rs.data['VELO'] = xd['VELO']
+    rs.data['ESPC'] = xd['ESPC']
+    rs.data['MAXV'] = xd['MAXV']
+    rs.data['MINV'] = xd['MINV']
+    rs.data['EDVC'] = xd['EDVC']
+    rs.data['ERSC'] = xd['ERSC']
+
+    ############################
+    # computations for filling in other columns of radialshort data
+    ############################
+
+    # create HEAD column based on BEAR+180
+    rs.data['HEAD'] = numpy.mod(rs.data['BEAR'] + 180., 360.)
+    # compute velocity components
+    (rs.data['VELU'], rs.data['VELV']) = compass2uv(rs.data['VELO'], rs.data['HEAD'])
+
+    rs.data['RNGE'] = range_resolution * rs.data['SPRC']
+    #
+    # Vincenty Great Circle destination point (LATD, LOND) based on rnge, bear from site origin
+    origin = geopy.Point(lat1, lon1)
+    pts = numpy.array([geopy.distance.geodesic(kilometers=r).destination(origin, b)[0:2] for (r, b) in zip(rs.data['RNGE'], rs.data['BEAR'])])
+    rs.data['LATD'], rs.data['LOND'] = pts[:, 0], pts[:, 1]
+
+    (rs.data['XDST'], rs.data['YDST']) = compass2uv(rs.data['RNGE'], rs.data['BEAR'])
+
+    return rs
 
 def generate_radialshort_array(xd, xtypes_str, header, table_type='LLUV RDL7'):
     """Generates radialshort (rsd) data array.
@@ -243,7 +363,8 @@ def generate_radialshort_array(xd, xtypes_str, header, table_type='LLUV RDL7'):
     rsd[:,rsc['YDST']]=ydist
 
     return rsd, rsdtypes_str
-    
+
+
 def generate_radialshort_header(rsd, rsdtypes_str, header):
     """ Fill radialshort header details from radialmetric header
 
@@ -296,11 +417,11 @@ def generate_radialshort_header(rsd, rsdtypes_str, header):
                  '(True)    RngCell')
     return '\n'.join(lines)
 
-def unique_rows(a):
-    # http://stackoverflow.com/questions/8560440/removing-duplicate-columns-and-rows-from-a-numpy-2d-array?lq=1
-    a = numpy.ascontiguousarray(a)
-    unique_a = numpy.unique(a.view([('', a.dtype)]*a.shape[1]))
-    return unique_a.view(a.dtype).reshape((unique_a.shape[0], a.shape[1]))
+# def unique_rows(a):
+#     # http://stackoverflow.com/questions/8560440/removing-duplicate-columns-and-rows-from-a-numpy-2d-array?lq=1
+#     a = numpy.ascontiguousarray(a)
+#     unique_a = numpy.unique(a.view([('', a.dtype)]*a.shape[1]))
+#     return unique_a.view(a.dtype).reshape((unique_a.shape[0], a.shape[1]))
 
 def cell_intersect(rngbear1, rngbear2):
     """ Return rows that match range and bearing data between the two nx2 matrices.
@@ -367,7 +488,7 @@ def compass2uv(wmag, wdir):
     v = wmag*numpy.cos(wdir*r)
     return (u,v)
 
-def run_LLUVMerger(datadir, fn, patterntype):
+def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_of_css=5.0, debug=2, diag = '4'):
     """ Run CODAR's LLUVMerger app in subprocess """
 
     import subprocess
@@ -399,8 +520,10 @@ def run_LLUVMerger(datadir, fn, patterntype):
     # settings for 5MHz systems on NC coast, HATY, DUCK, CORE
     # (5 CSS files outputevery 30 min)
     # radial_output_interval (1 hour)
-    rs_output_interval = datetime.timedelta(minutes=30)
-    rs_num = 5
+    #rs_output_interval = datetime.timedelta(minutes=30)
+    #rs_num = 5
+    rs_output_interval = datetime.timedelta(minutes=css_interval_minutes)
+    rs_num = number_of_css
     # (merge average 5*30 min = 150 min or 2.5 hours)
     span_hrs = rs_num * (rs_output_interval.seconds/3600.) # hours, 2.5 hours
     span_hrs_str = '%f' % span_hrs # '2.5000'
@@ -426,7 +549,7 @@ def run_LLUVMerger(datadir, fn, patterntype):
             '-method=average',
             '-minvect=2',
             '-velcount',
-            '-diag=4',
+            '-diag='+diag,
             '-source='+ifn,
             '-output='+outdir]
 
@@ -478,6 +601,36 @@ def run_LLUVMerger(datadir, fn, patterntype):
                 print('No merged file found')
             return ofn
 
+        r = read_lluv_file(ofn)
+
+        for key in r._tables.keys():
+            table = r._tables[key]
+            if 'MRGS' in table['TableType']:
+                filelist = table['data']['PATH']
+
+        if filelist.shape[0] < 2:
+            # delete the file from the computer
+            print('Not enough short files available for the merge.')
+
+        fn = os.path.split(ofn)[1]
+        fn_time = filt_datetime(r.file_name)
+        if fn == r.file_name:
+            header_time = filt_datetime(r.metadata['TimeStamp'])
+            if fn_time != header_time:
+
+                # if header timestamp is within 30 minutes of the file name time then update
+                # header to match file name
+                if header_time - fn_time < datetime.timedelta(seconds=1801):
+                    r.metadata['TimeStamp'] = fn_time.strftime("%Y %m %d %H %M %S")
+                    print('TimeStamp in header changed to match the time indicated in file name.')
+
+            write_output(r, ofn, export_type='radial')
+
+            return
+        else:
+            print('File names do not match!')
+            return
+
         # expected datetime 
         dt_expected = filt_datetime(os.path.basename(ifn)) - expected_timedelta
         # actual datetime 
@@ -514,4 +667,89 @@ def run_LLUVMerger(datadir, fn, patterntype):
             # e.g. %TimeStamp: 2013 11 05 01 15 00 needs to be changed to 2013 11 05 01 00 00
 
     return ofn
+
+def check_headertime(fullfn, shortpath):
+    """ Loads merged file, checks if time in file name matches time in header
+        and corrects if times do not match """
+
+    from collections import OrderedDict
+    from qccodar3.qcutils import filt_datetime
+
+    r = read_lluv_file(fullfn)
+
+    for key in r._tables.keys():
+        table = r._tables[key]
+        if 'MRGS' in table['TableType']:
+            filelist = table['data']['PATH']
+
+    rs = read_lluv_file(shortpath + '/' + filelist[0])
+    rdtdata = rs.diagnostics_radial
+    hdtdata = rs.diagnostics_hardware
+
+    for shortfile in filelist:
+        shortfullfile = shortpath + '/' + shortfile
+        print('... input: %s' % shortfullfile)
+
+        rs= read_lluv_file(shortfullfile)
+        for key in rs._tables.keys():
+            table = rs._tables[key]
+            if 'rads' in table['TableType']:
+                rdt = table['data']
+                rdtdata = pd.concat([rdtdata, rdt], ignore_index=True)
+            if 'rcvr' in table['TableType']:
+                hdt = table['data']
+                hdtdata = pd.concat([hdtdata, hdt], ignore_index=True)
+
+    # remove duplicates
+    hdtdata = hdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'])
+    rdtdata = rdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'])
+
+    # adjust rdt for seconds from start
+    # adjust hdt for minutes from start
+    # create a new _tables dictionary for the merged file
+    od = OrderedDict()
+
+    for key in r._tables.keys():
+        table = r._tables[key]
+        if 'LLUV' in table['TableType']:
+            od['1'] = r._tables[key]
+
+    for key2 in rs._tables.keys():
+        table2 = rs._tables[key2]
+        if 'rads' in table2['TableType']:
+            od['2'] = rs._tables[key2]
+            od['2']['data'] = rdtdata
+            od['2']['TableRows'] = rdtdata.shape[0]
+        elif 'rcvr' in table2['TableType']:
+            od['3'] = rs._tables[key2]
+            od['3']['data'] = hdtdata
+            od['3']['TableRows'] = hdtdata.shape[0]
+
+    r._tables = od
+
+
+    fn = os.path.split(fullfn)[1]
+    fn_time = filt_datetime(r.file_name)
+    if fn == r.file_name:
+        header_time = filt_datetime(r.metadata['TimeStamp'])
+        if fn_time != header_time:
+
+        # if header timestamp is within 30 minutes of the file name time then update
+        # header to match file name
+            if header_time - fn_time < datetime.timedelta(seconds=1801):
+                r.metadata['TimeStamp'] = fn_time.strftime("%Y %m %d %H %M %S")
+                print('TimeStamp in header changed to match the time indicated in file name.')
+
+        write_output(r, fullfn, export_type='radial')
+
+        return
+    else:
+        print('File names do not match!')
+        return
+
+
+
+
+
+
 
