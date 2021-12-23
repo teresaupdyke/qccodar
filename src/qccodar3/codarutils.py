@@ -18,7 +18,7 @@ import numpy
 numpy.set_printoptions(suppress=True)
 import pandas as pd
 from io import StringIO
-from hfradar.src.radials import Radial
+from hfradarpy.radials import Radial
 
 
 debug = 1
