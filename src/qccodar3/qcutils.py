@@ -35,21 +35,6 @@ from qccodar3.codarutils import *
 
 debug = 1
 
-#def _commonly_assigned_columns():
-    #"""
-    #Commonly assigned CODAR RadialMetric columns
-    #"""
-    # for cut and pasting to other functions
-    # help make some code more readable
-    # VFLG = c['VFLG']
-    # MSEL = c['MSEL']
-    # MSR1 = c['MSR1']
-    # MDR1 = c['MDR1']
-    # MDR2 = c['MDR2']
-    # MSW1 = c['MSW1']
-    # MDW1 = c['MDW1']
-    # MDW2 = c['MDW2']
-    # MA3S = c['MA3S']
 
 def threshold_qc_doa_peak_power(r, threshold=5.0):
 #def threshold_qc_doa_peak_power(d, types_str, threshold=5.0):
@@ -62,20 +47,6 @@ def threshold_qc_doa_peak_power(r, threshold=5.0):
     changed values.
 
     """
-    # c = get_columns(types_str)
-    # VFLG = c['VFLG'] # help make the test more readable
-    # MSEL = c['MSEL']
-    # MSR1 = c['MSR1']
-    # MDR1 = c['MDR1']
-    # MDR2 = c['MDR2']
-    # d1=numpy.copy(d)
-
-    # havenan = numpy.isnan(d[:,MSR1]) | numpy.isnan(d[:,MDR1]) | numpy.isnan(d[:,MDR2])
-    # bad = ((d[:,MSEL]==1) & (d[:,MSR1]<float(threshold))) | \
-    #       ((d[:,MSEL]==2) & (d[:,MDR1]<float(threshold))) | \
-    #       ((d[:,MSEL]==3) & (d[:,MDR2]<float(threshold))) | havenan
-    # d1[bad, VFLG] = d[bad,VFLG]+(1<<1)
-    # return d1
 
     r1 = copy.deepcopy(r)
     havenan = numpy.isnan(r1.data['MSR1']) | numpy.isnan(r1.data['MDR1']) | numpy.isnan(r1.data['MDR2'])
@@ -96,20 +67,7 @@ def threshold_qc_doa_half_power_width(r, threshold=50.0):
     VFLG column the only changed values.
 
     """
-    # c = get_columns(types_str)
-    # VFLG = c['VFLG'] # help make the test more readable
-    # MSEL = c['MSEL']
-    # MSW1 = c['MSW1']
-    # MDW1 = c['MDW1']
-    # MDW2 = c['MDW2']
-    # d2=numpy.copy(d)
-    # #
-    # havenan = numpy.isnan(d[:,MSW1]) | numpy.isnan(d[:,MDW1]) | numpy.isnan(d[:,MDW2])
-    # bad = ((d[:,MSEL]==1) & (d[:,MSW1]>float(threshold))) | \
-    #       ((d[:,MSEL]==2) & (d[:,MDW1]>float(threshold))) | \
-    #       ((d[:,MSEL]==3) & (d[:,MDW2]>float(threshold))) | havenan
-    # d2[bad, VFLG] = d[bad,VFLG]+(1<<2)
-    # return d2
+
 
     r1 = copy.deepcopy(r)
     havenan = numpy.isnan(r1.data['MSW1']) | numpy.isnan(r1.data['MDW1']) | numpy.isnan(r1.data['MDW2'])
@@ -127,18 +85,6 @@ def threshold_qc_monopole_snr(r, threshold=5.0):
     below the input threshold value (default 5.0 dB).  No dependency on MSEL selections.
 
     """
-    # Test 3 SNR on monopole (dB) for all selections
-    # 
-    # c = get_columns(types_str)
-    # VFLG = c['VFLG'] # help make the test more readable
-    # MA3S = c['MA3S']
-    # d3=numpy.copy(d)
-    #
-    #
-    # bad = d[:,MA3S]<float(threshold)
-    # d3[bad, VFLG] = d[bad,VFLG]+(1<<3)
-    # return d3
-
     r1 = copy.deepcopy(r)
     bad = r1.data['MA3S'] < float(threshold)
     r1.data.loc[bad, 'VFLG'] = r1.data.loc[bad, 'VFLG'] + (1<<3)
@@ -152,17 +98,6 @@ def threshold_qc_loop_snr(r, threshold=5.0):
     below the input threshold value (default 5.0 dB). No dependency on MSEL selections.
 
     """
-    # Test 4 SNR on both loop antennas (dB) for all selections
-    # 
-    # c = get_columns(types_str)
-    # VFLG = c['VFLG'] # help make the test more readable
-    # MA1S = c['MA1S']
-    # MA2S = c['MA2S']
-    # d4=numpy.copy(d)
-    # #
-    # bad = (d[:,MA1S]<float(threshold)) & (d[:,MA2S]<float(threshold))
-    # d4[bad, VFLG] = d[bad,VFLG]+(1<<3)
-    # return d4
     r1 = copy.deepcopy(r)
     bad = (r1.data['MA1S']<float(threshold)) & (r1.data['MA2S']<float(threshold))
     r1.data.loc[bad, 'VFLG'] = r1.data.loc[bad, 'VFLG'] + (1<<3)
@@ -175,16 +110,6 @@ def threshold_qc_all(r, qccodar_values = dict()):
     Returns modified matrix with VFLG column only changed values.
 
     """
-    # TO DO: Use a dict or list to pass thresholds for all tests ??
-    # if dict what key to use
-    # if list how know the correct order for tests
-    # 
-    # dall = threshold_qc_doa_peak_power(d, types_str, thresholds[0])
-    # dall = threshold_qc_doa_half_power_width(dall, types_str, thresholds[1])
-    # dall = threshold_qc_monopole_snr(dall, types_str, thresholds[2])
-    # dall = threshold_qc_loop_snr(dall, types_str, thresholds[3])
-    #
-    #return dall
 
     r1 = copy.deepcopy(r)
     if r1.is_valid():
@@ -215,17 +140,7 @@ def threshold_rsd_numpoints(rs, radialshort_velocity_count_min=1):
     checked after weighted_velocities()
 
     """
-    # if rsd.size == 0:
-    #     return numpy.array([])
-    #
-    # rsc = get_columns(rstypes_str)
-    # VFLG = rsc['VFLG'] # help make the test more readable
-    # EDVC = rsc['EDVC']
-    # rsd1=numpy.copy(rsd)
-    # #
-    # bad = rsd[:,EDVC]<int(numpoints)
-    # rsd1[bad, VFLG] = rsd[bad,VFLG]+(1<<12) # of dubious quality and should not be used or displayed
-    # return rsd1
+
     rs1 = copy.deepcopy(rs)
     bad = rs.data['EDVC']<int(radialshort_velocity_count_min)
     rs1.data.loc[bad, 'VFLG'] = rs1.data.loc[bad, 'VFLG'] + (1<<12)
@@ -233,8 +148,6 @@ def threshold_rsd_numpoints(rs, radialshort_velocity_count_min=1):
 
 
 def weighted_velocities(r, numdegrees=3, weight_parameter='MP'):
-#def weighted_velocities(d, types_str, numdegrees=3, weight_parameter='MP'):
-
     """Calculates weighted average of radial velocities (VELO) at bearing and range.
 
     The weighted average of velocities found at given range and
@@ -269,49 +182,32 @@ def weighted_velocities(r, numdegrees=3, weight_parameter='MP'):
     """
     # 
     # order of columns and labels for output data
-    #xtypes_str = 'VFLG SPRC BEAR VELO ESPC MAXV MINV EDVC ERSC'
     xcols = ['VFLG', 'SPRC', 'BEAR', 'VELO', 'ESPC', 'MAXV', 'MINV', 'EDVC', 'ERSC']
-    #xc = get_columns(xtypes_str)
-    #
-    #c = get_columns(types_str)
 
     r1 = copy.deepcopy(r)
     d = copy.deepcopy(r.data)
     offset = ((numdegrees-1)/2)
-    #
-    #ud = unique_rows(d[:,[c['SPRC'],c['BEAR'],c['VFLG']]].copy())
+
     r1.data = r1.data.drop_duplicates(subset=['SPRC','BEAR','VFLG'])
     # return only rows that have VFLG==0 (0 == good, >0 bad) so only get good data
-    #ud = ud[ud[:,2]==0]
     good = r1.data['VFLG'] == 0
     ud = r1.data.loc[good, :]
     if ud.size == 0:
-    #    return numpy.array([]), xtypes_str
         r.data = numpy.array([])
         return r
-    
-    #
-    # allbearings = numpy.unique(ud[:,1])
-    # allranges = numpy.unique(ud[:,0])
-    # ud = numpy.array([[r,b] for r in allranges for b in allbearings])
+
     allbearings = numpy.unique(ud['BEAR'])
     allranges = numpy.unique(ud['SPRC'])
     ud = numpy.array([[r, b] for r in allranges for b in allbearings])
-
-#
     nrows, _ = ud.shape
-    #ncols = len(xc)
-    #xd = numpy.ones(shape=(nrows,ncols))*numpy.nan
     xd = pd.DataFrame(columns = xcols ,index=numpy.arange(nrows))
-    #
+
+
     for irow, cell in enumerate(ud):
         rngcell, bearing = cell[0:2]
         # numpy.where() returns a tuple for condition so use numpy.where()[0]
         # also VFLG must equal 0 (0 == good, >0 bad) so only get good data
-        #xrow = numpy.where((d[:,c['SPRC']]==rngcell) & \
-        #                   (d[:,c['BEAR']]>=bearing-offset) & \
-        #                   (d[:,c['BEAR']]<=bearing+offset) & \
-        #                   (d[:,c['VFLG']]==0))[0]
+
         xrow = numpy.where((d['SPRC']==rngcell) & \
                            (d['BEAR']>=bearing-offset) & \
                            (d['BEAR']<=bearing+offset) & \
@@ -320,17 +216,13 @@ def weighted_velocities(r, numdegrees=3, weight_parameter='MP'):
         # If no row matches rngcell AND bearing, then no VELO data, skip to next bearing
         if xrow.size == 0: 
             continue
-        
-        #print('Here')
-        #xcol = numpy.array([c['VELO'], c['MSEL'], c['MSP1'], c['MDP1'], c['MDP2'], c['MA3S']])
-        xcol = numpy.array([['VELO'], ['MSEL'], ['MSP1'], ['MDP1'], ['MDP2'], ['MA3S']])
+
+        #xcol = numpy.array([['VELO'], ['MSEL'], ['MSP1'], ['MDP1'], ['MDP2'], ['MA3S']])
 
         #a = d[numpy.ix_(xrow, xcol)].copy()
         ao = copy.deepcopy(d)
         a = ao.loc[xrow, ['VELO', 'MSEL', 'MSP1', 'MDP1', 'MDP2', 'MA3S']]
         # if xrow.size == edvc:
-        #VELO = a[:,0] # all radial velocities found in cell
-        #SNR3 = a[:,5] # SNR on monopole for each velocity
         VELO = a['VELO']  # all radial velocities found in cell
         SNR3 = a['MA3S']  # SNR on monopole for each velocity
         if weight_parameter.upper() == 'MP':
@@ -339,9 +231,6 @@ def weighted_velocities(r, numdegrees=3, weight_parameter='MP'):
             # pluck the msel-based Music Power from MSP1, MDP1 or MPD2 column
             mselcol = ['','MSP1','MDP1','MDP2']
             for msel in [1, 2, 3]:
-                #for msel in [1, 2, 3]:
-                #which = a[:,1]==msel
-                #MP[which,] = a[which, msel+1]
                 which = a['MSEL'] == msel
                 MP[which,] = a.loc[which, mselcol[msel]]
             # convert MP from db to voltage for weighting
@@ -355,17 +244,6 @@ def weighted_velocities(r, numdegrees=3, weight_parameter='MP'):
             # do no weighting and just compute the mean of all velo's
             velo = VELO.mean()
         # data
-        #xd[irow,xc['VFLG']] = 0
-        #xd[irow,xc['SPRC']] = rngcell
-        #xd[irow,xc['BEAR']] = bearing
-        #xd[irow,xc['VELO']] = velo
-        # other stat output
-        #xd[irow,xc['ESPC']] = VELO.std() # ESPC
-        #xd[irow,xc['MAXV']] = VELO.max() # MAXV
-        #xd[irow,xc['MINV']] = VELO.min() # MINV
-        # (EDVC and ERSC are the same in this subroutine's context)
-        #xd[irow,xc['EDVC']] = VELO.size # EDVC Velocity Count
-        #xd[irow,xc['ERSC']] = VELO.size # ERSC Spatial Count
         xd.loc[irow,['VFLG']] = 0
         xd.loc[irow,['SPRC']] = rngcell
         xd.loc[irow,['BEAR']] = bearing
@@ -379,15 +257,11 @@ def weighted_velocities(r, numdegrees=3, weight_parameter='MP'):
         xd.loc[irow,['ERSC']] = VELO.size # ERSC Spatial Count
                 
     # delete extra lines (nan) not filled above
-    #wherenan = numpy.where(numpy.isnan(xd[:,xc['VFLG']]))[0]
-    #xd = numpy.delete(xd, wherenan, axis=0)
     xd.dropna(axis=0, how='all', inplace=True)
     # ESPC had several nan's, replace these and other nan before returning?
     xd.fillna(999.000, inplace=True)
 
-    #return xd, xtypes_str
     return xd
-
 
 def recursive_glob(treeroot, pattern):
     """ Glob-like search for filenames based on pattern by recursve walk 
@@ -484,8 +358,7 @@ def filt_datetime(input_string, pattern=None):
         dt = None
     return dt
 
-#def find_files_to_merge(ifn, numfiles=3, sample_interval=30):
-def find_files_to_merge(ifn, numfiles=3, sample_interval=10):
+def find_files_to_concatenate(ifn, numfiles=3, sample_interval=30):
     """Finds the files that will be used in averaging in addition to ifn,
     based on sample_interval and numfiles to average over.
  
@@ -531,12 +404,7 @@ def do_qc(datadir, fn, patterntype, qccodar_values = dict()):
     # read in the data
     rmfoldername = get_radialmetric_foldername(datadir)
     ifn = os.path.join(datadir, rmfoldername, patterntype, fn)
-    #d, types_str, header, footer = read_lluv_file(ifn)
     rs = read_lluv_file(ifn)
-
-    # test_str = 'testall_mp_weight_npts1'
-    # test_str = 'testall_mp_weight_npts3'
-    # test_str = 'qcd'
 
     # determine output directory and filename for radialshort data
     outdir = os.path.join(datadir, 'RadialShorts_qcd', patterntype)
@@ -561,23 +429,16 @@ def do_qc(datadir, fn, patterntype, qccodar_values = dict()):
     #     write_output(ofn, rsdheader, rsd, rsdfooter)
     #     return ofn
     if rs.data.size == 0:
-        rs.export(ofn, export_type='radial')
+        rs.export(ofn, export_type='radial')  #this will be a copy of the file, not an empty shorts file so need to update this code
         return ofn
 
-    # read in other data to use in averaging over time
-    #ixfns = find_files_to_merge(ifn, numfiles=3, sample_interval=30)
-    ixfns = find_files_to_merge(ifn, numfiles=3, sample_interval=10)
+    # read in other radial metric data to use in averaging over time
+    ixfns = find_files_to_concatenate(ifn, **qccodar_values['metric_concatenation'])
 
     for xfn in ixfns:
         if xfn == ifn:
             continue
-        #d1, types_str1, _, _ = read_lluv_file(xfn)
-        #if len(d.shape) == len(d1.shape) == 2:
-        #    if (d.shape[1] == d1.shape[1]) & (types_str == types_str1):
-        #        # if same number and order of columns as d, then append the data d
-        #        if debug:
-        #            print('... ... include: %s' % xfn)
-        #        d = numpy.vstack((d,d1))
+
         rs1 = read_lluv_file(xfn)
         if len(rs.data.shape) == len(rs1.data.shape) == 2:
              if (rs.data.shape[1] == rs1.data.shape[1]):
@@ -588,33 +449,14 @@ def do_qc(datadir, fn, patterntype, qccodar_values = dict()):
                      rs.data = pd.concat([rs.data,rs1.data],ignore_index=True)
 
     # (1) do threshold qc on radialmetric
-    #d = threshold_qc_all(d, types_str, thresholds=[5.0, 50.0, 5.0, 5.0])
-    #rs = threshold_qc_all(rs, thresholds=[5.0, 50.0, 5.0, 5.0])
     rmqc = threshold_qc_all(rs, qccodar_values)
 
-    # (2) do weighted averaging of good 
-    #xd, xtypes_str = weighted_velocities(d, types_str, numdegrees=3, weight_parameter='MP')
-
-    #NOT USING THIS BECAUSE I MOVED IT TO generate_radialshort
-    #rsdata = weighted_velocities(rsqc, numdegrees=3, weight_parameter='MP')
-
+    # (2) do weighted averaging of good, this is done when the radial short is created
+    rsx = generate_radialshort(rmqc, **qccodar_values['weighted_shorts'])
 
     # (3) require a minimum numpoints used in to form cell average
-    #xd = threshold_rsd_numpoints(xd, xtypes_str, numpoints=3)
+    rsx = threshold_rsd_numpoints(rsx, **qccodar_values['qc_radialshort_velocity_count'])
 
-    # # create radialshort data,
-    # rsd, rsdtypes_str = generate_radialshort_array(xd, xtypes_str, header)
-    #
-    # # create header from radialmetric, based on new radialshort data
-    # rsdheader = generate_radialshort_header(rsd, rsdtypes_str, header)
-    # # not modifying the footer at this time
-    # rsdfooter = footer
-    # #
-    # write_output(ofn, rsdheader, rsd, rsdfooter)
-    # return ofn
-    rsx = generate_radialshort(rmqc, **qccodar_values['weighted_shorts'])
-    rsx = threshold_rsd_numpoints(rsx, qccodar_values['qc_radialshort_velocity_count']['radialshort_velocity_count_min'])
-    #ofn = os.path.join(ofn, rsx.file_name)
     export_type = 'radial'
     rsx.export(ofn, export_type)
     return ofn
@@ -625,7 +467,7 @@ def _trial_qc():
     ifn = os.path.join('.', 'test', 'files', 'codar_raw', \
                        'RadialMetric', 'IdealPattern', \
                        'RDLv_HATY_2013_11_05_0000.ruv')
-    #d, types_str, header, footer = read_lluv_file(ifn)
+
     r = read_lluv_file(ifn)
 
     qccodar_values = dict(
@@ -639,31 +481,13 @@ def _trial_qc():
     )
 
     # thresholding
-    #dall = threshold_qc_all(d, types_str, thresholds=[5.0, 50.0, 5.0, 5.0])
     rall = threshold_qc_all(r, qccodar_values)
 
-    # weighting
-    #xd, xtypes_str = weighted_velocities(dall, types_str, numdegrees=3, weight_parameter='MP')
-
-    # create radialshort data, first generate array then fill it
-    #rsd, rsdtypes_str = generate_radialshort_array(xd, xtypes_str, header)
-
-    # # modify header from radialmetric, based on new radialshort data
-    # rsdheader = generate_radialshort_header(rsd, rsdtypes_str, header)
-    # # not modifying the footer at this time
-    # rsdfooter = footer
-    # # output the radialshort data specified location
-    # ofn = os.path.join('.', 'test', 'files', 'test_output.txt')
-    # write_output(ofn, rsdheader, rsd, rsdfooter)
+    # weighting, generating radial short
     rsd = generate_radialshort(r, **qccodar_values['weighted_shorts'] )
 
     # badflag not enough numpoints
-    #rsd = threshold_rsd_numpoints(rsd, rsdtypes_str, numpoints=1)
     rs = threshold_rsd_numpoints(rsd, qccodar_values['qc_radialshort_velocity_count']['qc_radialshort_velocity_count_min'])
-    #
-    #
-    #rsc = get_columns(rsdtypes_str)
-    #xc = get_columns(xtypes_str)
 
     ofn = os.path.join('.', 'test', 'files', 'test_output.txt')
     rs.export(ofn, export_type='radial')
@@ -674,10 +498,8 @@ if __name__ == '__main__':
     datadir = sys.argv[1]
     patterntype = sys.argv[2]
     # datadir = '/Users/codar/Documents/reprocessing_2015/Reprocess_HATY_70_35/'
-    # patterntype = 'MeasPattern' 
     # patterntype = 'IdealPattern' 
     # try:
     #batch_qc(datadir, patterntype) #can't find batch_qc defined anywhere!
     # except:
     #     pass
-    

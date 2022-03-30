@@ -21,7 +21,7 @@ from pkg_resources import get_distribution
 import time
 
 from .qcutils import do_qc, recursive_glob
-from .codarutils import run_LLUVMerger, get_radialmetric_foldername, check_headertime
+from .codarutils import do_merge, run_LLUVMerger, get_radialmetric_foldername
 
 __version__ = get_distribution("qccodar3").version
 
@@ -32,7 +32,8 @@ qccodar_values = dict(
     qc_monopole_snr=dict(monopole_snr_min=5.0),
     qc_loop_snr=dict(loop_snr_min=5.0),
     qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=1.0),
-    weighted_shorts=dict(numdegrees=3,weight_parameter='MP', table_type='RDL7'),
+    metric_concatenation = dict(numfiles=3, sample_interval=30.0),
+    weighted_shorts=dict(numdegrees=3,weight_parameter='MP', table_type='LLUV RDL7'),
     merge=dict(css_interval_minutes=30.0,number_of_css=5.0)
 )
 
@@ -68,10 +69,7 @@ def manual(datadir, pattern):
     for fullfn in fns:
         print('... input: %s' % fullfn)
         fn = os.path.basename(fullfn)
-        ofn = run_LLUVMerger(datadir, fn, pattern, **qccodar_values['merge'])
-        # add in code to read the merged file, check if time in file name matches time in header
-        # and correct if times do not match
-        check_headertime(fullfn)
+        ofn = do_merge(datadir, fn, pattern, qccodar_values)
         print('... output: %s' % ofn)
 
 def auto(datadir, pattern, fullfn):
@@ -126,7 +124,7 @@ def auto(datadir, pattern, fullfn):
         fullfn = fns[idx]
         print('... merge input: %s' % fullfn)        
         fn = os.path.basename(fullfn)
-        ofn = run_LLUVMerger(datadir, fn, pattern, **qccodar_values['merge'])
+        ofn = do_merge(datadir, fn, pattern, qccodar_values)
         print('... merge output: %s' % ofn)
 
 def catchup(datadir, pattern):
