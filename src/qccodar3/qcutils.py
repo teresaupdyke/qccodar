@@ -117,17 +117,17 @@ def threshold_qc_all(r, qccodar_values = dict()):
         qc_keys = qccodar_values.keys()
 
         # run high frequency radar qartod tests on open radial file
-        if 'qc_doa_half_power_width' in qc_keys:
-            r1 = threshold_qc_doa_half_power_width(r1, qccodar_values['qc_doa_half_power_width']['doa_half_power_width_max'] )
-
         if 'qc_doa_peak_power' in qc_keys:
             r1 = threshold_qc_doa_peak_power(r1, qccodar_values['qc_doa_peak_power']['doa_peak_power_min'])
 
+        if 'qc_doa_half_power_width' in qc_keys:
+            r1 = threshold_qc_doa_half_power_width(r1, qccodar_values['qc_doa_half_power_width']['doa_half_power_width_max'] )
+
         if 'qc_monopole_snr' in qc_keys:
-            r1 = threshold_qc_doa_half_power_width(r1, qccodar_values['qc_monopole_snr']['monopole_snr_min'])
+            r1 = threshold_qc_monopole_snr(r1, qccodar_values['qc_monopole_snr']['monopole_snr_min'])
 
         if 'qc_loop_snr' in qc_keys:
-            r1 = threshold_qc_doa_peak_power(r1, qccodar_values['qc_loop_snr']['loop_snr_min'])
+            r1 = threshold_qc_loop_snr(r1, qccodar_values['qc_loop_snr']['loop_snr_min'])
 
     return r1
 
@@ -249,7 +249,7 @@ def weighted_velocities(r, numdegrees=3, weight_parameter='MP'):
         xd.loc[irow,['BEAR']] = bearing
         xd.loc[irow,['VELO']] = velo
         # other stat output
-        xd.loc[irow, ['ESPC']] = VELO.std()  # ESPC
+        xd.loc[irow, ['ESPC']] = VELO.values.std()  # ESPC
         xd.loc[irow,['MAXV']] = VELO.max() # MAXV
         xd.loc[irow,['MINV']] = VELO.min() # MINV
         # (EDVC and ERSC are the same in this subroutine's context)

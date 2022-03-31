@@ -31,7 +31,7 @@ qccodar_values = dict(
     qc_doa_peak_power=dict(doa_peak_power_min=5.0),
     qc_monopole_snr=dict(monopole_snr_min=5.0),
     qc_loop_snr=dict(loop_snr_min=5.0),
-    qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=1.0),
+    qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=3.0),
     metric_concatenation = dict(numfiles=3, sample_interval=30.0),
     weighted_shorts=dict(numdegrees=3,weight_parameter='MP', table_type='LLUV RDL7'),
     merge=dict(css_interval_minutes=30.0,number_of_css=5.0)
