@@ -2,10 +2,8 @@
 #
 """ CODAR Utilities
 """
-import sys
 import os
 import re
-import copy
 import fnmatch
 import datetime
 import geopy
@@ -17,14 +15,14 @@ from hfradarpy.radials import Radial
 
 debug = 1
 
-def write_output(r,ofn,export_type='radial'):
+def write_output(r,ofn):
     """Write LLUV file using HFRadarPy toolbox """
-    r.export(ofn, export_type)
+    r.to_ruv(ofn)
 
 def read_lluv_file(ifn):
     """Reads LLUV file using HFRadarPy toolbox"""
     if os.path.exists(ifn):
-        r = Radial(ifn, mask_over_land=False)
+        r = Radial(ifn)
     else:
         print('File does not exist: '+ ifn)
         raise IOError('Error opening %s' % ifn)
@@ -357,7 +355,7 @@ def check_headertime(fullfn):
                 r.metadata['TimeStamp'] = fn_time.strftime("%Y %m %d %H %M %S")
                 print('TimeStamp in header changed to match the time indicated in file name.')
 
-        write_output(r, fullfn, export_type='radial')
+        write_output(r, fullfn)
         return
 
     else:
@@ -422,7 +420,7 @@ def add_diagnostic_tables(fullfn, shortpath):
             od['3']['TableRows'] = hdtdata.shape[0]
 
     r._tables = od
-    write_output(r, fullfn, export_type='radial')
+    write_output(r, fullfn)
     return
 
 def do_merge(datadir, fn, pattern, qccodar_values):

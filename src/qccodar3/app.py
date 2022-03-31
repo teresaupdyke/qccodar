@@ -14,14 +14,9 @@ Options:
 
 import os
 import re
-import glob
-
 from pkg_resources import get_distribution
-
-import time
-
 from .qcutils import do_qc, recursive_glob
-from .codarutils import do_merge, run_LLUVMerger, get_radialmetric_foldername
+from .codarutils import do_merge, get_radialmetric_foldername
 
 __version__ = get_distribution("qccodar3").version
 

@@ -21,16 +21,9 @@ Weighted Averaging:
 
 """
 import sys
-import os
-import re
-import fnmatch
-import datetime
 import copy
-
 import numpy
 numpy.set_printoptions(suppress=True)
-import pandas as pd
-# 
 from qccodar3.codarutils import *
 
 debug = 1
@@ -429,7 +422,8 @@ def do_qc(datadir, fn, patterntype, qccodar_values = dict()):
     #     write_output(ofn, rsdheader, rsd, rsdfooter)
     #     return ofn
     if rs.data.size == 0:
-        rs.export(ofn, export_type='radial')  #this will be a copy of the file, not an empty shorts file so need to update this code
+        #this will be a copy of the radialmetric file, not an empty shorts file so need to update this code
+        write_output(rs, ofn)
         return ofn
 
     # read in other radial metric data to use in averaging over time
@@ -457,8 +451,7 @@ def do_qc(datadir, fn, patterntype, qccodar_values = dict()):
     # (3) require a minimum numpoints used in to form cell average
     rsx = threshold_rsd_numpoints(rsx, **qccodar_values['qc_radialshort_velocity_count'])
 
-    export_type = 'radial'
-    rsx.export(ofn, export_type)
+    write_output(rsx,ofn)
     return ofn
 
 # for debugging
@@ -484,13 +477,13 @@ def _trial_qc():
     rall = threshold_qc_all(r, qccodar_values)
 
     # weighting, generating radial short
-    rsd = generate_radialshort(r, **qccodar_values['weighted_shorts'] )
+    rsd = generate_radialshort(rall, **qccodar_values['weighted_shorts'] )
 
     # badflag not enough numpoints
     rs = threshold_rsd_numpoints(rsd, qccodar_values['qc_radialshort_velocity_count']['qc_radialshort_velocity_count_min'])
 
     ofn = os.path.join('.', 'test', 'files', 'test_output.txt')
-    rs.export(ofn, export_type='radial')
+    write_output(rs, ofn)
 
 
 if __name__ == '__main__':

@@ -59,14 +59,14 @@ to get qccodar running, it is recommended.
 
 ```bash
 
-   $ conda env create -f qccodar3_environment.yml
+   $ conda env create -f environment.yml
 ```
 
 Activate the environment:
 ```bash
 
-   $ source activate qccodar
-   (qccodar) $ which python
+   $ source activate qccodar3
+   (qccodar3) $ which python
    /Users/codar/miniconda3/envs/qccodar3/bin/python
 ```
 
@@ -124,16 +124,17 @@ cannot be found.  In MacOS -- sysctl is sometimes located in /usr/bin
 Python 3 is required. However, earlier versions of some of the other packages may be okay.
 
 - Python 3.x
-- numpy 1.19.1
+- numpy 1.20.0
     - https://pypi.python.org/pypi/numpy
     - Data read into memory are stored in the N-dimensional array datatype (ndarray) for indexing and computation.
 - geopy 2.0.0
     - https://pypi.python.org/pypi/geopy
     - geopy.distance.geodesic()
     - Used to compute (LAT, LON) based on range and bearing from site origin in generating RadialShorts file
-- watchdog 0.10.3
-    - Used to monitor a directory for new files and trigger qc and merge process when new RadialMetric file is created
+- watchdog 2.1.6
+    - Used to monitor a directory for new files and trigger qc and merge process when new RadialMetric file is created (NOT YET IMPLEMENTED)
 - docopt 0.6.2
+- hfradarpy 0.1.4.7
 - CODAR SeaSonde RadialSuite 7.x (version 8 does not support RadialMetric output unless requested from CODAR)
     - /Codar/SeaSonde/Apps/Bin/LLUVMerger.app
     - Used to merge spatial and temporal RadialShorts data to final Radial
