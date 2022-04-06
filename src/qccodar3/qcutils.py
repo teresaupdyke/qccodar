@@ -391,6 +391,59 @@ def find_files_to_concatenate(ifn, numfiles=3, sample_interval=30):
         "Some duplicate files found since number found > numfiles needed "
     return files           
 
+def add_short_metadata(r,qccodar_values):
+    # create a list of QCD metadata to write in the radial file header
+    r.metadata['QCD'] = []
+
+    r.metadata['QCD'].append('QCDReference: Radial Metric Quality Control Reference: doi:10.1175/JTECH-D-16-0203.1')
+
+    # Not sure why but I had to define simple variables to put in {} for the formatted output.
+    doa_peak_power_min = qccodar_values['qc_doa_peak_power']['doa_peak_power_min']
+    r.metadata['QCD'].append((
+        f'QCDTest: qc_doa_peak_power threshold ['
+        f'doa_peak_power_min = {doa_peak_power_min}(dB)] '
+    ))
+    doa_half_power_width_max = qccodar_values['qc_doa_half_power_width']['doa_half_power_width_max']
+    r.metadata['QCD'].append((
+        f'QCDTest: qc_doa_half_power_width threshold ['
+        f'doa_half_power_width_max = {doa_half_power_width_max}(degrees)] '
+    ))
+    monopole_snr_min = qccodar_values['qc_monopole_snr']['monopole_snr_min']
+    r.metadata['QCD'].append((
+        f'QCDTest: qc_monopole_snr threshold ['
+        f'monopole_snr_min = {monopole_snr_min}(dB)] '
+    ))
+    loop_snr_min = qccodar_values['qc_loop_snr']['loop_snr_min']
+    r.metadata['QCD'].append((
+        f'QCDTest: qc_loop_snr threshold ['
+        f'loop_snr_min = {loop_snr_min}(dB)] '
+    ))
+    radialshort_velocity_count_min = qccodar_values['qc_radialshort_velocity_count']['radialshort_velocity_count_min']
+    r.metadata['QCD'].append((
+        f'QCDTest: qc_radialshort_velocity_count ['
+        f'radialshort_velocity_count_min = {radialshort_velocity_count_min}(velocities)] '
+    ))
+    numfiles = qccodar_values['metric_concatenation']['numfiles']
+    sample_interval = qccodar_values['metric_concatenation']['sample_interval']
+    r.metadata['QCD'].append((
+        f'QCDSettings: metric_concatenation ['
+        f'numfiles = {numfiles}(files), '
+        f'sample_interval = {sample_interval}(minutes)] '
+    ))
+    numdegrees = qccodar_values['weighted_shorts']['numdegrees']
+    weight_parameter = qccodar_values['weighted_shorts']['weight_parameter']
+    table_type = qccodar_values['weighted_shorts']['table_type']
+    r.metadata['QCD'].append((
+        f'QCDSettings: weighted_shorts ['
+        f'numdegrees = {numdegrees}(degrees), '
+        f'weight_parameter = {weight_parameter}, '
+        f'table_type = {table_type}]'
+    ))
+
+    return r
+
+
+
 def do_qc(datadir, fn, patterntype, qccodar_values = dict()):
     """ Do qc and then average over 3 sample_intervals (time), 3 degrees of bearing.
     """
@@ -414,15 +467,8 @@ def do_qc(datadir, fn, patterntype, qccodar_values = dict()):
 
     # handle empty radialmetric by outputting an empty radialshorts file
     # do not try to merge other files to fill empty radialmetric for this timestampe
-    # if rsd.size == 0:
-    #     rsd, rsdtypes_str = generate_radialshort_array(d, types_str, header)
-    #     rsdheader = generate_radialshort_header(rsd, rsdtypes_str, header)
-    #     rsdfooter = footer
-    #     #
-    #     write_output(ofn, rsdheader, rsd, rsdfooter)
-    #     return ofn
     if rs.data.size == 0:
-        #this will be a copy of the radialmetric file, not an empty shorts file so need to update this code
+        rs = generate_radialshort(rs, **qccodar_values['weighted_shorts'])
         write_output(rs, ofn)
         return ofn
 
@@ -450,6 +496,9 @@ def do_qc(datadir, fn, patterntype, qccodar_values = dict()):
 
     # (3) require a minimum numpoints used in to form cell average
     rsx = threshold_rsd_numpoints(rsx, **qccodar_values['qc_radialshort_velocity_count'])
+
+    # create a list of QCD metadata to write in the radial file header
+    rsx = add_short_metadata(rsx,qccodar_values)
 
     write_output(rsx,ofn)
     return ofn

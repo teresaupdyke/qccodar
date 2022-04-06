@@ -17,7 +17,11 @@ debug = 1
 
 def write_output(r,ofn):
     """Write LLUV file using HFRadarPy toolbox """
-    r.to_ruv(ofn)
+
+    if not r._iscorrupt:
+        r.to_ruv(ofn, validate=False, overwrite=True)
+    else:
+        print('Corrupt radial. File not written %s' % ofn)
 
 def read_lluv_file(ifn):
     """Reads LLUV file using HFRadarPy toolbox"""
@@ -71,7 +75,7 @@ def generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_paramet
 
         rs = Radial('/Users/teresa/Desktop/Codar_Files/Software_Projects/git/qccodar3/src/qccodar3/file_formats/radialshort_LLUV_RDL7.ruv',empty_radial=True)
     else:
-        print('generate_radial_array() : Unrecognized table_type "%s"' % (table_type,))
+        print('generate_radialshort() : Unrecognized table_type "%s"' % (table_type,))
         return numpy.array([]), ''
 
     # copy over the file information, header, name, tables
@@ -112,10 +116,19 @@ def generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_paramet
     lat1, lon1 = [float(x) for x in origin.split()]
     range_resolution = float(r.metadata['RangeResolutionKMeters'])
 
+    if r.data.size == 0:
+        return rs
+
     xd = weighted_velocities(r, numdegrees, weight_parameter)
 
     if xd.size == 0:
         return rs
+
+
+    for key in rs._tables.keys():
+        table = rs._tables[key]
+        if 'LLUV' in table['TableType']:
+            rs._tables[key]['TableRows'] = str(xd.shape[0])
 
     rs.data['VFLG'] = xd['VFLG']
     rs.data['SPRC'] = xd['SPRC']
@@ -337,12 +350,11 @@ def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_o
         return ofn
 
 
-def check_headertime(fullfn):
+def check_headertime(r,fullfn):
     """ Loads merged file, checks if time in file name matches time in header
             and corrects if times do not match """
     from qccodar3.qcutils import filt_datetime
 
-    r = read_lluv_file(fullfn)
     fn = os.path.split(fullfn)[1]
     fn_time = filt_datetime(r.file_name)
     if fn == r.file_name:
@@ -355,20 +367,17 @@ def check_headertime(fullfn):
                 r.metadata['TimeStamp'] = fn_time.strftime("%Y %m %d %H %M %S")
                 print('TimeStamp in header changed to match the time indicated in file name.')
 
-        write_output(r, fullfn)
-        return
+        return r
 
     else:
         print('File names do not match!')
         return
 
-def add_diagnostic_tables(fullfn, shortpath):
+def add_diagnostic_tables(r, shortpath):
     """ Uses diagnostic information in the radialshorts to build radial and hardware diagnostic tables
       for the merged radial file """
 
     from collections import OrderedDict
-
-    r = read_lluv_file(fullfn)
 
     for key in r._tables.keys():
         table = r._tables[key]
@@ -420,16 +429,27 @@ def add_diagnostic_tables(fullfn, shortpath):
             od['3']['TableRows'] = hdtdata.shape[0]
 
     r._tables = od
-    write_output(r, fullfn)
-    return
+
+    return r
 
 def do_merge(datadir, fn, pattern, qccodar_values):
     """ Calls LLUVMerger to create the merged file, checks that output filename includes the expected
         time, (if not the script corrects the file name and ensures that time in filename and header
         match), adds diagnostic tables to the end of the file """
+    from qccodar3.qcutils import add_short_metadata
 
     ofn = run_LLUVMerger(datadir, fn, pattern, diag='4', **qccodar_values['merge'])
     r = read_lluv_file(ofn)
+    r = add_short_metadata(r, qccodar_values)
+
+    css_interval_minutes = qccodar_values['merge']['css_interval_minutes']
+    number_of_css = qccodar_values['merge']['number_of_css']
+    if 'QCD' in r.metadata:
+        r.metadata['QCD'].append((
+            f'QCDSettings: merge ['
+            f'css_interval_minutes = {css_interval_minutes}(minutes), '
+            f'number_of_css = {number_of_css}(files)] '
+        ))
 
     for key in r._tables.keys():
         table = r._tables[key]
@@ -442,6 +462,7 @@ def do_merge(datadir, fn, pattern, qccodar_values):
         return ofn
     else:
         shortpath = os.path.join(datadir, 'RadialShorts_qcd',pattern)
-        check_headertime(ofn)
-        add_diagnostic_tables(ofn, shortpath)
+        r = check_headertime(r,ofn)
+        r = add_diagnostic_tables(r, shortpath)
+        write_output(r, ofn)
         return ofn
