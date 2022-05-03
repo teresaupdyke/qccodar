@@ -373,7 +373,7 @@ def find_files_to_concatenate(ifn, numfiles=3, sample_interval=30):
     """
 
     indir = os.path.dirname(ifn)
-    rdlstr = re.match(r'RDL[vw]', os.path.basename(ifn)).group()
+    rdlstr = re.match(r'RDL[vwxy]', os.path.basename(ifn)).group()
     all_files = recursive_glob(os.path.join(indir), rdlstr+'*.ruv')
 
     delta_minutes = ((numfiles-1)/2)*sample_interval

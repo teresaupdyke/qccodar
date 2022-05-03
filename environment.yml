@@ -242,6 +242,5 @@ dependencies:
   - pip:
     - hfradarpy==0.1.4.7
     - numpy==1.20.0
-    - qccodar3==2.0.1
     - watchdog==2.1.6
 prefix: /Users/teresa/miniconda3/envs/qccodar3

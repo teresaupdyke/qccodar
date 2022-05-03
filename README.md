@@ -53,11 +53,13 @@ Guide](https://conda.io/docs/user-guide/install/index.html) for more
 details on installing Conda, making the appropriate adjustments for Miniconda3. 
 
 
-Download the qccodar3 code from github.com/teresaupdyke/qccodar3
+Download the qccodar3 code from https://github.com/teresaupdyke/qccodar3
 
 Create a conda environment allows the qccodar module and its
 dependencies to run isolated from the installed Python avoiding
 potential module version conflicts.  
+
+Navigate to the qccodar3-main directory and use this command:
 
 ```bash
 
@@ -72,7 +74,10 @@ Activate the environment:
    /Users/codar/miniconda3/envs/qccodar3/bin/python
 ```
 
-
+While still in the same directory, install qccodar3 to the environment: 
+```bash
+   (qccodar3) $ pip install .
+```
 
 ## Configuration and Crontab Entry for Realtime QC
 
@@ -88,11 +93,11 @@ First, enable RadialMetric output:
 
 Next, set up a customized configuration file. 
 
-1. Navigate to the qccodar3 directory and copy the configuration file
+1. Go to the qccodar3-main directory and copy the configuration file
+```bash
+   $ cp src/qccodar3/config/qccodar.plist /Users/codar/qccodar_files/qccodar.plist
 ```
-   cp src/qccodar3/config/qccodar.plist /Users/codar/qccodar_files/qccodar.plist
-```
- 2 . Edit this copy of qccodar.plist to specify a customized configuration for the radar site.  The default configuration is for a long range SeaSonde system and parameter for the 
+ 2 . Edit this copy of qccodar.plist to specify a customized configuration for the radar site.  The default configuration is for a long range SeaSonde system and parameters for merge and for metric concatenation need to be adjusted for the mid- and standard range systems. 
 
 
 Finally, set crontab entry to run qccodar:

@@ -23,8 +23,8 @@ from .codarutils import do_merge, get_radialmetric_foldername
 __version__ = get_distribution("qccodar3").version
 
 debug = 1
-if Path('/Users/codar/qccodar_files/qccodar.plist').is_file():
-    plistfile = Path('/Users/codar/qccodar_files/qccodar.plist')
+if Path('/Users/teresa/qccodar_files/qccodar.plist').is_file():
+    plistfile = Path('/Users/teresa/qccodar_files/qccodar.plist')
 else:
     plistfile = Path(__file__).parent.resolve() / 'qccodar.plist'
 
