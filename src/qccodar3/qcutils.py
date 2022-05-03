@@ -187,7 +187,7 @@ def weighted_velocities(r, numdegrees=3, weight_parameter='MP'):
     ud = r1.data.loc[good, :]
     if ud.size == 0:
         r.data = numpy.array([])
-        return r
+        return r.data
 
     allbearings = numpy.unique(ud['BEAR'])
     allranges = numpy.unique(ud['SPRC'])

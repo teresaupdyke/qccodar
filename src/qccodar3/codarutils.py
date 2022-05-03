@@ -9,6 +9,7 @@ import datetime
 import geopy
 import geopy.distance
 import numpy
+from pathlib import Path
 numpy.set_printoptions(suppress=True)
 import pandas as pd
 from hfradarpy.radials import Radial
@@ -72,8 +73,8 @@ def generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_paramet
     from qccodar3.qcutils import weighted_velocities
 
     if table_type == 'LLUV RDL7':
-
-        rs = Radial('/Users/teresa/Desktop/Codar_Files/Software_Projects/git/qccodar3/src/qccodar3/file_formats/radialshort_LLUV_RDL7.ruv',empty_radial=True)
+        formatfile = Path(__file__).parent.resolve() / 'file_formats' / 'radialshort_LLUV_RDL7.ruv'
+        rs = Radial(formatfile,empty_radial=True)
     else:
         print('generate_radialshort() : Unrecognized table_type "%s"' % (table_type,))
         return numpy.array([]), ''

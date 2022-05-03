@@ -15,22 +15,34 @@ Options:
 import os
 import re
 from pkg_resources import get_distribution
+from pathlib import Path
+from plistlib import load
 from .qcutils import do_qc, recursive_glob
 from .codarutils import do_merge, get_radialmetric_foldername
 
 __version__ = get_distribution("qccodar3").version
 
 debug = 1
-qccodar_values = dict(
-    qc_doa_half_power_width=dict(doa_half_power_width_max=50.0),
-    qc_doa_peak_power=dict(doa_peak_power_min=5.0),
-    qc_monopole_snr=dict(monopole_snr_min=5.0),
-    qc_loop_snr=dict(loop_snr_min=5.0),
-    qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=3.0),
-    metric_concatenation = dict(numfiles=3, sample_interval=30.0),
-    weighted_shorts=dict(numdegrees=3,weight_parameter='MP', table_type='LLUV RDL7'),
-    merge=dict(css_interval_minutes=30.0,number_of_css=5.0)
-)
+if Path('/Users/codar/qccodar_files/qccodar.plist').is_file():
+    plistfile = Path('/Users/codar/qccodar_files/qccodar.plist')
+else:
+    plistfile = Path(__file__).parent.resolve() / 'qccodar.plist'
+
+try:
+    with open(plistfile, 'rb') as fp:
+        qccodar_values = load(fp)
+except:
+    print(f'Plist {plistfile} not found. Using default settings.')
+    qccodar_values = dict(
+        qc_doa_half_power_width=dict(doa_half_power_width_max=50.0),
+        qc_doa_peak_power=dict(doa_peak_power_min=5.0),
+        qc_monopole_snr=dict(monopole_snr_min=5.0),
+        qc_loop_snr=dict(loop_snr_min=5.0),
+        qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=3.0),
+        metric_concatenation = dict(numfiles=3, sample_interval=30.0),
+        weighted_shorts=dict(numdegrees=3,weight_parameter='MP', table_type='LLUV RDL7'),
+        merge=dict(css_interval_minutes=30.0,number_of_css=5.0)
+    )
 
 def manual(datadir, pattern):
     """ Manual mode runs qc and merge on all files in datadir """

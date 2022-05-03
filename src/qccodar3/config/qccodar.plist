@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>merge</key>
+	<dict>
+		<key>css_interval_minutes</key>
+		<real>30.0</real>
+		<key>number_of_css</key>
+		<real>5.0</real>
+	</dict>
+	<key>metric_concatenation</key>
+	<dict>
+		<key>numfiles</key>
+		<integer>3</integer>
+		<key>sample_interval</key>
+		<real>30.0</real>
+	</dict>
+	<key>qc_doa_half_power_width</key>
+	<dict>
+		<key>doa_half_power_width_max</key>
+		<real>50.0</real>
+	</dict>
+	<key>qc_doa_peak_power</key>
+	<dict>
+		<key>doa_peak_power_min</key>
+		<real>5.0</real>
+	</dict>
+	<key>qc_loop_snr</key>
+	<dict>
+		<key>loop_snr_min</key>
+		<real>5.0</real>
+	</dict>
+	<key>qc_monopole_snr</key>
+	<dict>
+		<key>monopole_snr_min</key>
+		<real>5.0</real>
+	</dict>
+	<key>qc_radialshort_velocity_count</key>
+	<dict>
+		<key>radialshort_velocity_count_min</key>
+		<real>3.0</real>
+	</dict>
+	<key>weighted_shorts</key>
+	<dict>
+		<key>numdegrees</key>
+		<integer>3</integer>
+		<key>table_type</key>
+		<string>LLUV RDL7</string>
+		<key>weight_parameter</key>
+		<string>MP</string>
+	</dict>
+</dict>
+</plist>

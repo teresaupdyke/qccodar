@@ -20,17 +20,17 @@ tests_requires= [
 
 setup(name='qccodar3',
       version=__version__,
-      description="Apply quality controls to improve CODAR ouput",
+      description="Apply quality controls to improve CODAR output",
       long_description="",
       classifiers=[
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     ],
       keywords='qc codar radials currents ocean science data',
-      author='Sara Haines',
+      author='Sara Haines, Teresa Updyke',
       author_email='sarahaines@unc.edu',
-      maintainer='Sara Haines',
-      maintainer_email='sarahaines@unc.edu',
+      maintainer='Teresa Updyke',
+      maintainer_email='tupdyke@odu.edu',
 
       url='http://nccoos.unc.edu',
       license='GNU',
@@ -49,5 +49,7 @@ setup(name='qccodar3',
         [console_scripts]
         qccodar3 = qccodar3.app:main
       """,
+      data_files=[('config', ['src/qccodar3/config/qccodar.plist']),
+                  ('file_formats',['src/qccodar3/file_formats/radialshort_LLUV_RDL7.ruv'])],
       #scripts=['qccodar3/qcviz/qcviz.py']
       )
