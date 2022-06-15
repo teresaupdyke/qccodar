@@ -7,6 +7,7 @@ Usage:
 Options:
   -d DIR --datadir DIR      Data directory to process [default: /Codar/SeaSonde/Data]
   -p PAT --pattern PAT      Pattern type [default: IdealPattern]
+  -c CFG --configfile CFG   Configuration file (complete filepath with filename) [default: /Users/codar/qccodar_files/qccodar.plist]
   -h --help                 Show this help message and exit
   --version                 Show version
   
@@ -23,30 +24,34 @@ from .codarutils import do_merge, get_radialmetric_foldername
 __version__ = get_distribution("qccodar3").version
 
 debug = 1
-if Path('/Users/codar/qccodar_files/qccodar.plist').is_file():
-    plistfile = Path('/Users/codar/qccodar_files/qccodar.plist')
-else:
-    plistfile = Path(__file__).parent.resolve() / 'qccodar.plist'
 
-try:
-    with open(plistfile, 'rb') as fp:
-        qccodar_values = load(fp)
-except:
-    print(f'Plist {plistfile} not found. Using default settings.')
-    qccodar_values = dict(
-        qc_doa_half_power_width=dict(doa_half_power_width_max=50.0),
-        qc_doa_peak_power=dict(doa_peak_power_min=5.0),
-        qc_monopole_snr=dict(monopole_snr_min=5.0),
-        qc_loop_snr=dict(loop_snr_min=5.0),
-        qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=3.0),
-        metric_concatenation = dict(numfiles=3, sample_interval=30.0),
-        weighted_shorts=dict(numdegrees=3,weight_parameter='MP', table_type='LLUV RDL7'),
-        merge=dict(css_interval_minutes=30.0,number_of_css=5.0)
-    )
 
-def manual(datadir, pattern):
+def load_configs(configfile='/Users/codar/qccodar_files/qccodar.plist'):
+    if Path(configfile).is_file():
+        plistfile = Path(configfile)
+    else:
+        plistfile = Path(__file__).parent.resolve() / 'qccodar.plist'
+
+    try:
+        with open(plistfile, 'rb') as fp:
+            qccodar_values = load(fp)
+    except:
+        print(f'Plist {plistfile} not found. Using default settings.')
+        qccodar_values = dict(
+            qc_doa_half_power_width=dict(doa_half_power_width_max=50.0),
+            qc_doa_peak_power=dict(doa_peak_power_min=5.0),
+            qc_monopole_snr=dict(monopole_snr_min=5.0),
+            qc_loop_snr=dict(loop_snr_min=5.0),
+            qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=3.0),
+            metric_concatenation = dict(numfiles=3, sample_interval=30.0),
+            weighted_shorts=dict(numdegrees=3,weight_parameter='MP', table_type='LLUV RDL7'),
+            merge=dict(css_interval_minutes=30.0,number_of_css=5.0,shorts_minute_filter = '*00')
+         )
+    return qccodar_values
+
+def manual(datadir, pattern, configfile):
     """ Manual mode runs qc and merge on all files in datadir """
-
+    qccodar_values = load_configs(configfile)
     rmfoldername = get_radialmetric_foldername(datadir)
     # get file listing of datadir
     fns = recursive_glob(os.path.join(datadir, rmfoldername, pattern), 'RDL*.ruv')
@@ -68,7 +73,7 @@ def manual(datadir, pattern):
 
     # get file list of RadialShorts
     # depending on system and desired time span for merge, change the target time for file search
-    fns = recursive_glob(os.path.join(datadir, 'RadialShorts_qcd', pattern), 'RDL*00.ruv')
+    fns = recursive_glob(os.path.join(datadir, 'RadialShorts_qcd', pattern), 'RDL'+ qccodar_values['merge']['shorts_minute_filter'] + '.ruv')
 
     print('qccodar (manual) -- merge step: ...')
 
@@ -79,9 +84,9 @@ def manual(datadir, pattern):
         ofn = do_merge(datadir, fn, pattern, qccodar_values)
         print('... output: %s' % ofn)
 
-def auto(datadir, pattern, fullfn):
+def auto(datadir, pattern, configfile, fullfn):
     """ Auto mode runs qc and merge for each fullfn """
-
+    qccodar_values = load_configs(configfile)
     numfiles = 3
     
     # get file listing of RadialMetric folder in datadir
@@ -120,7 +125,7 @@ def auto(datadir, pattern, fullfn):
 
     # get file listing of RadialShorts_qcd folder in datadir
     indir = os.path.join(datadir, 'RadialShorts_qcd', pattern)
-    fns = recursive_glob(indir, 'RDL*00.ruv')
+    fns = recursive_glob(indir, 'RDL'+ qccodar_values['merge']['shorts_minute_filter'] + '.ruv')
 
     try:
         idx = fns.index(rsdfn)
@@ -134,7 +139,7 @@ def auto(datadir, pattern, fullfn):
         ofn = do_merge(datadir, fn, pattern, qccodar_values)
         print('... merge output: %s' % ofn)
 
-def catchup(datadir, pattern):
+def catchup(datadir, pattern, configfile):
     """ Process any new RadialMetric files not processed yet in datadir """
 
     numfiles = 3
@@ -172,7 +177,7 @@ def catchup(datadir, pattern):
 
     for fn in newfns:
         fullfn = os.path.join(datadir, rmfoldername, pattern, fn)
-        auto(datadir, pattern, fullfn)
+        auto(datadir, pattern, configfile, fullfn)
 
 
 def main():
@@ -182,7 +187,7 @@ def main():
     arguments = docopt(__doc__, version="qccodar3 %s" % __version__)
     # print arguments
 
-    datadir, pattern = arguments['--datadir'], arguments['--pattern']
+    datadir, pattern, configfile = arguments['--datadir'], arguments['--pattern'], arguments['--configfile']
     if arguments['manual']:
         runarg = 'manual'
     elif arguments['auto']:
@@ -211,15 +216,15 @@ def main():
     # run modes (manual | catchup | auto)
     if arguments['manual']:
         # manual-mode 
-        manual(datadir, pattern)
+        manual(datadir, pattern,configfile)
         return
     elif arguments['catchup']:
         # catchup once
-        catchup(datadir, pattern)
+        catchup(datadir, pattern,configfile)
         return
     elif arguments['auto']:
         # catchup and then create watchdog to monitor datadir
-        catchup(datadir, pattern)
+        catchup(datadir, pattern,configfile)
         return
 
 if __name__ == "__main__":

@@ -8,6 +8,8 @@
 		<real>30.0</real>
 		<key>number_of_css</key>
 		<real>5.0</real>
+		<key>shorts_minute_filter</key>
+        <string>*00</string>
 	</dict>
 	<key>metric_concatenation</key>
 	<dict>

@@ -226,7 +226,7 @@ def compass2uv(wmag, wdir):
     v = wmag*numpy.cos(wdir*r)
     return (u,v)
 
-def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_of_css=5.0, debug=2, diag = '4'):
+def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_of_css=5.0, shorts_minute_filter='*00',debug=2, diag = '4'):
     """ Run CODAR's LLUVMerger app in subprocess """
 
     import subprocess
@@ -248,17 +248,30 @@ def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_o
     # (merge average 5*30 min = 150 min or 2.5 hours)
     span_hrs = rs_num * (rs_output_interval.seconds/3600.) # hours, 2.5 hours
     span_hrs_str = '%f' % span_hrs # '2.5000'
-    # if ifn (source file) is on the hour (00 min) expected time 
-    expected_timedelta = datetime.timedelta(minutes=60)
+
+    minutes_behind_source = (number_of_css // 2) * css_interval_minutes
+    expected_timedelta = datetime.timedelta(minutes=minutes_behind_source)
+
+    # if ifn (source file) is on the hour (00 min) expected time
     #
     #       22:30
     # 5\    23:00
     # 4 |   23:30
-    # 3 |-- 00:00 <--expected time for merger of 5 files is 60 min behind source 
+    # 3 |-- 00:00 <--expected time for merge of 5 files with 30 minute intervals is 60 min behind source
     # 2 |   00:30
     # 1 /   01:00 <-- source file time
     #       01:30
-    
+
+    #       23:20
+    # 7 \   23:30
+    # 6 |   23:40
+    # 5 |   23:50
+    # 4 |-- 00:00 <--expected time for merge of 7 files with 10 minute intervals is 30 min behind source
+    # 3 |   00:10
+    # 2 |   00:20
+    # 1 /   00:30 <-- source file time
+    #       00:40
+
     # ordered list of args, order of some options is important,
     # e.g. -span and -startwith before -source
     args = ['/Codar/SeaSonde/Apps/Bin/LLUVMerger',
@@ -305,7 +318,10 @@ def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_o
 
         lines = stdout_content.decode('utf-8').split('\n')
         # get line with MergedFile: path and filename from stdout_content
-        line = [x for x in lines if 'MergedFile:' in x][0]
+        if lines[0] == 'No source files found':
+            line = lines[0]
+        else:
+            line = [x for x in lines if 'MergedFile:' in x][0]
         if debug>=2:
             print(line)
         # mfn -- extract full path and file name of merged file 
@@ -416,18 +432,18 @@ def add_diagnostic_tables(r, shortpath):
     for key in r._tables.keys():
         table = r._tables[key]
         if 'LLUV' in table['TableType']:
-            od['1'] = r._tables[key]
+            od[1] = r._tables[key]
 
     for key2 in rs._tables.keys():
         table2 = rs._tables[key2]
         if 'rads' in table2['TableType']:
-            od['2'] = rs._tables[key2]
-            od['2']['data'] = rdtdata
-            od['2']['TableRows'] = rdtdata.shape[0]
+            od[2] = rs._tables[key2]
+            od[2]['data'] = rdtdata
+            od[2]['TableRows'] = rdtdata.shape[0]
         elif 'rcvr' in table2['TableType']:
-            od['3'] = rs._tables[key2]
-            od['3']['data'] = hdtdata
-            od['3']['TableRows'] = hdtdata.shape[0]
+            od[3] = rs._tables[key2]
+            od[3]['data'] = hdtdata
+            od[3]['TableRows'] = hdtdata.shape[0]
 
     r._tables = od
 
@@ -440,30 +456,33 @@ def do_merge(datadir, fn, pattern, qccodar_values):
     from qccodar3.qcutils import add_short_metadata
 
     ofn = run_LLUVMerger(datadir, fn, pattern, diag='4', **qccodar_values['merge'])
-    r = read_lluv_file(ofn)
-    r = add_short_metadata(r, qccodar_values)
+    if ofn:
+        r = read_lluv_file(ofn)
+        r = add_short_metadata(r, qccodar_values)
 
-    css_interval_minutes = qccodar_values['merge']['css_interval_minutes']
-    number_of_css = qccodar_values['merge']['number_of_css']
-    if 'QCD' in r.metadata:
-        r.metadata['QCD'].append((
-            f'QCDSettings: merge ['
-            f'css_interval_minutes = {css_interval_minutes}(minutes), '
-            f'number_of_css = {number_of_css}(files)] '
-        ))
+        css_interval_minutes = qccodar_values['merge']['css_interval_minutes']
+        number_of_css = qccodar_values['merge']['number_of_css']
+        if 'QCD' in r.metadata:
+            r.metadata['QCD'].append((
+                f'QCDSettings: merge ['
+                f'css_interval_minutes = {css_interval_minutes}(minutes), '
+                f'number_of_css = {number_of_css}(files)] '
+            ))
 
-    for key in r._tables.keys():
-        table = r._tables[key]
-        if 'MRGS' in table['TableType']:
-            filelist = table['data']['PATH']
+        for key in r._tables.keys():
+            table = r._tables[key]
+            if 'MRGS' in table['TableType']:
+                filelist = table['data']['PATH']
 
-    if filelist.shape[0] < 2:
-        # delete the file from the computer
-        print('Not enough short files available for the merge.')
-        return ofn
-    else:
-        shortpath = os.path.join(datadir, 'RadialShorts_qcd',pattern)
-        r = check_headertime(r,ofn)
-        r = add_diagnostic_tables(r, shortpath)
-        write_output(r, ofn)
-        return ofn
+        if filelist.shape[0] < 2:
+            # delete the file from the computer
+            print('Not enough short files available for the merge.')
+            os.remove(ofn)
+            ofn=''
+            return ofn
+        else:
+            shortpath = os.path.join(datadir, 'RadialShorts_qcd',pattern)
+            r = check_headertime(r,ofn)
+            r = add_diagnostic_tables(r, shortpath)
+            write_output(r, ofn)
+            return ofn

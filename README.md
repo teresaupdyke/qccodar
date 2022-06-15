@@ -53,7 +53,7 @@ Guide](https://conda.io/docs/user-guide/install/index.html) for more
 details on installing Conda, making the appropriate adjustments for Miniconda3. 
 
 
-Download the qccodar3 code from https://github.com/teresaupdyke/qccodar3
+Download the qccodar code from https://github.com/teresaupdyke/qccodar
 
 Create a conda environment allows the qccodar module and its
 dependencies to run isolated from the installed Python avoiding
