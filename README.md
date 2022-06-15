@@ -69,7 +69,7 @@ Navigate to the qccodar-main directory and use this command:
 Activate the environment:
 ```bash
 
-   $ source activate qccodar
+   $ conda activate qccodar
    (qccodar) $ which python
    /Users/codar/miniconda3/envs/qccodar/bin/python
 ```
