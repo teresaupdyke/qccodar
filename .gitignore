@@ -1,0 +1,19 @@
+# Jupyter Notebook compiled
+.ipynb_checkpoints/
+
+# Python compiled 
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Emacs backup
+*.*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.ehthumbs.db
+Thumbs.db
