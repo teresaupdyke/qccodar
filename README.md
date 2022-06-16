@@ -59,7 +59,7 @@ Create a conda environment allows the qccodar module and its
 dependencies to run isolated from the installed Python avoiding
 potential module version conflicts.  
 
-Navigate to the qccodar3-main directory and use this command:
+Navigate to the qccodar-main directory and use this command:
 
 ```bash
 
@@ -69,14 +69,14 @@ Navigate to the qccodar3-main directory and use this command:
 Activate the environment:
 ```bash
 
-   $ source activate qccodar3
-   (qccodar3) $ which python
-   /Users/codar/miniconda3/envs/qccodar3/bin/python
+   $ conda activate qccodar
+   (qccodar) $ which python
+   /Users/codar/miniconda3/envs/qccodar/bin/python
 ```
 
-While still in the same directory, install qccodar3 to the environment: 
+While still in the same directory, install qccodar to the environment: 
 ```bash
-   (qccodar3) $ pip install .
+   (qccodar) $ pip install .
 ```
 
 ## Configuration and Crontab Entry for Realtime QC
@@ -93,9 +93,9 @@ First, enable RadialMetric output:
 
 Next, set up a customized configuration file. 
 
-1. Go to the qccodar3-main directory and copy the configuration file
+1. Go to the qccodar-main directory and copy the configuration file
 ```bash
-   $ cp src/qccodar3/config/qccodar.plist /Users/codar/qccodar_files/qccodar.plist
+   $ cp src/qccodar/config/qccodar.plist /Users/codar/qccodar_files/qccodar.plist
 ```
  2 . Edit this copy of qccodar.plist to specify a customized configuration for the radar site.  The default configuration is for a long range SeaSonde system and parameters for merge and for metric concatenation need to be adjusted for the mid- and standard range systems. 
 
@@ -108,7 +108,7 @@ Finally, set crontab entry to run qccodar:
 ```
 $ crontab -l
 1,11,21,31,41,51 * * * * /Codar/SeaSonde/Users/Scripts/collect/collect.pl
-00,15,30,45 * * * * PATH=$PATH:/sbin /Users/codar/miniconda/envs/qccodar/bin/qccodar auto >> /Users/codar/logs/qccodar-auto.log 2>&1
+00,15,30,45 * * * * PATH=$PATH:/sbin /Users/codar/miniconda3/envs/qccodar/bin/qccodar auto >> /Users/codar/logs/qccodar-auto.log 2>&1
 ```
 
 If you get `sh: sysctl: command cannot be found` in output or log,
@@ -141,17 +141,23 @@ cannot be found.  In MacOS -- sysctl is sometimes located in /usr/bin
 Python 3 is required. However, earlier versions of some of the other packages may be okay.
 
 - Python 3.x
-- numpy 1.20.0
+- numpy
     - https://pypi.python.org/pypi/numpy
     - Data read into memory are stored in the N-dimensional array datatype (ndarray) for indexing and computation.
-- geopy 2.0.0
+- geopy
     - https://pypi.python.org/pypi/geopy
     - geopy.distance.geodesic()
     - Used to compute (LAT, LON) based on range and bearing from site origin in generating RadialShorts file
-- watchdog 2.1.6
+- watchdog
     - Used to monitor a directory for new files and trigger qc and merge process when new RadialMetric file is created (NOT YET IMPLEMENTED)
-- docopt 0.6.2
-- hfradarpy 0.1.4.7
-- CODAR SeaSonde RadialSuite 7.x (version 8 does not support RadialMetric output unless requested from CODAR)
+- docopt
+- hfradarpy
+
+### CODAR Software Requirements
+- CODAR SeaSonde RadialSuite 7.x -- supports RadialMetric output out of the box
+- CODAR SeaSonde RadialSuite 8.x -- does not support RadialMetric output unless requested
+   - Requires special key file specifically to enable RadialMetric output (contact CODAR to get)
+   - Requires RadialMetric R2 Addon (contact CODAR to get)
+- 
     - /Codar/SeaSonde/Apps/Bin/LLUVMerger.app
     - Used to merge spatial and temporal RadialShorts data to final Radial
