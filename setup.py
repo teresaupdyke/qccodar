@@ -7,6 +7,7 @@ install_requires = [
     'docopt', 
     'numpy',
     'geopy',
+    'hfradarpy',
     ]
 
 qcviz_requires=[
@@ -47,9 +48,9 @@ setup(name='qccodar',
       test_suite="qccodar.test",
       entry_points="""
         [console_scripts]
-        qccodar3 = qccodar.app:main
+        qccodar = qccodar.app:main
       """,
       data_files=[('config', ['src/qccodar/config/qccodar.plist']),
-                  ('file_formats',['src/qccodar3/file_formats/radialshort_LLUV_RDL7.ruv'])],
+                  ('file_formats',['src/qccodar/file_formats/radialshort_LLUV_RDL7.ruv'])],
       #scripts=['qccodar/qcviz/qcviz.py']
       )

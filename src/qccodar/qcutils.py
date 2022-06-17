@@ -24,7 +24,7 @@ import sys
 import copy
 import numpy
 numpy.set_printoptions(suppress=True)
-from qccodar3.codarutils import *
+from qccodar.codarutils import *
 
 debug = 1
 

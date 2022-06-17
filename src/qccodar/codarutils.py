@@ -70,7 +70,7 @@ def generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_paramet
     -------
     rs: Radial object
     """
-    from qccodar3.qcutils import weighted_velocities
+    from qccodar.qcutils import weighted_velocities
 
     if table_type == 'LLUV RDL7':
         formatfile = Path(__file__).parent.resolve() / 'file_formats' / 'radialshort_LLUV_RDL7.ruv'
@@ -370,7 +370,7 @@ def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_o
 def check_headertime(r,fullfn):
     """ Loads merged file, checks if time in file name matches time in header
             and corrects if times do not match """
-    from qccodar3.qcutils import filt_datetime
+    from qccodar.qcutils import filt_datetime
 
     fn = os.path.split(fullfn)[1]
     fn_time = filt_datetime(r.file_name)
@@ -453,7 +453,7 @@ def do_merge(datadir, fn, pattern, qccodar_values):
     """ Calls LLUVMerger to create the merged file, checks that output filename includes the expected
         time, (if not the script corrects the file name and ensures that time in filename and header
         match), adds diagnostic tables to the end of the file """
-    from qccodar3.qcutils import add_short_metadata
+    from qccodar.qcutils import add_short_metadata
 
     ofn = run_LLUVMerger(datadir, fn, pattern, diag='4', **qccodar_values['merge'])
     if ofn:
