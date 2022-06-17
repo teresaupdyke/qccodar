@@ -18,7 +18,7 @@ tests_requires= [
     'nose',
     ]
 
-setup(name='qccodar3',
+setup(name='qccodar',
       version=__version__,
       description="Apply quality controls to improve CODAR output",
       long_description="",
@@ -38,18 +38,18 @@ setup(name='qccodar3',
       package_dir={'': 'src'},
       include_package_data=True,
       zip_safe=False,
-      namespace_packages=["qccodar3", "qccodar3.qcviz", "qccodar3.test"],
+      namespace_packages=["qccodar", "qccodar.qcviz", "qccodar.test"],
       install_requires=install_requires,
       extras_require={
         'tests' : tests_requires,
         'qcviz' : qcviz_requires
         },
-      test_suite="qccodar3.test",
+      test_suite="qccodar.test",
       entry_points="""
         [console_scripts]
-        qccodar3 = qccodar3.app:main
+        qccodar3 = qccodar.app:main
       """,
-      data_files=[('config', ['src/qccodar3/config/qccodar.plist']),
+      data_files=[('config', ['src/qccodar/config/qccodar.plist']),
                   ('file_formats',['src/qccodar3/file_formats/radialshort_LLUV_RDL7.ruv'])],
-      #scripts=['qccodar3/qcviz/qcviz.py']
+      #scripts=['qccodar/qcviz/qcviz.py']
       )
