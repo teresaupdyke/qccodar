@@ -21,7 +21,7 @@ from plistlib import load
 from .qcutils import do_qc, recursive_glob
 from .codarutils import do_merge, get_radialmetric_foldername
 
-__version__ = get_distribution("qccodar3").version
+__version__ = get_distribution("qccodar").version
 
 debug = 1
 
@@ -184,7 +184,7 @@ def main():
     """Run qccodar from the command line."""
     from docopt import docopt
 
-    arguments = docopt(__doc__, version="qccodar3 %s" % __version__)
+    arguments = docopt(__doc__, version="qccodar %s" % __version__)
     # print arguments
 
     datadir, pattern, configfile = arguments['--datadir'], arguments['--pattern'], arguments['--configfile']

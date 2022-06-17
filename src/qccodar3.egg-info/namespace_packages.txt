@@ -1,3 +1,0 @@
-qccodar3
-qccodar3.qcviz
-qccodar3.test
