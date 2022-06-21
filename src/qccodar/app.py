@@ -66,6 +66,7 @@ def manual(datadir, pattern, configfile):
     
     # do qc for each file in the datadir --> output to RadialShorts_qcd
     for fullfn in fns:
+        print('###################')
         print('... input: %s' % fullfn)
         fn = os.path.basename(fullfn)
         ofn = do_qc(datadir, fn, pattern, qccodar_values)
@@ -79,6 +80,7 @@ def manual(datadir, pattern, configfile):
 
     # run LLUVMerger for each
     for fullfn in fns:
+        print('###################')
         print('... input: %s' % fullfn)
         fn = os.path.basename(fullfn)
         ofn = do_merge(datadir, fn, pattern, qccodar_values)
