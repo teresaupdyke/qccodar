@@ -419,11 +419,12 @@ def add_diagnostic_tables(r, shortpath):
     if hasattr(rs,'diagnostics_radial'):
         rdtdata = rs.diagnostics_radial
     else:
-        rdtdata = ''
+        # use empty dataframe
+        rdtdata = pd.DataFrame()
     if hasattr(rs,'diagnostics_hardware'):
         hdtdata = rs.diagnostics_hardware
     else:
-    	hdtdata = ''
+    	hdtdata = pd.DataFrame()
 
     for shortfile in filelist:
         shortfullfile = os.path.join(shortpath, shortfile)
@@ -440,9 +441,9 @@ def add_diagnostic_tables(r, shortpath):
                 hdtdata = pd.concat([hdtdata, hdt], ignore_index=True)
 
     # remove duplicates
-    if rdtdata != '':
+    if not rdtdata.empty:
         rdtdata = rdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'])
-    if hdtdata != '':
+    if not hdtdata.empty:
         hdtdata = hdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'])
 
     # adjust rdt for seconds from start
