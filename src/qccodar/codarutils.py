@@ -83,12 +83,25 @@ def generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_paramet
     rs.metadata = r.metadata
     #  '% PatternMethod: 1 PatternVectors' should be added but I'm not sure how to
     #   insert at a specific position in Ordered dictionary
-    rs.diagnostics_radial = r.diagnostics_radial
-    rs.diagnostics_hardware = r.diagnostics_hardware
+    if hasattr(r,'diagnostics_radial'):
+	    rs.diagnostics_radial = r.diagnostics_radial
+    if hasattr(r,'diagnostics_hardware'):
+	    rs.diagnostics_hardware = r.diagnostics_hardware
     # the range information table changes in the processing from radial metric to radial short
     # but I have simply copied over the metric version for now
-    rs.range_information = r.range_information
+    if hasattr(r,'range_information'):
+	    rs.range_information = r.range_information
 
+    # remove table in rs that is not in r
+    r_tts = [r._tables[key]['TableType'].split(' ')[0] for key in r._tables.keys()]
+    rs_tts = [rs._tables[key]['TableType'].split(' ')[0] for key in rs._tables.keys()]
+    rs_keys= [key for key in rs._tables.keys()]
+    to_be_removed = [tt for tt in rs_tts if tt not in r_tts]
+
+    for tt in to_be_removed:
+        idx = rs_tts.index(tt)
+        rs._tables.pop(rs_keys[idx])
+    
     for key in rs._tables.keys():
         table = rs._tables[key]
         if 'LLUV' in table['TableType']:
@@ -403,8 +416,15 @@ def add_diagnostic_tables(r, shortpath):
 
     firstshortfn = os.path.join(shortpath, filelist[0])
     rs = read_lluv_file(firstshortfn)
-    rdtdata = rs.diagnostics_radial
-    hdtdata = rs.diagnostics_hardware
+    if hasattr(rs,'diagnostics_radial'):
+        rdtdata = rs.diagnostics_radial
+    else:
+        # use empty dataframe
+        rdtdata = pd.DataFrame()
+    if hasattr(rs,'diagnostics_hardware'):
+        hdtdata = rs.diagnostics_hardware
+    else:
+    	hdtdata = pd.DataFrame()
 
     for shortfile in filelist:
         shortfullfile = os.path.join(shortpath, shortfile)
@@ -421,8 +441,10 @@ def add_diagnostic_tables(r, shortpath):
                 hdtdata = pd.concat([hdtdata, hdt], ignore_index=True)
 
     # remove duplicates
-    hdtdata = hdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'])
-    rdtdata = rdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'])
+    if not rdtdata.empty:
+        rdtdata = rdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'])
+    if not hdtdata.empty:
+        hdtdata = hdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'])
 
     # adjust rdt for seconds from start
     # adjust hdt for minutes from start
