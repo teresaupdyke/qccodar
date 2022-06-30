@@ -1,0 +1,2 @@
+
+LLUVMerger -span=2.500000 -lluvtype=i -angres=5 -angalign=2 -angmethod=short -method=average -minvect=2 -velcount -diag=4 -source=./2017_01/RadialShorts_qcd/IdealPattern/RDLx_HATY_2017_01_01_1200.ruv -output=./2017_01/Radials_qcd/IdealPattern
