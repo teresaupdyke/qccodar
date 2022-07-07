@@ -86,5 +86,7 @@ def test_read_lluv_empty_file():
     
     # check size of data (no rows if no data)
     assert d.size == 0
-    assert numpy.array_equal(d.to_numpy(), [])
+    shape = d.to_numpy().shape
+    assert shape == (0, 30)
+    assert numpy.array_equal(d.to_numpy(), numpy.empty(shape))
    
