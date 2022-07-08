@@ -22,14 +22,15 @@ def test_write_empty_output_by_readback():
     # get the empty file example
     ifn = os.path.join(files, 'codar_raw', 'Radialmetric_HATY_2013_11_01', \
                    'RDLv_HATY_2013_11_01_1830.ruv')
-    d, types_str, header, footer = read_lluv_file(ifn)
+    r = read_lluv_file(ifn)
+    d = r.data.to_numpy()
     ofn = os.path.join(files, 'test_output.txt')
-    write_output(ofn, header, d, footer)
+    write_output(r, ofn)
     ifn2 = ofn
-    d2, types_str2, header2, footer2 = read_lluv_file(ifn2)
+    r2 = read_lluv_file(ifn2)
+    d2 = r2.data.to_numpy()
 
-    assert header == header2
-    assert footer == footer2 
+    assert r.metadata == r2.metadata
     assert numpy.isclose(d, d2, equal_nan=True).all(), 'should be equal, including where NaN'
     assert d.size == 0, 'should be empty'
     assert d2.size == 0, 'should be emtpy'
@@ -41,14 +42,16 @@ def test_write_output_by_readback():
     """
     ifn = os.path.join(files, 'codar_raw', 'Radialmetric_HATY_2013_11_05', \
                    'RDLv_HATY_2013_11_05_0000.ruv')
-    d, types_str, header, footer = read_lluv_file(ifn)
-    ofn = os.path.join(files, 'test_output.txt')
-    write_output(ofn, header, d, footer)
-    ifn2 = ofn
-    d2, types_str2, header2, footer2 = read_lluv_file(ifn2)
 
-    assert header == header2
-    assert footer == footer2
+    r = read_lluv_file(ifn)
+    d = r.data.to_numpy()
+    ofn = os.path.join(files, 'test_output.txt')
+    write_output(r, ofn)
+    ifn2 = ofn
+    r2 = read_lluv_file(ifn2)
+    d2 = r2.data.to_numpy()
+
+    assert r.metadata == r2.metadata
     assert numpy.isclose(d, d2, equal_nan=True).all(), 'should be equal, including where NaN'
 
     # Asserting that the data arrays are equal, raised an interesting 

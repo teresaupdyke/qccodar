@@ -2,7 +2,8 @@
 #
 # Last modified: Time-stamp: <2022-06-29 18:26:03 codar>
 """
-Tests for reading lluv files.
+Tests for reading lluv files. 
+Now using hfradarpy Radial Class
 
 We may need to deal with different types of LLUV files eventually.
 
@@ -41,8 +42,7 @@ def test_load_data():
 
 def test_read_lluv_file():
     """
-    test_read_lluv_file -- Read typical LLUV data that has data
-    now using hfradarpy Radial class 
+    test_read_lluv_file -- Read typical LLUV data that has data as a Radial object
     
     """
     r = read_lluv_file(ifn)
@@ -70,7 +70,7 @@ def test_read_lluv_file():
 
 def test_read_lluv_empty_file():
     """
-    test_read_lluv_empty_file -- Read LLUV data that has NO radial data
+    test_read_lluv_empty_file -- Read LLUV data that has NO radial data as a Radial object
     
     """
     empty_ifn = os.path.join(files, 'codar_raw', 'Radialmetric_HATY_2013_11_01', \

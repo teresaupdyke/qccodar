@@ -139,17 +139,21 @@ def threshold_rsd_numpoints(rs, radialshort_velocity_count_min=1):
     rs1.data.loc[bad, 'VFLG'] = rs1.data.loc[bad, 'VFLG'] + (1<<12)
     return rs1
 
-
 def weighted_velocities(r, numdegrees=3, weight_parameter='MP'):
     """Calculates weighted average of radial velocities (VELO) at bearing and range.
 
     The weighted average of velocities found at given range and
     bearing based on weight_parameter.
-
+    
+    NOTE:  this version, like an earlier version, uses numpy array for building the RadialShort data array
+    Indexing into the numpy array to fill data within the loop is much, much faster
+    
+    %timeit df2 = weighted_velocities_np(rmqc, numdegrees=3, weight_parameter='MP')
+    1.15 s per loop (mean of 7 runs, 1 loop each)
+    
     Paramters
     ---------
-    d : ndarray
-        The data from LLUV file(s). 
+    r : Radial object -- created by hfradarpy with the data from LLUV file(s). 
     types_str : string 
         The 'TableColumnTypes' string header of LLUV file(s) provide keys for each column.
     weight_parameter : string ('MP', 'SNR3', 'NONE'), optional 
@@ -166,13 +170,131 @@ def weighted_velocities(r, numdegrees=3, weight_parameter='MP'):
 
     Returns
     -------
-    xd : ndarray
+    df : pandas Dataframe with columns labeled
        The averaged values with range and bearing.
-       An array with averaged values, range, bearing, 
-    xtypes_str : string 
-        The order and key-labels for each column of xd array
 
     """
+
+    # 
+    # order of columns and labels for output data
+    xcol_labels = ['VFLG', 'SPRC', 'BEAR', 'VELO', 'ESPC', 'MAXV', 'MINV', 'EDVC', 'ERSC']
+    xc = get_columns(' '.join(xcol_labels))
+    
+    # data and columns from input Radial object as numpy array
+    d = copy.deepcopy(r.data.to_numpy()) # NOTE using np array, not the dataframe
+    c = get_columns( ' '.join(r.data.columns.to_list()) ) # dict of column labels, their index
+    offset = ((numdegrees-1)/2)
+
+    ud = unique_rows(d[:,[c['SPRC'],c['BEAR'],c['VFLG']]].copy())
+    # return only rows that have VFLG==0 (0 == good, >0 bad) so only get good data
+    ud = ud[ud[:,2]==0]
+    if ud.size == 0:
+        r.data = numpy.array([])
+        return r.data
+
+    #
+    allbearings = numpy.unique(ud[:,1])
+    allranges = numpy.unique(ud[:,0])
+    ud = numpy.array([[r, b] for r in allranges for b in allbearings])
+    
+    #
+    nrows, _ = ud.shape
+    ncols = len(xc)
+    xd = numpy.ones(shape=(nrows,ncols))*numpy.nan
+    #
+    for irow, cell in enumerate(ud):
+        rngcell, bearing = cell[0:2]
+        # numpy.where() returns a tuple for condition so use numpy.where()[0]
+        # also VFLG must equal 0 (0 == good, >0 bad) so only get good data
+        xrow = numpy.where((d[:,c['SPRC']]==rngcell) & \
+                           (d[:,c['BEAR']]>=bearing-offset) & \
+                           (d[:,c['BEAR']]<=bearing+offset) & \
+                           (d[:,c['VFLG']]==0))[0]
+        # If no row matches rngcell AND bearing, then no VELO data, skip to next bearing
+        if xrow.size == 0: 
+            continue
+
+        xcol = numpy.array([c['VELO'], c['MSEL'], c['MSP1'], c['MDP1'], c['MDP2'], c['MA3S']])
+        a = d[numpy.ix_(xrow, xcol)].copy()
+
+        # if xrow.size == edvc:
+        VELO = a[:,0] # all radial velocities found in cell
+        SNR3 = a[:,5] # SNR on monopole for each velocity
+        if weight_parameter.upper() == 'MP':
+            # Create array to hold each Music Power (based on MSEL)
+            MP = numpy.array(numpy.ones(VELO.shape)*numpy.nan) 
+            # pluck the msel-based Music Power from MSP1, MDP1 or MPD2 column
+            for msel in [1, 2, 3]:
+                which = a[:,1]==msel
+                MP[which,] = a[which, msel+1]
+            # convert MP from db to voltage for weighting
+            MP = numpy.power(10, MP/10.)
+            wts = MP/MP.sum()
+            velo = numpy.dot(VELO,wts)
+        elif weight_parameter.upper() == 'SNR3' or weight_parameter.upper() == 'SNR':
+            wts = SNR3/SNR3.sum()
+            velo = numpy.dot(VELO,wts)
+        elif weight_parameter.upper() == 'NONE':
+            # do no weighting and just compute the mean of all velo's
+            velo = VELO.mean()
+        # data
+        xd[irow,xc['VFLG']] = 0
+        xd[irow,xc['SPRC']] = rngcell
+        xd[irow,xc['BEAR']] = bearing
+        xd[irow,xc['VELO']] = velo
+        # other stat output
+        xd[irow,xc['ESPC']] = VELO.std() # ESPC
+        xd[irow,xc['MAXV']] = VELO.max() # MAXV
+        xd[irow,xc['MINV']] = VELO.min() # MINV
+        # (EDVC and ERSC are the same in this subroutine's context)
+        xd[irow,xc['EDVC']] = VELO.size # EDVC Velocity Count 
+        xd[irow,xc['ERSC']] = VELO.size # ERSC Spatial Count
+
+    # create dataframe with the np array
+    df = pd.DataFrame(xd)
+    df.columns = xcol_labels
+    # delete extra lines (nan) not filled above
+    df.dropna(axis=0, how='all', inplace=True)
+    # ESPC had several nan's, replace these and other nan before returning?
+    df.fillna(999.000, inplace=True)
+
+    return df
+
+def deprecated_weighted_velocities_df(r, numdegrees=3, weight_parameter='MP'):
+    """Calculates weighted average of radial velocities (VELO) at bearing and range.
+
+    The weighted average of velocities found at given range and
+    bearing based on weight_parameter.
+    
+    DATAFRAME VERSION -- is much slower -- takes 40-50 sec to do weighted velocities for one RadialShort
+
+    %timeit df1 = weighted_velocities_df(rmqc, numdegrees=3, weight_parameter='MP')
+    52.1 s per loop (mean of 7 runs, 1 loop each)
+
+    Keeping here for documentation reasons
+    
+    Paramters
+    ---------
+    r : Radial object -- created by hfradarpy
+    weight_parameter : string ('MP', 'SNR3', 'NONE'), optional 
+        If 'MP' (default), uses MUSIC antenna peak power values for weighting function
+           using MSEL to select one of (MSP1, MDP1, or MDP2).
+        If 'SNR3', uses signal-to-noise ratio on monopole (MA3S).
+        If 'NONE', just average with no weighting performed.
+    numdegrees: int, optional (default 3 degree)
+       The number of degrees of bearing from which to get velocities to spatially average over.
+       For example, 
+          If 1 deg, velocities from window of 1 deg will be averaged.
+          If 3 deg, velocities from a window of 3 degrees will be averaged. This is the default.
+          If 5 deg, velocities from a window of 5 degrees will be averaged.
+
+    Returns
+    -------
+    xd : pandas Dataframe with columns labeled
+       The averaged values with range and bearing.
+
+    """
+    print(" ... DATAFRAME VERSION OF WEIGHTED_VELOCITIES")
     # 
     # order of columns and labels for output data
     xcols = ['VFLG', 'SPRC', 'BEAR', 'VELO', 'ESPC', 'MAXV', 'MINV', 'EDVC', 'ERSC']
