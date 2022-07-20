@@ -14,19 +14,20 @@ files = os.path.join(os.path.curdir, 'test', 'files')
 
 def test_generate_radialshort_array():
     ifn = os.path.join(files, 'codar_raw', 'Radialmetric_HATY_2013_11_05', 'RDLv_HATY_2013_11_05_0000.ruv')
-    d, types_str, header, footer = read_lluv_file(ifn)
-    
-    # no qc thresholds and this no weighting and 1 deg angres (bearing_offset=0.0) is same as CODAR processing
-    xd, xtypes_str = weighted_velocities(d, types_str, 1, 'NONE')
+    r = read_lluv_file(ifn)
+
     ####################
     # TESTING
-    rsd, rsdtypes_str = generate_radialshort_array(xd, xtypes_str, header)
+    # no qc thresholds and this no weighting and 1 deg angres (bearing_offset=0.0) is same as CODAR processing
+    rs = generate_radialshort(r, table_type='LLUV RDL7', numdegrees=1, weight_parameter='NONE')
+    rsd = rs.data.to_numpy()
     ####################
-    rsc = get_columns(rsdtypes_str)
+    rsc = get_columns( ' '.join(rs.data.columns.to_list()) )
 
     ifn2 = os.path.join(files, 'RadialShorts_no_weight_angres1', 'RDLx_HATY_2013_11_05_0000.ruv')
-    td, ttypes_str, theader, tfooter = read_lluv_file(ifn2)
-    tc = get_columns(ttypes_str)
+    tr = read_lluv_file(ifn2)
+    td = tr.data.to_numpy()
+    tc = get_columns( ' '.join(tr.data.columns.to_list()) )
 
     trngbear = td[:, [tc['SPRC'], tc['BEAR']]]
     rsrngbear = rsd[:, [rsc['SPRC'], rsc['BEAR']]]
@@ -88,78 +89,43 @@ def test_generate_radialshort_array():
     #     'something wrong with VELV, is not close to CODAR VELV'
 
 
-def test_generate_radialshort_header():
-    ifn = os.path.join(files, 'codar_raw', 'Radialmetric_HATY_2013_11_05', 'RDLv_HATY_2013_11_05_0000.ruv')
-    d, types_str, header, footer = read_lluv_file(ifn)
-    # no qc thresholds and this no weighting and 1 deg angres (bearing_offset=0.0) is same as CODAR processing
-    xd, xtypes_str = weighted_velocities(d, types_str, 1, 'NONE')
-    rsd, rsdtypes_str = generate_radialshort_array(xd, xtypes_str, header) 
-    ####################
-    # TESTING    
-    rsdheader = generate_radialshort_header(rsd, rsdtypes_str, header)
-    ####################
-    assert rsdheader.split('\n')[0] == '%CTF: 1.00'
-    assert re.search(r'%TableColumnTypes:.*\n', rsdheader).group() == \
-        '%TableColumnTypes: LOND LATD VELU VELV VFLG ESPC MAXV MINV EDVC ERSC XDST YDST RNGE BEAR VELO HEAD SPRC\n'
-    assert re.search(r'%TableType:.*\n', rsdheader).group() == '%TableType: LLUV RDL7\n'
-    assert re.search(r'%TableStart:.*\n', rsdheader).group()== '%TableStart:\n'
-
-    assert int(re.search(r'%TableRows:\s(\d*?)\n', rsdheader).groups()[0]) == rsd.shape[0]
-    assert int(re.search(r'%TableColumns:\s(\d*?)\n', rsdheader).groups()[0]) == rsd.shape[1]
-
 # tests for dealing with empty arrays or when there are no radials -- need empty radialshort data
 def test_generate_radialshort_empty_array_when_no_radial_data():
     ifn = os.path.join(files, 'codar_raw', 'Radialmetric_HATY_2013_11_01', 'RDLv_HATY_2013_11_01_1830.ruv')
-    d, types_str, header, footer = read_lluv_file(ifn)
+    r = read_lluv_file(ifn)
+    d = r.data.to_numpy()
 
     # Make sure no data first
     assert d.size == 0
 
     ####################
     # TESTING
-    rsd, rsdtypes_str = generate_radialshort_array(d, types_str, header) 
+    rs = generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_parameter='MP')
+    rsd = rs.data.to_numpy()
+    rsdtypes_str = ' '.join(rs.data.columns)
     ####################
 
     assert rsd.size == 0
     assert rsdtypes_str == 'LOND LATD VELU VELV VFLG ESPC MAXV MINV EDVC ERSC XDST YDST RNGE BEAR VELO HEAD SPRC'
 
-def test_generate_radialshort_header_for_empty_array_when_no_radial_data():
-    ifn = os.path.join(files, 'codar_raw', 'Radialmetric_HATY_2013_11_01', 'RDLv_HATY_2013_11_01_1830.ruv')
-    d, types_str, header, footer = read_lluv_file(ifn)
-    rsd, rsdtypes_str = generate_radialshort_array(d, types_str, header) 
-
-    ####################
-    # TESTING
-    rsdheader = generate_radialshort_header(rsd, rsdtypes_str, header)
-    ####################
-
-    rsc = get_columns(rsdtypes_str)
-
-    assert rsdheader.split('\n')[0] == '%CTF: 1.00'
-    assert re.search(r'%TableColumnTypes:.*\n', rsdheader).group() == \
-        '%TableColumnTypes: LOND LATD VELU VELV VFLG ESPC MAXV MINV EDVC ERSC XDST YDST RNGE BEAR VELO HEAD SPRC\n'
-    assert re.search(r'%TableType:.*\n', rsdheader).group() == '%TableType: LLUV RDL7\n'
-    assert re.search(r'%TableStart:.*\n', rsdheader).group()== '%TableStart:\n'
-
-    assert int(re.search(r'%TableRows:\s(\d*?)\n', rsdheader).groups()[0]) == 0
-    assert int(re.search(r'%TableColumns:\s(\d*?)\n', rsdheader).groups()[0]) == len(rsc)
 
 def _scratch():
     ifn = os.path.join(files, 'codar_raw', 'Radialmetric_HATY_2013_11_05', 'RDLv_HATY_2013_11_05_0000.ruv')
-    d, types_str, header, footer = read_lluv_file(ifn)
-    xd, xtypes_str = weighted_velocities(d, types_str, numdegrees=1, weight_parameter='NONE')
-    xc = get_columns(xtypes_str)
+    r0 = read_lluv_file(ifn)
+    # weighted_velocities returns a pandas dataframe
+    df1 = weighted_velocities(r0, numdegrees=1, weight_parameter='MP')
+    xd = df1.to_numpy()
+    xc = get_columns( ' '.join(df1.columns.to_list()) )
 
-    ifn2 = os.path.join(files, 'RadialShorts_no_weight_angres1', 'RDLx_HATY_2013_11_05_0000.ruv')
-    td, ttypes_str, theader, tfooter = read_lluv_file(ifn2)
-    tc = get_columns(ttypes_str)
+    ifn2 = os.path.join(files, 'RadialShorts_mp_weight_angres1', 'RDLx_HATY_2013_11_05_0000.ruv')
+    tr = read_lluv_file(ifn2)
+    td = tr.data.to_numpy()
+    tc = get_columns( ' '.join(tr.data.columns.to_list()) )
 
     trngbear = td[:, [tc['SPRC'], tc['BEAR']]]
     xrngbear = xd[:, [xc['SPRC'], xc['BEAR']]]
     trows, xrows = cell_intersect(trngbear, xrngbear)
-    # trows, xrows = cell_intersect(td[:, [tc['SPRC'], tc['BEAR']]], xd[:, [xc['SPRC'], xc['BEAR']]])
 
     subtd = td[trows, tc['VELO']]
     subxd = xd[xrows, xc['VELO']]
-    # subxd VELO is close to subtd VELO within 1/1000 th, since test data was output by CODAR
-    assert numpy.isclose(subxd, subtd, rtol=1e-05, atol=1e-03, equal_nan=True).all()
+    assert numpy.isclose(subxd, subtd, equal_nan=True).all()

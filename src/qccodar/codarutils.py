@@ -174,6 +174,22 @@ def generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_paramet
 
     return rs
 
+def get_columns(types_str):
+    # use dict to store column label and it's column number for indexing numpy array
+    #c = col.defaultdict(int)
+    c = {}
+    column_labels = types_str.strip().split(' ')
+    m = re.findall(r'\w{4}', types_str)
+    for label in column_labels:
+        c[label]=m.index(label) # c['VFLG']=4
+    return c
+    
+def unique_rows(a):
+    # http://stackoverflow.com/questions/8560440/removing-duplicate-columns-and-rows-from-a-numpy-2d-array?lq=1
+    a = numpy.ascontiguousarray(a)
+    unique_a = numpy.unique(a.view([('', a.dtype)]*a.shape[1]))
+    return unique_a.view(a.dtype).reshape((unique_a.shape[0], a.shape[1]))
+
 def cell_intersect(rngbear1, rngbear2):
     """ Return rows that match range and bearing data between the two nx2 matrices.
 

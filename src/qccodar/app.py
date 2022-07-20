@@ -30,7 +30,7 @@ def load_configs(configfile='/Users/codar/qccodar_files/qccodar.plist'):
     if Path(configfile).is_file():
         plistfile = Path(configfile)
     else:
-        plistfile = Path(__file__).parent.resolve() / 'qccodar.plist'
+        plistfile = Path(__file__).parent.resolve() / 'config' / 'qccodar.plist'
 
     try:
         with open(plistfile, 'rb') as fp:
