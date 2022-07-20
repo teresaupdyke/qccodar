@@ -39,11 +39,10 @@ setup(name='qccodar',
       package_dir={'': 'src'},
       include_package_data=True,
       zip_safe=False,
-      namespace_packages=["qccodar", "qccodar.qcviz", "qccodar.test"],
+      namespace_packages=["qccodar", "qccodar.test"],
       install_requires=install_requires,
       extras_require={
         'tests' : tests_requires,
-        'qcviz' : qcviz_requires
         },
       test_suite="qccodar.test",
       entry_points="""
