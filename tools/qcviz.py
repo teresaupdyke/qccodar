@@ -213,7 +213,7 @@ ax = plt.subplot(igs[4])
 stest1 = matplotlib.widgets.Slider(ax, 'DOA Width', 0, 180, valstep=10, valinit=params['thresholds'][1], valfmt='%3.1f (deg)')
 
 ax = plt.subplot(igs[5])
-stest2 = matplotlib.widgets.Slider(ax, 'SNR Mono', 0, 25, valstep=0.1, valinit=params['thresholds'][2], valfmt='%3.1f (dB)')
+stest2 = matplotlib.widgets.Slider(ax, 'SNR Mono & Loops', 0, 25, valstep=0.1, valinit=params['thresholds'][2], valfmt='%3.1f (dB)')
 
 # --------
 ax = plt.subplot(igs[7], title='Weighting Windows')
@@ -285,19 +285,22 @@ hist_axs[1].set_title('Dual Soln 1')
 hist_axs[2].set_title('Dual Soln 2')
 
 # Row of MSR1, MDR1, MDR2 histogram plots
-hist_axs[0].annotate('DOA Pow\nMSR1', xy=(0.5,0.8), xycoords=u'axes fraction')
-hist_axs[1].annotate('DOA Pow\nMDR1', xy=(0.5,0.8), xycoords=u'axes fraction')
-hist_axs[2].annotate('DOA Pow\nMDR2', xy=(0.5,0.8), xycoords=u'axes fraction')
+hist_axs[0].annotate('DOA Pow\nMSR1', xy=(0.5,0.95), xycoords=u'axes fraction', verticalalignment='top')
+hist_axs[1].annotate('DOA Pow\nMDR1', xy=(0.5,0.95), xycoords=u'axes fraction', verticalalignment='top')
+hist_axs[2].annotate('DOA Pow\nMDR2', xy=(0.5,0.95), xycoords=u'axes fraction', verticalalignment='top')
 
 # Row of MSW1, MDW1, MDW2 histogram plots
-hist_axs[3].annotate('DOA Width\nMSW1', xy=(0.5,0.8), xycoords=u'axes fraction')
-hist_axs[4].annotate('DOA Width\nMDW1', xy=(0.5,0.8), xycoords=u'axes fraction')
-hist_axs[5].annotate('DOA Width\nMDW2', xy=(0.5,0.8), xycoords=u'axes fraction')
+hist_axs[3].annotate('DOA Width\nMSW1', xy=(0.5,0.95), xycoords=u'axes fraction', verticalalignment='top')
+hist_axs[4].annotate('DOA Width\nMDW1', xy=(0.5,0.95), xycoords=u'axes fraction', verticalalignment='top')
+hist_axs[5].annotate('DOA Width\nMDW2', xy=(0.5,0.95), xycoords=u'axes fraction', verticalalignment='top')
 
 # Row of MSW1, MDW1, MDW2 histogram plots
-hist_axs[6].annotate('SNR Mono\nMA3S', xy=(0.5,0.8), xycoords=u'axes fraction')
-hist_axs[7].annotate('SNR Mono\nMA3S', xy=(0.5,0.8), xycoords=u'axes fraction')
-hist_axs[8].annotate('SNR Mono\nMA3S', xy=(0.5,0.8), xycoords=u'axes fraction')
+xxx=hist_axs[6].annotate('SNR', xy=(0.5,0.95), xycoords=u'axes fraction', verticalalignment='top')
+hist_axs[6].annotate('Mono',  xy=(0.7,0.95), xycoords=u'axes fraction', verticalalignment='top', color='blue')
+hist_axs[6].annotate('Loop1', xy=(0.7,0.80), xycoords=u'axes fraction', verticalalignment='top', color='red', alpha=0.6)
+hist_axs[6].annotate('Loop2', xy=(0.7,0.65), xycoords=u'axes fraction', verticalalignment='top', color='orange', alpha=0.6)
+hist_axs[7].annotate('SNR', xy=(0.5,0.95), xycoords=u'axes fraction', verticalalignment='top')
+hist_axs[8].annotate('SNR', xy=(0.5,0.95), xycoords=u'axes fraction', verticalalignment='top')
 
 
 def plot_hist_tolerances():
@@ -329,21 +332,27 @@ def plot_hist_bars(rm):
             # remove bar objects, before we can draw new updated ones
             bar.remove()
 
-    bars = [None] * 9
+    bars = [None] * 15
     want = rm.data['MSEL'] == 1
-    _,_,bars[0]= hist_axs[0].hist(rm.data.loc[want, 'MSR1'], bins=50, range=(0, 50), lw=1, ec="black", fc="blue")
-    _,_,bars[3]= hist_axs[3].hist(rm.data.loc[want, 'MSW1'], bins=50, range=(0, 180), lw=1, ec="black", fc="blue")
-    _,_,bars[6]= hist_axs[6].hist(rm.data.loc[want, 'MA3S'], bins=50, range=(0, 50), lw=1, ec="black", fc="blue")
+    _,_,bars[0]= hist_axs[0].hist(rm.data.loc[want, 'MSR1'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="blue")
+    _,_,bars[1]= hist_axs[3].hist(rm.data.loc[want, 'MSW1'], bins=50, range=(0, 180), lw=0.5, ec="black", fc="blue")
+    _,_,bars[2]= hist_axs[6].hist(rm.data.loc[want, 'MA3S'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="blue")
+    _,_,bars[3]= hist_axs[6].hist(rm.data.loc[want, 'MA1S'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="red", alpha=0.6)
+    _,_,bars[4]= hist_axs[6].hist(rm.data.loc[want, 'MA2S'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="orange", alpha=0.6)
 
     want = rm.data['MSEL'] == 2
-    _,_,bars[1]= hist_axs[1].hist(rm.data.loc[want, 'MDR1'], bins=50, range=(0, 50), lw=1, ec="black", fc="blue")
-    _,_,bars[4]= hist_axs[4].hist(rm.data.loc[want, 'MDW1'], bins=50, range=(0, 180), lw=1, ec="black", fc="blue")
-    _,_,bars[7]= hist_axs[7].hist(rm.data.loc[want, 'MA3S'], bins=50, range=(0, 50), lw=1, ec="black", fc="blue")
+    _,_,bars[5]= hist_axs[1].hist(rm.data.loc[want, 'MDR1'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="blue")
+    _,_,bars[6]= hist_axs[4].hist(rm.data.loc[want, 'MDW1'], bins=50, range=(0, 180), lw=0.5, ec="black", fc="blue")
+    _,_,bars[7]= hist_axs[7].hist(rm.data.loc[want, 'MA3S'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="blue")
+    _,_,bars[8]= hist_axs[7].hist(rm.data.loc[want, 'MA1S'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="red", alpha=0.6)
+    _,_,bars[9]= hist_axs[7].hist(rm.data.loc[want, 'MA2S'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="orange", alpha=0.6)
 
     want = rm.data['MSEL'] == 3
-    _,_,bars[2]= hist_axs[2].hist(rm.data.loc[want, 'MDR2'], bins=50, range=(0, 50), lw=1, ec="black", fc="blue")
-    _,_,bars[5]= hist_axs[5].hist(rm.data.loc[want, 'MDW2'], bins=50, range=(0, 180), lw=1, ec="black", fc="blue")
-    _,_,bars[8]= hist_axs[8].hist(rm.data.loc[want, 'MA3S'], bins=50, range=(0, 50), lw=1, ec="black", fc="blue")
+    _,_,bars[10]= hist_axs[2].hist(rm.data.loc[want, 'MDR2'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="blue")
+    _,_,bars[11]= hist_axs[5].hist(rm.data.loc[want, 'MDW2'], bins=50, range=(0, 180), lw=0.5, ec="black", fc="blue")
+    _,_,bars[12]= hist_axs[8].hist(rm.data.loc[want, 'MA3S'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="blue")
+    _,_,bars[13]= hist_axs[8].hist(rm.data.loc[want, 'MA1S'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="red", alpha=0.6)
+    _,_,bars[14]= hist_axs[8].hist(rm.data.loc[want, 'MA2S'], bins=50, range=(0, 50), lw=0.5, ec="black", fc="orange", alpha=0.6)
 
     plt.draw()
 
@@ -478,24 +487,6 @@ snumpoints.on_changed(snumpoints_change)
 
 rwtdavg.on_clicked(wtdavg_change)
 
-def compass2deg(az):
-    """ Convert compass azimuth to cartesian angle in degrees
-
-    https://en.wikipedia.org/wiki/Polar_coordinate_system#Converting_between_polar_and_Cartesian_coordinates
-
-    Using arctan2 does this relative to (x0,y0)=(1,0)
-    """
-    x,y = compass2uv(1,az)
-    # arctan2 does this relative to (x0,y0)=(1,0)
-    return numpy.arctan2(y, x)*180./numpy.pi
-
-def deg2compass(deg):
-    """ Convert cartesian angle of degrees to compass azimuth"""
-    compass = 90.-deg
-    if compass < 0.:
-        compass = compass + 360.
-    return compass
-
-
+#  start the show
 plt.show()
 
