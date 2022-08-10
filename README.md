@@ -40,7 +40,11 @@ While logged on as user `codar`, open a terminal to download (curl) and run the 
    $ bash ~/Downloads/miniconda3.sh -b -p $HOME/miniconda3
    $ export PATH="$HOME/miniconda3/bin:$PATH"
 ```
-
+NOTE: If using a Mac with the Apple M1 chip, use this curl command instead:
+```bash
+   $ curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o "miniconda3.sh"
+ ```
+  
 As, user `codar`, edit `~/.bash_profile`, add the `export
 PATH="$HOME/miniconda3/bin:$PATH"`, and then source your profile.
 
@@ -158,6 +162,9 @@ Python 3 is required. However, earlier versions of some of the other packages ma
 - CODAR SeaSonde RadialSuite 8.x -- does not support RadialMetric output unless requested
    - Requires special key file specifically to enable RadialMetric output (contact CODAR to get)
    - Requires RadialMetric R2 Addon (contact CODAR to get)
-- 
+- CODAR SeaSonde RadialSuite 21 -- does not support RadialMetric output unless requested
+   - Requires special key file specifically to enable RadialMetric output (contact CODAR to get)
+   - DOES NOT require a RadialMetric Addon
+-
     - /Codar/SeaSonde/Apps/Bin/LLUVMerger.app
     - Used to merge spatial and temporal RadialShorts data to final Radial
