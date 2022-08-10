@@ -255,7 +255,8 @@ def compass2uv(wmag, wdir):
     v = wmag*numpy.cos(wdir*r)
     return (u,v)
 
-def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_of_css=5.0, shorts_minute_filter='*00',debug=2, diag = '4'):
+def run_LLUVMerger(datadir, fn, patterntype, qv_merge, debug=2):
+# def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_of_css=5.0, shorts_minute_filter='*00',debug=2, diag = '4'):
     """ Run CODAR's LLUVMerger app in subprocess """
 
     import subprocess
@@ -272,6 +273,33 @@ def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_o
         print('Do not recognize patterntype='+patterntype+' -- must be IdealPattern or MeasPattern ') 
         return
 
+    # set defaults for required elements of LLUVMerger to generate Radials, in case missing from configfile
+    css_interval_minutes=30.0
+    number_of_css=5.0
+    shorts_minute_filter='*00'
+    method='average'
+    minvect = '2'
+    diag = '4'
+
+    # items that are configurable in qccodar_values['merge'] passed as qv_merge
+    if 'css_interval_minutes' in qv_merge.keys():
+        css_interval_minutes=qv_merge['css_interval_minutes']
+    if 'number_of_css' in qv_merge.keys():
+        number_of_css=qv_merge['number_of_css']
+    if 'shorts_minute_filter' in qv_merge.keys():
+        shorts_minute_filter=qv_merge['shorts_minute_filter']
+    if 'method' in qv_merge.keys():
+        method=qv_merge['method']
+    if 'minvect' in qv_merge.keys():
+        minvect=qv_merge['minvect']
+    if 'angalign' in qv_merge.keys():
+        angalign = qv_merge['angalign']
+    if 'diag' in qv_merge.keys():
+        diag = qv_merge['diag']
+    if 'reference' in qv_merge.keys():
+        reference = qv_merge['reference']
+
+    
     rs_output_interval = datetime.timedelta(minutes=css_interval_minutes)
     rs_num = number_of_css
     # (merge average 5*30 min = 150 min or 2.5 hours)
@@ -302,19 +330,27 @@ def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_o
     #       00:40
 
     # ordered list of args, order of some options is important,
-    # e.g. -span and -startwith before -source
+    # -span and -startwith must be before -source
+    
+    # Must have -angres=5 and -angmethod=short to merge RadialShorts to Radials 
+    # so keeping these static here and are not changeable in configfile
     args = ['/Codar/SeaSonde/Apps/Bin/LLUVMerger',
             '-span='+span_hrs_str,
             '-lluvtype='+lluvtype, 
             '-angres=5',
-            '-angalign=2',
             '-angmethod=short',
-            '-method=average',
-            '-minvect=2',
+            '-method='+method,
+            '-minvect='+minvect,
             '-velcount',
             '-diag='+diag,
             '-source='+ifn,
             '-output='+outdir]
+
+    # if any of these are set within this function as local variable then add it to args for running LLUVMerger
+    if 'reference' in locals():
+        args.append('-reference='+reference)
+    if 'angalign' in locals():
+        args.append('-angalign='+angalign)
 
     if debug>=2:
         print(' '.join(args))
@@ -337,7 +373,7 @@ def run_LLUVMerger(datadir, fn, patterntype, css_interval_minutes=30.0, number_o
 
     # Check merged file has correct time-of-merge
     if stdout_content:
-        # stdout_content should be
+        # stdout_content should look similar to
         # Running LLUVMerger 1.4.1
         # Merging 5 Sources...
         # Merging done.
@@ -478,12 +514,67 @@ def add_diagnostic_tables(r, shortpath):
             od[2] = rs._tables[key2]
             od[2]['data'] = rdtdata
             od[2]['TableRows'] = rdtdata.shape[0]
+            r.diagnostics_radial = rdtdata
         elif 'rcvr' in table2['TableType']:
             od[3] = rs._tables[key2]
             od[3]['data'] = hdtdata
             od[3]['TableRows'] = hdtdata.shape[0]
+            r.diagnostics_hardware = hdtdata
 
     r._tables = od
+
+    return r
+
+
+def fix_empty_radial(r, table_type='LLUV RDL9'):
+    """Fixes an empty radial (r) Radial object that be can be written out using 
+    r.to_ruv() to avoid an error when there is missing table information.
+
+    return r (Radial object) for writing out empty LLUV files.
+
+    Parameters
+    ----------
+    r : Radial object read from LLUVMerger empty radial file 
+    table_type = 'LLUV RDL9'  ensures correct file format used as template
+       
+
+    Returns
+    -------
+    r: Radial object, fixed by using re._tables[1]
+    """
+
+    if table_type == 'LLUV RDL9':
+        formatfile = Path(__file__).parent.resolve() / 'file_formats' / 'radial_LLUV_RDL9.ruv'
+        # formatfile = './test_empty_Radials_qcd/RDLi_HATY_2020_10_08_2000.ruv'
+        re = Radial(formatfile,empty_radial=True)
+    else:
+        print('fix_empty_radial() : Unrecognized table_type "%s"' % (table_type,))
+        return r
+
+    ## it would be easy if we knew for sure they would always be key==1 for both
+    ## r._tables[1] = re._tables[1]
+    ## r.data = re._tables[1]['data']
+
+    # all this to make sure index to r._tables and re._tables are getting 'LLUV' tables from both,
+    # in case they are different keys
+
+    # get all the table types
+    r_tts = [r._tables[key]['TableType'].split(' ')[0] for key in r._tables.keys()]
+    re_tts = [re._tables[key]['TableType'].split(' ')[0] for key in re._tables.keys()]
+
+    # get list of keys -- r._tables is OrderedDict() and odict_keys are not subscriptable
+    # so generate a list of keys
+    r_keys= [key for key in r._tables.keys()]
+    re_keys= [key for key in re._tables.keys()]
+
+    idx = r_tts.index('LLUV')
+    r_key = r_keys[idx]
+    idx = re_tts.index('LLUV')
+    re_key = re_keys[idx]
+    
+    # copy correctly formatted empty data table from re (Radial object) to r (Radial object)
+    r._tables[r_key] = re._tables[re_key]
+    r.data = re._tables[re_key]['data']
 
     return r
 
@@ -493,7 +584,8 @@ def do_merge(datadir, fn, pattern, qccodar_values):
         match), adds diagnostic tables to the end of the file """
     from qccodar.qcutils import add_short_metadata
 
-    ofn = run_LLUVMerger(datadir, fn, pattern, diag='4', **qccodar_values['merge'])
+    ofn = run_LLUVMerger(datadir, fn, pattern, qccodar_values['merge'])
+    # ofn = run_LLUVMerger(datadir, fn, pattern, diag='4', **qccodar_values['merge'])
     if ofn:
         r = read_lluv_file(ofn)
         r = add_short_metadata(r, qccodar_values)
@@ -522,5 +614,8 @@ def do_merge(datadir, fn, pattern, qccodar_values):
             shortpath = os.path.join(datadir, 'RadialShorts_qcd',pattern)
             r = check_headertime(r,ofn)
             r = add_diagnostic_tables(r, shortpath)
+            # if there is offending data table header, fix the empty table
+            if r._tables[1]['_TableHeader'] == [[''], ['']]:
+                r = fix_empty_radial(r)
             write_output(r, ofn)
             return ofn
