@@ -424,6 +424,7 @@ def add_diagnostic_tables(r, shortpath):
       for the merged radial file """
 
     from collections import OrderedDict
+    from qccodar.qcutils import filt_datetime
 
     for key in r._tables.keys():
         table = r._tables[key]
@@ -456,14 +457,25 @@ def add_diagnostic_tables(r, shortpath):
                 hdt = table['data']
                 hdtdata = pd.concat([hdtdata, hdt], ignore_index=True)
 
-    # remove duplicates
+    fn_time = filt_datetime(r.file_name)
     if not rdtdata.empty:
-        rdtdata = rdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'])
+        # remove duplicate times
+        rdtdata = rdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'],ignore_index=True)
+        # adjust rdt for seconds from file time
+        rdttemp = rdtdata.copy()
+        rdttemp.loc[:, "TIME"] = rdttemp.loc[:, "datetime"].apply(lambda s: (s - fn_time).seconds)
+        toohigh = rdttemp['TIME'] > 20000
+        rdttemp.loc[toohigh, 'TIME'] = rdttemp.loc[toohigh, 'TIME'] - 86400
     if not hdtdata.empty:
-        hdtdata = hdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'])
+        # remove duplicate times
+        hdtdata = hdtdata.drop_duplicates(subset=['TYRS', 'TMON', 'TDAY', 'THRS', 'TMIN', 'TSEC'],ignore_index=True)
+        # adjust hdt for minutes from file time
+        hdttemp = hdtdata.copy()
+        hdttemp.loc[:, "TIME"] = hdttemp.loc[:, "datetime"].apply(lambda s: (s - fn_time).seconds)
+        toohighH = hdttemp['TIME'] > 20000
+        hdttemp.loc[toohighH, 'TIME'] = hdttemp.loc[toohighH, 'TIME'] - 86400
+        hdttemp['TIME'] = hdttemp['TIME'] / 60
 
-    # adjust rdt for seconds from start
-    # adjust hdt for minutes from start
     # create a new _tables dictionary for the merged file
     od = OrderedDict()
 
@@ -476,11 +488,11 @@ def add_diagnostic_tables(r, shortpath):
         table2 = rs._tables[key2]
         if 'rads' in table2['TableType']:
             od[2] = rs._tables[key2]
-            od[2]['data'] = rdtdata
+            od[2]['data'] = rdttemp
             od[2]['TableRows'] = rdtdata.shape[0]
         elif 'rcvr' in table2['TableType']:
             od[3] = rs._tables[key2]
-            od[3]['data'] = hdtdata
+            od[3]['data'] = hdttemp
             od[3]['TableRows'] = hdtdata.shape[0]
 
     r._tables = od

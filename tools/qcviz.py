@@ -94,7 +94,7 @@ def get_data(datadir, fn, patterntype):
     global params, qccodar_values
 
     # read in the data
-    ifn = os.path.join(datadir, 'RadialMetric', patterntype, fn)
+    ifn = os.path.join(datadir, 'RadialMetrics', patterntype, fn)
     rm = read_lluv_file(ifn)
 
     # read in other radial metric data to use in averaging over time
