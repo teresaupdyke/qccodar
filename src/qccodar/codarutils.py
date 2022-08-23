@@ -525,13 +525,13 @@ def add_diagnostic_tables(r, shortpath):
         if 'rads' in table2['TableType']:
             od[2] = rs._tables[key2]
             od[2]['data'] = rdttemp
-            od[2]['TableRows'] = rdtdata.shape[0]
-            r.diagnostics_radial = rdtdata
+            od[2]['TableRows'] = rdttemp.shape[0]
+            r.diagnostics_radial = rdttemp
         elif 'rcvr' in table2['TableType']:
             od[3] = rs._tables[key2]
             od[3]['data'] = hdttemp
-            od[3]['TableRows'] = hdtdata.shape[0]
-            r.diagnostics_hardware = hdtdata
+            od[3]['TableRows'] = hdttemp.shape[0]
+            r.diagnostics_hardware = hdttemp
 
     r._tables = od
 
