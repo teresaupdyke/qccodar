@@ -1,0 +1,96 @@
+%CTF: 1.00
+%FileType: LLUV rdls "RadialMap"
+%LLUVSpec: 1.27  2017 01 13
+%UUID: 1615FA2C-844B-49DB-9536-113B756FAD20
+%Manufacturer: CODAR Ocean Sensors. SeaSonde
+%Site: HATY ""
+%TimeStamp: 2020 10 08  20 00 00
+%TimeZone: "UTC" +0.000 0 "Atlantic/Reykjavik"
+%TimeCoverage: 180.000 Minutes
+%Origin: 35.2574500  -75.5203167
+%GreatCircle: "WGS84" 6378137.000  298.257223562997
+%GeodVersion: "CGEO" 1.90  2018 01 31
+%LLUVTrustData: all  all lluv xyuv rbvd
+%RangeStart: 0
+%RangeEnd: 22
+%RangeResolutionKMeters: 5.824900
+%RangeCells: 63
+%DopplerCells: 1024
+%DopplerInterpolation: 2
+%AntennaBearing: 154.0 True
+%ReferenceBearing: 0 True
+%AngularResolution: 5 Deg
+%SpatialResolution: 5 Deg
+%PatternType: Ideal
+%PatternDate: 2020 07 16  20 11 16
+%PatternResolution: 1.0 deg
+%TransmitCenterFreqMHz: 4.575000
+%TransmitBandwidthKHz: -25.733913
+%TransmitSweepRateHz: 1.000000
+%DopplerResolutionHzPerBin: 0.000488281
+%FirstOrderMethod: 0  1 33
+%BraggSmoothingPoints: 3
+%CurrentVelocityLimit: 250.0
+%BraggHasSecondOrder: 0
+%RadialBraggPeakDropOff: 398.110
+%RadialBraggPeakNull: 100.000
+%RadialBraggNoiseThreshold: 5.010
+%PatternAmplitudeCorrections: 1.0000  1.0000
+%PatternPhaseCorrections: -170.00  -120.00
+%PatternAmplitudeCalculations: 999.0000  999.0000
+%PatternPhaseCalculations: -177.10  -124.50
+%RadialMusicParameters: 40.000 20.000 2.000
+%FirstOrderCalc: 1
+%MergedCount: 5
+%MergeMethod: 0 average
+%MergeCloseness: 0.001 km
+%MergeMinimumVectors: 2
+%MergeVectorLocation: False
+%MergeBearingReduction: 5.0 deg
+%MergeBearingAlignment: 0.0 deg
+%MergeBearingMethod: 1 short
+%MergeSources: 5
+%QCDReference: Radial Metric Quality Control Reference: doi:10.1175/JTECH-D-16-0203.1
+%QCDTest: qc_doa_peak_power threshold [doa_peak_power_min = 5.0(dB)] 
+%QCDTest: qc_doa_half_power_width threshold [doa_half_power_width_max = 50.0(degrees)] 
+%QCDTest: qc_monopole_snr threshold [monopole_snr_min = 5.0(dB)] 
+%QCDTest: qc_loop_snr threshold [loop_snr_min = 5.0(dB)] 
+%QCDTest: qc_radialshort_velocity_count [radialshort_velocity_count_min = 2.0(velocities)] 
+%QCDSettings: metric_concatenation [numfiles = 3(files), sample_interval = 30.0(minutes)] 
+%QCDSettings: weighted_shorts [numdegrees = 3(degrees), weight_parameter = MP, table_type = LLUV RDL7]
+%QCDSettings: merge [css_interval_minutes = 30.0(minutes), number_of_css = 5.0(files)] 
+%TableType: LLUV RDL9
+%TableColumns: 20
+%TableColumnTypes: LOND LATD VELU VELV VFLG ESPC ETMP EDEV MAXV MINV EDVC ERSC ERTC XDST YDST RNGE BEAR VELO HEAD SPRC
+%TableRows: 4
+%TableStart: 
+%%   Longitude   Latitude  U comp  V comp VectorFlag Spatial Temporal StdDev Velocity Velocity Velocity Spatial Temporal X Distance Y Distance    Range Bearing Velocity Direction Spectra
+%%       (deg)      (deg)  (cm/s)  (cm/s) (GridCode) Quality  Quality (cm/s)  Maximum  Minimum    Count   Count    Count       (km)       (km)     (km)  (True)   (cm/s)    (True) RngCell
+   -74.9677663 34.9936691  -7.605   4.447          0   0.000    0.040   0.04     8.85      0.0        2       4        2    50.4451   -29.1245   58.249   120.0     8.81     300.3      10
+   -75.0249245 34.8480472 -12.348  12.472          0   0.000    0.770   0.77    18.32      0.0        2       4        2    45.3071   -45.3071  64.0739   135.0    17.55     315.3      11
+   -74.6919908 35.1951274   32.94  -3.159          0 999.000    0.128  0.128  -32.937  -33.194        5       2        2    75.4355    -6.5998  75.7237    95.0  -33.091     275.5      13
+   -74.7020505 35.1361604  32.106  -5.934          0   0.000    0.431  0.431      0.0  -32.937        3       4        2    74.5733   -13.1493  75.7237   100.0   -32.65     280.5      13
+%TableEnd: 
+%%
+%TableType: rads rad1
+%TableColumns: 31
+%TableColumnTypes: TIME AMP1 AMP2 PH13 PH23 CPH1 CPH2 SNF1 SNF2 SNF3 SSN1 SSN2 SSN3 DGRC DOPV DDAP RADV RAPR RARC RADR RMCV RACV RABA RTYP STYP TYRS TMON TDAY THRS TMIN TSEC
+%TableRows: 6
+%TableStart: 2
+%%   Time       Calculated      Calculated     Corrected        Noise Floor     SignalToNoise   Diag  Valid  Dual  Radial RadsV Rads   Max   Vel    Vel    Bearing  Radial Spectra Time
+%% FromStart   Amp1    Amp2   Phase13 Phase23 Phase1 Phase2   NF1   NF2   NF3   SN1  SN2  SN3   Range Dopplr Angle Vector  per  Range Range  Max    Aver   Average   Type   Type   Year Mo Dy  Hr Mn  S
+%%  Seconds  (1/v^2) (1/v^2)   (deg)   (deg)   (deg)  (deg)  (dBm) (dBm) (dBm)  (dB) (dB) (dB)  Cell  Cells  Prcnt Count  Range Cells  (km) (cm/s) (cm/s) (deg CWN)
+% -1800 0.441 0.48 -173.6 -120.2 -170.0 -120.0 -172.0 -172.0 -171.0 16.0 10.0 11.0 11 64 68 67 6 20 116.5 36.7 17.4 116.0 1 68 2020 10 8 18 30 0
+%     0 0.000 0.00 -177.1 -124.5 -170.0 -120.0 -171.0 -172.0 -171.0 13.0  7.0  9.0 11 10 20  7 1 10   0.0 35.1 20.1 132.6 1 68 2020 10 8 19  0 0
+%     0 0.000 0.00 -176.1 -128.1 -170.0 -120.0 -171.0 -172.0 -171.0  8.0  4.0  4.0 11  0  0  0 0  1   0.0  0.0  0.0   0.0 1 68 2020 10 8 19 30 0
+%     0 0.000 0.00 -175.3 -118.4 -170.0 -120.0 -175.0 -174.0 -173.0  0.0  0.0  0.0 33  0  0  0 0  1   0.0  0.0  0.0   0.0 1 68 2020 10 8 20  0 0
+%     0 0.000 0.00 -173.9 -114.0 -170.0 -120.0 -175.0 -174.0 -173.0  0.0  0.0  0.0 33  0  0  0 0  1   0.0  0.0  0.0   0.0 1 68 2020 10 8 20 30 0
+%     0 0.000 0.00 -171.2 -109.9 -170.0 -120.0 -175.0 -174.0 -172.0  0.0  0.0  0.0 33  0  0  0 0  1   0.0  0.0  0.0   0.0 1 68 2020 10 8 21  0 0
+%TableEnd: 2
+%%
+%ProcessedTimeStamp: 2022 08 09  08 15 08
+%ProcessingTool: "SpectraToRadialMetric" 11.5.0
+%ProcessingTool: "RadialArchiver" 12.1.0
+%ProcessingTool: "SpectraOfflineProcessing" 3.0
+%ProcessingTool: "LLUVMerger" 2.0.4
+%End:

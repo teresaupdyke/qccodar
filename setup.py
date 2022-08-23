@@ -50,6 +50,8 @@ setup(name='qccodar',
         qccodar = qccodar.app:main
       """,
       data_files=[('config', ['src/qccodar/config/qccodar.plist']),
-                  ('file_formats',['src/qccodar/file_formats/radialshort_LLUV_RDL7.ruv'])],
+                  ('file_formats',['src/qccodar/file_formats/radialshort_LLUV_RDL7.ruv']),
+                  ('file_formats',['src/qccodar/file_formats/radial_LLUV_RDL9.ruv'])
+                  ]
       #scripts=['qccodar/qcviz/qcviz.py']
       )

@@ -42,7 +42,7 @@ def load_configs(configfile='/Users/codar/qccodar_files/qccodar.plist'):
             qc_doa_peak_power=dict(doa_peak_power_min=5.0),
             qc_monopole_snr=dict(monopole_snr_min=5.0),
             qc_loop_snr=dict(loop_snr_min=5.0),
-            qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=3.0),
+            qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=2.0),
             metric_concatenation = dict(numfiles=3, sample_interval=30.0),
             weighted_shorts=dict(numdegrees=3,weight_parameter='MP', table_type='LLUV RDL7'),
             merge=dict(css_interval_minutes=30.0,number_of_css=5.0,shorts_minute_filter = '*00')
@@ -89,7 +89,11 @@ def manual(datadir, pattern, configfile):
 def auto(datadir, pattern, configfile, fullfn):
     """ Auto mode runs qc and merge for each fullfn """
     qccodar_values = load_configs(configfile)
-    numfiles = 3
+
+    if 'numfiles' in qccodar_values['metric_concatenation'].keys():
+        numfiles = qccodar_values['metric_concatenation']['numfiles']
+    else:
+        numfiles = 3
     
     # get file listing of RadialMetric folder in datadir
     rmfoldername = get_radialmetric_foldername(datadir)
