@@ -2,7 +2,7 @@
 
 This python code applies several quality control (QC) functions based
 on CODAR SeaSonde (COS) Radialmetric data currently output in COS
-RadialSuite version 7.x (and version 8.x upon request). There are two 
+RadialSuite version 7.x (and versions 8.x and 21.x upon request). There are two 
 modes to this code: an auto-and manual-mode.  Auto-mode is for realtime
 processing. Manual-mode is for processing all RadialMetric files in a
 specified folder in post-processing. qccodar is intended to run beside 
@@ -144,7 +144,7 @@ cannot be found.  In MacOS -- sysctl is sometimes located in /usr/bin
 ### System Requirements
 Python 3 is required. However, earlier versions of some of the other packages may be okay.
 
-- Python 3.x
+- Python >=3.7, <3.11
 - numpy
     - https://pypi.python.org/pypi/numpy
     - Data read into memory are stored in the N-dimensional array datatype (ndarray) for indexing and computation.
