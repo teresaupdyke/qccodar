@@ -17,4 +17,11 @@ __pycache__/
 .Trashes
 .ehthumbs.db
 Thumbs.db
-.idea/*
+
+# Other files
+build/*
+*.iml
+.idea/qccodar3.iml
+.idea/misc.xml
+*.xml
+qccodar.egg-info/*

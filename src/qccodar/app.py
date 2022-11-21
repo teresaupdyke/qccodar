@@ -165,7 +165,10 @@ def catchup(datadir, pattern, configfile):
     # print rsfns
     # replace RDL[xy] in radialshort names to compare with radialmetric names
     for idx, fn in enumerate(rsfns):
-        rsfns[idx] = re.sub(r'RDL[xy]', 'RDL'+lluvtype, fn)
+        if (fns[0][3] == 'x') | (fns[0][3] == 'y'):
+            rsfns[idx] = rsfns[idx]
+        else:
+            rsfns[idx] = re.sub(r'RDL[xy]', 'RDL'+lluvtype, fn)
     # print rsfns
 
     # use dict-list to identify what is new

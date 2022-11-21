@@ -1,0 +1,2 @@
+[console_scripts]
+qccodar = qccodar.app:main
