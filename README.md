@@ -172,7 +172,7 @@ If you do not know how to edit the crontab this way, then use the following comm
 crontab -l > /Users/codar/crontab_backup_copy.txt
 crontab -l > /Users/codar/mycron.txt
 ```
-Open the mycron.txt file in whatever editor you choose. It may be an empty file if you there were no scheduled jobs.
+Open the mycron.txt file in whatever editor you choose. It may be an empty file if there were no scheduled jobs.
 Add this line 
 ```
 00,15,30,45 * * * * PATH=$PATH:/sbin /Users/codar/miniconda3/envs/qccodar/bin/qccodar auto >> /Users/codar/qccodar_files/logs/qccodar-auto.log 2>&1
