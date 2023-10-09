@@ -173,11 +173,14 @@ crontab -l > /Users/codar/crontab_backup_copy.txt
 crontab -l > /Users/codar/mycron.txt
 ```
 Open the mycron.txt file in whatever editor you choose. It may be an empty file if there were no scheduled jobs.
-Add this line 
+Add one or both of these lines 
 ```
-00,15,30,45 * * * * PATH=$PATH:/sbin /Users/codar/miniconda3/envs/qccodar/bin/qccodar auto >> /Users/codar/qccodar_files/logs/qccodar-auto.log 2>&1
+00,15,30,45 * * * * PATH=$PATH:/sbin /Users/codar/miniconda3/envs/qccodar/bin/qccodar auto -p MeasPattern >> /Users/codar/qccodar_files/logs/qccodar-auto-meas.log 2>&1
+00,15,30,45 * * * * PATH=$PATH:/sbin /Users/codar/miniconda3/envs/qccodar/bin/qccodar auto -p IdealPattern >> /Users/codar/qccodar_files/logs/qccodar-auto-ideal.log 2>&1
 ```
-and save the file.  Then install the updated file with this command:
+and save the file.
+ 
+Then install the updated file with this command:
 ```bash
 crontab /Users/codar/mycron.txt
 ```
