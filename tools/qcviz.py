@@ -264,9 +264,9 @@ def plot_data(rmqc, rsx):
     rsuv.remove()
     plt.draw()
     rmuv = map_axs[0].quiver(rmqc.data.LOND, rmqc.data.LATD, rmqc.data.VELU, rmqc.data.VELV)
-    rmuv_key = map_axs[0].quiverkey(rmuv, 0.05, 0.9, 100, r'100 cm/s', labelpos='E', coordinates='axes')
+    rmuv_key = map_axs[0].quiverkey(rmuv, 0.05, 0.9, 50, r'50 cm/s', labelpos='E', coordinates='axes')
     rsuv = map_axs[1].quiver(rsx.data.LOND, rsx.data.LATD, rsx.data.VELU, rsx.data.VELV)
-    rsuv_key = map_axs[1].quiverkey(rsuv, 0.05, 0.9, 100, r'100 cm/s', labelpos='E', coordinates='axes')
+    rsuv_key = map_axs[1].quiverkey(rsuv, 0.05, 0.9, 50, r'50 cm/s', labelpos='E', coordinates='axes')
     #
     plt.draw()
 

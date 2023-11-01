@@ -37,7 +37,11 @@ Open a Terminal window and the name of the shell will be shown on the top bar of
 
 #### For zsh:
 As user `codar`, edit or create the file /Users/codar/.zshrc
-and make sure the following lines are included in the file:
+
+Note: If you navigate to /Users/codar in Finder, you can show this hidden file 
+by pressing Command + Shift + . (the period key).
+
+Make sure the following lines are included in the file:
 
 ```zsh
 # >>> conda initialize >>>
@@ -68,7 +72,11 @@ Save the file and then source the profile from the command prompt.
 ```
  
 As user `codar`, edit or create the file `/Users/codar/.bash_profile`.
-and make sure the following line is included in the file:
+
+Note: If you navigate to /Users/codar in Finder, you can show this hidden file 
+by pressing Command + Shift + . (the period key).
+
+Make sure the following line is included in the file:
 ```bash
    export PATH="$HOME/miniconda3/bin:$PATH" 
 ```
