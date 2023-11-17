@@ -31,7 +31,30 @@ Open a Terminal window to execute the following commands.
    curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o "miniconda3.sh"
 ```
 
+
+
+Now to install this code, update the permissions on the file and run it with the following commands:
+
+```bash
+   chmod 755 miniconda3.sh
+   ./miniconda3.sh
+```
+
+You must press Enter several times to read through the license agreement.  When prompted, type 'yes' to accept the license terms. 
+Press ENTER to confirm the install location /Users/codar/miniconda3. 
+You will be asked if you wish to update your shell profile to automatically initialize conda. 
+Type 'yes'. After installation type 'exit' to close the shell and then open another Terminal window. 
+
 ### 2. Shell Setup Instructions
+
+Type the following:
+```bash
+   conda -V
+```
+If you recieve a response that includes a conda version number (for example, conda 23.10.0), 
+skip the rest of this section and proceed to Step 3 Environment Setup. 
+If you receive a response that includes "command not found", then continue with the next instruction.
+
 Use one of the two sets of instructions below depending on the default Terminal shell (zsh or bash).
 Open a Terminal window and the name of the shell will be shown on the top bar of the window.
 
@@ -40,10 +63,45 @@ As user `codar`, edit or create the file /Users/codar/.zshrc
 
 Note: If you navigate to /Users/codar in Finder, you can show this hidden file 
 by pressing Command + Shift + . (the period key).
+When finished with this step, you can repeat the keystroke to restore normal file viewing.
 
 Make sure the following lines are included in the file:
 
 ```zsh
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/codar/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/codar/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/codar/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/codar/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+# <<< conda initialize <<< 
+ ```
+Save the file. Type 'exit' to close the shell and then open another Terminal window. 
+Try the conda -V command again.
+If it doesn't work, try sourcing the profile from the command prompt with this command.
+```zsh
+   source ~/.zshrc
+```
+
+#### For bash:
+
+As user `codar`, edit or create the file `/Users/codar/.bash_profile`
+
+Note: If you navigate to /Users/codar in Finder, you can show this hidden file 
+by pressing Command + Shift + . (the period key).  
+When finished with this step, you can repeat the keystroke to restore normal file viewing.
+
+Make sure the following lines are included in the file:
+
+```bash
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/codar/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -59,37 +117,17 @@ fi
 unset __conda_setup
 # <<< conda initialize <<< 
  ```
-Save the file and then source the profile from the command prompt.
-```zsh
-   source ~/.zshrc
-```
 
-#### For bash:
-
-```bash
-   bash ~/Downloads/miniconda3.sh -b -p $HOME/miniconda3
-   export PATH="$HOME/miniconda3/bin:$PATH"
-```
- 
-As user `codar`, edit or create the file `/Users/codar/.bash_profile`.
-
-Note: If you navigate to /Users/codar in Finder, you can show this hidden file 
-by pressing Command + Shift + . (the period key).
-
-Make sure the following line is included in the file:
-```bash
-   export PATH="$HOME/miniconda3/bin:$PATH" 
-```
-
-Save the file. Then source your profile.
+Save the file. Type 'exit' to close the shell and then open another Terminal window. 
+Try the conda -V command again.
+If it doesn't work, try sourcing the profile from the command prompt with this command.
 ```bash
    source ~/.bash_profile
 ```
 
 
 ### 3. Environment Setup Instructions
-
-
+ 
 Create a directory to store the qccodar files and a subdirectory to store the log files.
 ```bash
    mkdir /Users/codar/qccodar_files
@@ -110,6 +148,8 @@ potential module version conflicts.
 ```bash
    cd /Users/codar/qccodar_files/qccodar-main
    conda env create -f environment.yml
+```
+```bash
    conda activate qccodar
 ```
 Now the command prompt should be preceded by the label (qccodar).
@@ -171,9 +211,10 @@ Finally, set crontab entry to run qccodar:
 
 2. Place entry in crontab to run every 15 minutes and log the output.
 If you are familiar with how to edit the crontab
-with ```crontab -e```, then go ahead and add the following line to the crontab file 
+with ```crontab -e```, then go ahead and add one or both of the following line to the crontab file 
 ```
-00,15,30,45 * * * * PATH=$PATH:/sbin /Users/codar/miniconda3/envs/qccodar/bin/qccodar auto >> /Users/codar/qccodar_files/logs/qccodar-auto.log 2>&1
+00,15,30,45 * * * * /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/run_qccodar_ideal.sh
+00,15,30,45 * * * * /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/run_qccodar_meas.sh
 ```
 If you do not know how to edit the crontab this way, then use the following commands:
 ```bash
@@ -183,8 +224,8 @@ crontab -l > /Users/codar/mycron.txt
 Open the mycron.txt file in whatever editor you choose. It may be an empty file if there were no scheduled jobs.
 Add one or both of these lines 
 ```
-00,15,30,45 * * * * PATH=$PATH:/sbin /Users/codar/miniconda3/envs/qccodar/bin/qccodar auto -p MeasPattern >> /Users/codar/qccodar_files/logs/qccodar-auto-meas.log 2>&1
-00,15,30,45 * * * * PATH=$PATH:/sbin /Users/codar/miniconda3/envs/qccodar/bin/qccodar auto -p IdealPattern >> /Users/codar/qccodar_files/logs/qccodar-auto-ideal.log 2>&1
+00,15,30,45 * * * * /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/run_qccodar_ideal.sh
+00,15,30,45 * * * * /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/run_qccodar_meas.sh
 ```
 and save the file.
  
@@ -201,11 +242,34 @@ After the task runs, you should see new radial files being generated in /Codar/S
 /Codar/SeaSonde/Data/Radials_qcd
 
 
-Note: If you see `sh: sysctl: command cannot be found` in output or log,
-sysctl might be in another path.  qccodar still runs even when this
-cannot be found.  In MacOS -- sysctl is sometimes located in /usr/bin
-(or /sbin) and may not be in the path under cron.  Placing
-`PATH=$PATH:/usr/sbin` in the task entry, adds the path.
+
+
+## 6. Archivalist Setup (very important!)
+
+You must set up archiving for all of these new files, otherwise you risk filling up your computer's hard disk.
+
+As a quick way to do this, use the command:
+```bash
+   cp /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/Archivalist_RadialMetric.plist /Codar/SeaSonde/Configs/RadialConfigs/Archivalist_RadialMetric.plist
+```
+
+In the SeaSonde Archivalist application, check that you have a task list called RadialMetric 
+and appropriate tasks for the following files and make any adjustments for your preferences as needed:
+
+(See the CODAR Archivalist application guide if you are unfamiliar with the Archivalist program would like further instructions on how to edit the archives.)
+
+/Codar/SeaSonde/Data/RadialResponses/IdealPattern                   
+/Codar/SeaSonde/Data/RadialResponses/MeasPattern                   
+/Codar/SeaSonde/Data/RadialMetrics/IdealPattern                   
+/Codar/SeaSonde/Data/RadialMetrics/MeasPattern                   
+/Codar/SeaSonde/Data/Radials_qcd/IdealPattern                   
+/Codar/SeaSonde/Data/Radials_qcd/MeasPattern                   
+/Codar/SeaSonde/Data/RadialShorts_qcd/IdealPattern                   
+/Codar/SeaSonde/Data/RadialShorts_qcd/MeasPattern                   
+
+The RadialResponses tasks are *extremely important* because the response files take up alot of space and will fill up your disk quickly!
+
+
 
 ## Background
 

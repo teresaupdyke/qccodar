@@ -1,0 +1,1707 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ArchiveTask</key>
+	<dict>
+		<key>TasksEnabled</key>
+		<true/>
+	</dict>
+	<key>Archiving01</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<false/>
+		<key>ArchiveEnabled</key>
+		<true/>
+		<key>ArchiveMethod</key>
+		<string>Weekly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string>XXXX_RDLv</string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>ArchiveVerbosity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/RadialMetrics/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>26</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/RadialMetrics/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/RadialMetrics/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string>RDLv</string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>24</integer>
+		<key>SourceFolder</key>
+		<string>"/Codar/SeaSonde/Data/RadialMetrics/IdealPattern/"</string>
+		<key>SourceMethod</key>
+		<string>OldestCreated ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<true/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>"Metric Radials Ideal"</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving02</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<false/>
+		<key>ArchiveEnabled</key>
+		<true/>
+		<key>ArchiveMethod</key>
+		<string>Weekly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string>XXXX_RDLw</string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>ArchiveVerbosity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/RadialMetrics/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>26</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/RadialMetrics/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/RadialMetrics/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string>RDLw</string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>24</integer>
+		<key>SourceFolder</key>
+		<string>"/Codar/SeaSonde/Data/RadialMetrics/MeasPattern/"</string>
+		<key>SourceMethod</key>
+		<string>OldestCreated ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<true/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>"Metric Radials Meas"</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving03</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<false/>
+		<key>ArchiveEnabled</key>
+		<true/>
+		<key>ArchiveMethod</key>
+		<string>Limit ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string>XXXX_ARSi</string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/RadialMetrics/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>2</integer>
+		<key>DestinationItemLimitEnable</key>
+		<true/>
+		<key>DuplicateFolderEnabled</key>
+		<false/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/RadialMetrics/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/RadialMetrics/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>72</integer>
+		<key>SourceFolder</key>
+		<string>"/Codar/SeaSonde/Data/RadialResponses/IdealPattern/"</string>
+		<key>SourceMethod</key>
+		<string>OldestCreated ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<false/>
+		<key>Title</key>
+		<string>"Antenna Response Ideal"</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Move ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving04</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<false/>
+		<key>ArchiveEnabled</key>
+		<true/>
+		<key>ArchiveMethod</key>
+		<string>Limit ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string>XXXX_ARSm</string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/RadialMetrics/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>2</integer>
+		<key>DestinationItemLimitEnable</key>
+		<true/>
+		<key>DuplicateFolderEnabled</key>
+		<false/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/RadialMetrics/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/RadialMetrics/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>72</integer>
+		<key>SourceFolder</key>
+		<string>"/Codar/SeaSonde/Data/RadialResponses/MeasPattern/"</string>
+		<key>SourceMethod</key>
+		<string>OldestCreated ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<false/>
+		<key>Title</key>
+		<string>"Antenna Response Meas"</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Move ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving05</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<false/>
+		<key>ArchiveEnabled</key>
+		<true/>
+		<key>ArchiveMethod</key>
+		<string>Weekly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string>XXXX_RDLm</string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Radials_qcd/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>""</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Radials_qcd/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string>RDLm</string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>168</integer>
+		<key>SourceFolder</key>
+		<string>"/Codar/SeaSonde/Data/Radials_qcd/MeasPattern/"</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<true/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>"QCD Radials Measured"</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving06</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<false/>
+		<key>ArchiveEnabled</key>
+		<true/>
+		<key>ArchiveMethod</key>
+		<string>Weekly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string>XXXX_RDLi</string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Radials_qcd/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>""</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Radials_qcd/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string>RDLi</string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>168</integer>
+		<key>SourceFolder</key>
+		<string>"/Codar/SeaSonde/Data/Radials_qcd/IdealPattern/"</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<true/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>"QCD Radials Ideal"</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving07</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<false/>
+		<key>ArchiveEnabled</key>
+		<true/>
+		<key>ArchiveMethod</key>
+		<string>Weekly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string>XXXX_RDLy</string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/RadialShorts_qcd/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<true/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/RadialShorts_qcd"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string>RDLy</string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>168</integer>
+		<key>SourceFolder</key>
+		<string>"/Codar/SeaSonde/Data/RadialShorts_qcd/MeasPattern/"</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<true/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>"QCD Radial Shorts Measured"</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipNameAddZ</key>
+		<false/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving08</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<false/>
+		<key>ArchiveEnabled</key>
+		<true/>
+		<key>ArchiveMethod</key>
+		<string>Weekly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string>XXXX_RDLx</string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/RadialShorts_qcd/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<true/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/RadialShorts_qcd/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string>RDLx</string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>168</integer>
+		<key>SourceFolder</key>
+		<string>"/Codar/SeaSonde/Data/RadialShorts_qcd/IdealPattern/"</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<true/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>"QCD Radial Shorts Ideal"</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipNameAddZ</key>
+		<false/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving09</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving10</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving11</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving12</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving13</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving14</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving15</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving16</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving17</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving18</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving19</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving20</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving21</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving22</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving23</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving24</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<false/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/RadialMetrics/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/RadialMetrics/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<false/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving25</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<true/>
+		<key>ArchiveEnabled</key>
+		<false/>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<false/>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>ArchiveVerbocity</key>
+		<integer>10</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<true/>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<false/>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<true/>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string>""</string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<false/>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string>""</string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<true/>
+		<key>ZipSourceFile</key>
+		<false/>
+	</dict>
+	<key>Archiving26</key>
+	<dict>
+		<key>AlternateFolderEnabled</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ArchiveEnabled</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ArchiveMethod</key>
+		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<key>ArchiveSetFileBackupDate</key>
+		<string>No ;; No,Yes</string>
+		<key>ArchiveSubFolderPrefix</key>
+		<string></string>
+		<key>ArchiveVebocity</key>
+		<integer>1</integer>
+		<key>DestinationFolder</key>
+		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<key>DestinationItemLimit</key>
+		<integer>12</integer>
+		<key>DestinationItemLimitEnable</key>
+		<false/>
+		<key>DuplicateFolderEnabled</key>
+		<string>Yes ;; No,Yes</string>
+		<key>DuplicationAlternateFolder</key>
+		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<key>DuplicationFolder</key>
+		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<key>IgnoreAppleEvents</key>
+		<string>No ;; No,Yes</string>
+		<key>IgnoreSourceChanges</key>
+		<false/>
+		<key>ScheduleArchiveOnStartup</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ScheduleArchivePeriodically</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SchedulePeriodicInterval</key>
+		<string>60 0</string>
+		<key>SourceFileNameFilter</key>
+		<string></string>
+		<key>SourceFilesLimit</key>
+		<string>Yes ;; No,Yes</string>
+		<key>SourceFilesToKeep</key>
+		<integer>1000</integer>
+		<key>SourceFolder</key>
+		<string></string>
+		<key>SourceMethod</key>
+		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
+		<key>SourceNameFilter</key>
+		<string>No ;; No,Yes</string>
+		<key>StorageImportance</key>
+		<real>50</real>
+		<key>StorageImportanceEnable</key>
+		<true/>
+		<key>Title</key>
+		<string></string>
+		<key>TransferFileLimit</key>
+		<integer>0</integer>
+		<key>TransferMethod</key>
+		<string>Duplicate ;; None,Move,Duplicate</string>
+		<key>TransferOverwriteExisting</key>
+		<string>Yes ;; No,Yes</string>
+		<key>ZipSourceFile</key>
+		<string>No ;; No,Yes</string>
+	</dict>
+</dict>
+</plist>
