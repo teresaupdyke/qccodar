@@ -50,7 +50,7 @@
 		<key>number_of_css</key>
 		<real>7.0</real>
 		<key>shorts_minute_filter</key>
-		<string>*00</string>
+		<string>*[0,3]0</string>
 	</dict>
 </dict>
 </plist>

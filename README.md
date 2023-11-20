@@ -256,18 +256,20 @@ The following command will set up a radial metric task list for Archivalist. (Pl
 In the SeaSonde Archivalist application, check that you have a task list called RadialMetric 
 with tasks for the following files and make any adjustments for your preferences as needed:
 
-(See the CODAR Archivalist application guide if you are unfamiliar with the Archivalist program would like further instructions on how to edit the archives.)
+See the CODAR Archivalist application guide if you are unfamiliar with the Archivalist program and would like further instructions on how to edit the archives.
 
-/Codar/SeaSonde/Data/RadialResponses/IdealPattern                   
-/Codar/SeaSonde/Data/RadialResponses/MeasPattern                   
 /Codar/SeaSonde/Data/RadialMetrics/IdealPattern                   
 /Codar/SeaSonde/Data/RadialMetrics/MeasPattern                   
 /Codar/SeaSonde/Data/Radials_qcd/IdealPattern                   
 /Codar/SeaSonde/Data/Radials_qcd/MeasPattern                   
 /Codar/SeaSonde/Data/RadialShorts_qcd/IdealPattern                   
 /Codar/SeaSonde/Data/RadialShorts_qcd/MeasPattern                   
+/Codar/SeaSonde/Data/RadialResponses/IdealPattern   (see note below)            
+/Codar/SeaSonde/Data/RadialResponses/MeasPattern    (see note below) 
 
-The RadialResponses tasks are *extremely important* because the response files take up alot of space and will fill up your disk quickly!
+Note: The RadialResponses tasks may not be necessary as later versions of the SeaSonde radial software do 
+not include these files.  If the RadialResponses folders contain data, it is *extremely important* to 
+set up archiving tasks for those files, because they take up alot of space and will fill up your disk quickly!
 
 
 
