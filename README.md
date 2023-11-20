@@ -248,13 +248,13 @@ After the task runs, you should see new radial files being generated in /Codar/S
 
 You must set up archiving for all of these new files, otherwise you risk filling up your computer's hard disk.
 
-As a quick way to do this, use the command:
+The following command will set up a radial metric task list for Archivalist. (Please note that if you already have the Archivalist_RadialMetric.plist file in RadialConfigs, this will overwrite your existing file.):
 ```bash
    cp /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/Archivalist_RadialMetric.plist /Codar/SeaSonde/Configs/RadialConfigs/Archivalist_RadialMetric.plist
 ```
 
 In the SeaSonde Archivalist application, check that you have a task list called RadialMetric 
-and appropriate tasks for the following files and make any adjustments for your preferences as needed:
+with tasks for the following files and make any adjustments for your preferences as needed:
 
 (See the CODAR Archivalist application guide if you are unfamiliar with the Archivalist program would like further instructions on how to edit the archives.)
 
