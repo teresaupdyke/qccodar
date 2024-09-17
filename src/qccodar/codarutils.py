@@ -130,6 +130,10 @@ def generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_paramet
     lat1, lon1 = [float(x) for x in origin.split()]
     range_resolution = float(r.metadata['RangeResolutionKMeters'])
 
+    if 'Reykjavik' in r.metadata['TimeZone']:
+        rs.metadata['TimeZone'] = '"UTC" +0.000 0 "Atlantic/Reykjavik"'
+
+
     if r.data.size == 0:
         return rs
 
