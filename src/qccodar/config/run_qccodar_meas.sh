@@ -2,11 +2,12 @@
 
 # ============================================================================
 # Run qccodar script
-# Last updated: 11/17/2023 (Teresa Updyke)
+# Last updated: 03/06/2025 (Teresa Updyke)
 # Features:
 # 1) Writes output to a log file in /Users/codar/qccodar_files/logs
 # 2) Uses a lock file to prevent multiple instances of the script from running 
 #    at the same time, which could cause problems with data processing.
+# 3) Handles miniforge3, mambaforge3 or miniconda3 environments
 # ============================================================================
 
 # Set up environment
@@ -52,7 +53,15 @@ echo "LOG FILE: $LOGFILE";
 date >> $LOGFILE
 
 # Run qccodar
-/Users/codar/miniconda3/envs/qccodar/bin/qccodar auto -p MeasPattern  >> $LOGFILE
+if [ -f "/Users/codar/miniforge3/envs/qccodar/bin/qccodar" ]; then
+    /Users/codar/miniforge3/envs/qccodar/bin/qccodar auto -p MeasPattern  >> $LOGFILE
+elif [ -f "/Users/codar/mambaforge3/envs/qccodar/bin/qccodar" ]; then
+    /Users/codar/mambaforge3/envs/qccodar/bin/qccodar auto -p MeasPattern  >> $LOGFILE
+elif [ -f "/Users/codar/miniconda3/envs/qccodar/bin/qccodar" ]; then
+    /Users/codar/miniconda3/envs/qccodar/bin/qccodar auto -p MeasPattern  >> $LOGFILE
+else
+    echo "qccodar not found in miniforge3, mambaforge3 or miniconda3 environment.  Please check your installation." >> $LOGFILE
+fi
 
 date >> $LOGFILE
 
