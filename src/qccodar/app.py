@@ -15,13 +15,13 @@ Options:
 
 import os
 import re
-from pkg_resources import get_distribution
+from importlib.metadata import version
 from pathlib import Path
 from plistlib import load
 from .qcutils import do_qc, recursive_glob
 from .codarutils import do_merge, get_radialmetric_foldername
 
-__version__ = get_distribution("qccodar").version
+__version__ = version("qccodar")
 
 debug = 1
 
@@ -44,8 +44,9 @@ def load_configs(configfile='/Users/codar/qccodar_files/qccodar.plist'):
             qc_loop_snr=dict(loop_snr_min=5.0),
             qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=2.0),
             metric_concatenation = dict(numfiles=3, sample_interval=30.0),
-            weighted_shorts=dict(numdegrees=3,weight_parameter='MP', table_type='LLUV RDL7'),
-            merge=dict(css_interval_minutes=30.0,number_of_css=5.0,shorts_minute_filter = '*00')
+            weighted_shorts=dict(numdegrees=3,weight_parameter='MP'),
+            merge=dict(css_interval_minutes=30.0,number_of_css=5.0,shorts_minute_filter = '*00'),
+            lluvquality=dict(diag=4)
          )
     return qccodar_values
 

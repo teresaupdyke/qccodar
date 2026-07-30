@@ -40,8 +40,6 @@
 		<integer>3</integer>
 		<key>weight_parameter</key>
 		<string>MP</string>
-		<key>table_type</key>
-		<string>LLUV RDL7</string>
 	</dict>
 	<key>merge</key>
 	<dict>
@@ -55,6 +53,13 @@
 		<string>average</string>
 		<key>minvect</key>
 		<string>2</string>
+		<key>diag</key>
+		<string>4</string>
+		<key>run_LLUVQuality</key>
+		<string>yes</string>
+	</dict>
+	<key>LLUVQuality</key>
+	<dict>
 		<key>diag</key>
 		<string>4</string>
 	</dict>

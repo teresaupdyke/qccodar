@@ -267,8 +267,8 @@ crontab "$CRON_FILE"
 
 #Add the new qccodar entries
 cat <<EOT >> $CRON_FILE
-00,15,30,45 * * * * /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/run_qccodar_ideal.sh
-00,15,30,45 * * * * /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/run_qccodar_meas.sh
+00,15,30,45 * * * * source /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/run_qccodar_ideal.sh
+00,15,30,45 * * * * source /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/run_qccodar_meas.sh
 EOT
 
 crontab $CRON_FILE
@@ -276,6 +276,8 @@ rm -rf $CRON_FILE
 echo "Crontab entries added. Contents of crontab: "
 crontab -l
 
+# Ensure that the scripts have permissions to execute
+chmod 755 /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/run_qccodar*.sh
 
 # Archivalist setup
 echo " "

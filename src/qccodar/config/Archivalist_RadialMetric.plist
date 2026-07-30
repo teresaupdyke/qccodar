@@ -32,11 +32,11 @@
 		<key>DestinationItemLimitEnable</key>
 		<false/>
 		<key>DuplicateFolderEnabled</key>
-		<true/>
+		<false/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/RadialMetrics/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/RadialMetrics/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/RadialMetrics/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/RadialMetrics/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -52,7 +52,7 @@
 		<key>SourceFilesLimit</key>
 		<true/>
 		<key>SourceFilesToKeep</key>
-		<integer>24</integer>
+		<integer>48</integer>
 		<key>SourceFolder</key>
 		<string>"/Codar/SeaSonde/Data/RadialMetrics/IdealPattern/"</string>
 		<key>SourceMethod</key>
@@ -101,9 +101,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/RadialMetrics/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/RadialMetrics/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/RadialMetrics/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/RadialMetrics/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -166,9 +166,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<false/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/RadialMetrics/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/RadialMetrics/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/RadialMetrics/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/RadialMetrics/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -231,9 +231,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<false/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/RadialMetrics/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/RadialMetrics/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/RadialMetrics/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/RadialMetrics/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -298,7 +298,7 @@
 		<key>DuplicationAlternateFolder</key>
 		<string>""</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Radials_qcd/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Radials_qcd/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -363,7 +363,7 @@
 		<key>DuplicationAlternateFolder</key>
 		<string>""</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Radials_qcd/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Radials_qcd/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -417,6 +417,8 @@
 		<integer>1</integer>
 		<key>ArchiveVerbocity</key>
 		<integer>10</integer>
+		<key>ArchiveVerbosity</key>
+		<integer>10</integer>
 		<key>DestinationFolder</key>
 		<string>"/Codar/SeaSonde/Archives/RadialShorts_qcd/"</string>
 		<key>DestinationItemLimit</key>
@@ -424,11 +426,11 @@
 		<key>DestinationItemLimitEnable</key>
 		<true/>
 		<key>DuplicateFolderEnabled</key>
-		<true/>
+		<false/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/RadialShorts_qcd"</string>
+		<string>"/Volumes/ARCHIVES/Archives/RadialShorts_qcd"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -484,6 +486,8 @@
 		<integer>1</integer>
 		<key>ArchiveVerbocity</key>
 		<integer>10</integer>
+		<key>ArchiveVerbosity</key>
+		<integer>10</integer>
 		<key>DestinationFolder</key>
 		<string>"/Codar/SeaSonde/Archives/RadialShorts_qcd/"</string>
 		<key>DestinationItemLimit</key>
@@ -491,11 +495,11 @@
 		<key>DestinationItemLimitEnable</key>
 		<true/>
 		<key>DuplicateFolderEnabled</key>
-		<true/>
+		<false/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/RadialShorts_qcd/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/RadialShorts_qcd/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -538,21 +542,23 @@
 	<key>Archiving09</key>
 	<dict>
 		<key>AlternateFolderEnabled</key>
-		<true/>
-		<key>ArchiveEnabled</key>
 		<false/>
+		<key>ArchiveEnabled</key>
+		<true/>
 		<key>ArchiveMethod</key>
-		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<string>Weekly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
 		<key>ArchiveSetFileBackupDate</key>
 		<false/>
 		<key>ArchiveSubFolderPrefix</key>
-		<string></string>
+		<string>XXXX_RDLm</string>
 		<key>ArchiveVebocity</key>
 		<integer>1</integer>
 		<key>ArchiveVerbocity</key>
 		<integer>10</integer>
+		<key>ArchiveVerbosity</key>
+		<integer>10</integer>
 		<key>DestinationFolder</key>
-		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<string>"/Codar/SeaSonde/Archives/RadialMergers_qcd/"</string>
 		<key>DestinationItemLimit</key>
 		<integer>12</integer>
 		<key>DestinationItemLimitEnable</key>
@@ -560,9 +566,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>""</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/RadialMergers_qcd/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -574,23 +580,23 @@
 		<key>SchedulePeriodicInterval</key>
 		<string>60 0</string>
 		<key>SourceFileNameFilter</key>
-		<string></string>
+		<string>RDLm</string>
 		<key>SourceFilesLimit</key>
 		<true/>
 		<key>SourceFilesToKeep</key>
-		<integer>1000</integer>
+		<integer>168</integer>
 		<key>SourceFolder</key>
-		<string>""</string>
+		<string>"/Codar/SeaSonde/Data/RadialMergers_qcd/MeasPattern/"</string>
 		<key>SourceMethod</key>
 		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
 		<key>SourceNameFilter</key>
-		<false/>
+		<true/>
 		<key>StorageImportance</key>
 		<real>50</real>
 		<key>StorageImportanceEnable</key>
 		<true/>
 		<key>Title</key>
-		<string>""</string>
+		<string>"QCD RadialMergers Measured"</string>
 		<key>TransferFileLimit</key>
 		<integer>0</integer>
 		<key>TransferMethod</key>
@@ -603,21 +609,23 @@
 	<key>Archiving10</key>
 	<dict>
 		<key>AlternateFolderEnabled</key>
-		<true/>
-		<key>ArchiveEnabled</key>
 		<false/>
+		<key>ArchiveEnabled</key>
+		<true/>
 		<key>ArchiveMethod</key>
-		<string>Monthly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
+		<string>Weekly ;; None,Limit,History,Weekly,Monthly,Daily,Yearly</string>
 		<key>ArchiveSetFileBackupDate</key>
 		<false/>
 		<key>ArchiveSubFolderPrefix</key>
-		<string></string>
+		<string>XXXX_RDLi</string>
 		<key>ArchiveVebocity</key>
 		<integer>1</integer>
 		<key>ArchiveVerbocity</key>
 		<integer>10</integer>
+		<key>ArchiveVerbosity</key>
+		<integer>10</integer>
 		<key>DestinationFolder</key>
-		<string>"/Codar/SeaSonde/Archives/Spectra/"</string>
+		<string>"/Codar/SeaSonde/Archives/RadialMergers_qcd/"</string>
 		<key>DestinationItemLimit</key>
 		<integer>12</integer>
 		<key>DestinationItemLimitEnable</key>
@@ -625,9 +633,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>""</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/RadialMergers_qcd/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -639,23 +647,23 @@
 		<key>SchedulePeriodicInterval</key>
 		<string>60 0</string>
 		<key>SourceFileNameFilter</key>
-		<string></string>
+		<string>RDLi</string>
 		<key>SourceFilesLimit</key>
 		<true/>
 		<key>SourceFilesToKeep</key>
-		<integer>1000</integer>
+		<integer>168</integer>
 		<key>SourceFolder</key>
-		<string>""</string>
+		<string>"/Codar/SeaSonde/Data/RadialMergers_qcd/IdealPattern/"</string>
 		<key>SourceMethod</key>
 		<string>AscendingName ;; AscendingName,DescendingName,OldestCreated,NewestCreated,OldestModified,NewestModified,OldestBackup,NewestBackup</string>
 		<key>SourceNameFilter</key>
-		<false/>
+		<true/>
 		<key>StorageImportance</key>
 		<real>50</real>
 		<key>StorageImportanceEnable</key>
 		<true/>
 		<key>Title</key>
-		<string>""</string>
+		<string>"QCD RadialMergers Ideal"</string>
 		<key>TransferFileLimit</key>
 		<integer>0</integer>
 		<key>TransferMethod</key>
@@ -690,9 +698,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -755,9 +763,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -820,9 +828,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -885,9 +893,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -950,9 +958,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -1015,9 +1023,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -1080,9 +1088,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -1145,9 +1153,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -1210,9 +1218,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -1275,9 +1283,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -1340,9 +1348,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -1405,9 +1413,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -1470,9 +1478,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -1535,9 +1543,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/RadialMetrics/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/RadialMetrics/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -1600,9 +1608,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<true/>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<false/>
 		<key>IgnoreSourceChanges</key>
@@ -1663,9 +1671,9 @@
 		<key>DuplicateFolderEnabled</key>
 		<string>Yes ;; No,Yes</string>
 		<key>DuplicationAlternateFolder</key>
-		<string>"/Volumes/CodarArchives2/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES2/Archives/Spectra/"</string>
 		<key>DuplicationFolder</key>
-		<string>"/Volumes/CodarArchives/Archives/Spectra/"</string>
+		<string>"/Volumes/ARCHIVES/Archives/Spectra/"</string>
 		<key>IgnoreAppleEvents</key>
 		<string>No ;; No,Yes</string>
 		<key>IgnoreSourceChanges</key>

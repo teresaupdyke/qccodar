@@ -44,7 +44,7 @@ def get_radialmetric_foldername(datadir, pattern='?adial*etric*'):
         foldername = ''
     return foldername
 
-def generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_parameter='MP'):
+def generate_radialshort(r, numdegrees=3, weight_parameter='MP'):
     """Generates radialshort (rsd) data array.
 
     This function generates radialshort data (rsd) array based on data
@@ -64,19 +64,27 @@ def generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_paramet
     ----------
     xd : ndarray
        QC'd and weighted average radials for each range, bearing where data were found
-    table_type : string
+
 
     Returns
     -------
     rs: Radial object
     """
-    from qccodar.qcutils import weighted_velocities
 
-    if table_type == 'LLUV RDL7':
-        formatfile = Path(__file__).parent.resolve() / 'file_formats' / 'radialshort_LLUV_RDL7.ruv'
+    lluvspec = float(r.metadata['LLUVSpec'].split()[0])
+    from qccodar.qcutils import weighted_velocities
+    if lluvspec >= 1.04 and lluvspec < 1.12:
+        # I don't have an example of a radialshort in this spec but the only difference is the qualilty column for number of velocities
+        formatfile = Path(__file__).parent.resolve() / 'file_formats' / 'radialshort_LLUVSpec_112-150.ruv'
         rs = Radial(formatfile,empty_radial=True)
+    elif lluvspec >= 1.12 and lluvspec < 1.51:
+        formatfile = Path(__file__).parent.resolve() / 'file_formats' / 'radialshort_LLUVSpec_112-150.ruv'
+        rs = Radial(formatfile,empty_radial=True)
+    elif lluvspec >= 1.51:
+        formatfile = Path(__file__).parent.resolve() / 'file_formats' / 'radialshort_LLUVSpec_151-.ruv'
+        rs = Radial(formatfile, empty_radial=True)
     else:
-        print('generate_radialshort() : Unrecognized table_type "%s"' % (table_type,))
+        print(f'generate_radialshort() : LLUVSpec {lluvspec:.2f} not supported.')
         return numpy.array([]), ''
 
     # copy over the file information, header, name, tables
@@ -157,6 +165,10 @@ def generate_radialshort(r, table_type='LLUV RDL7', numdegrees=3, weight_paramet
     rs.data['MINV'] = xd['MINV']
     rs.data['EDVC'] = xd['EDVC']
     rs.data['ERSC'] = xd['ERSC']
+
+    if lluvspec >= 1.51:
+        rs.data['EDTP'] = xd['EDTP']
+        rs.data['EASN'] = xd['EASN']
 
     ############################
     # computations for filling in other columns of radialshort data
@@ -267,7 +279,6 @@ def run_LLUVMerger(datadir, fn, patterntype, qv_merge, debug=2):
     from .qcutils import filt_datetime
 
     ifn = os.path.join(datadir, 'RadialShorts_qcd', patterntype, fn)
-    outdir = os.path.join(datadir, 'Radials_qcd', patterntype)
 
     if patterntype=='IdealPattern':
         lluvtype = 'i'
@@ -286,6 +297,8 @@ def run_LLUVMerger(datadir, fn, patterntype, qv_merge, debug=2):
     diag = '4'
 
     # items that are configurable in qccodar_values['merge'] passed as qv_merge
+    if 'run_LLUVQuality' in qv_merge.keys():
+        run_LLUVQuality = qv_merge['run_LLUVQuality']
     if 'css_interval_minutes' in qv_merge.keys():
         css_interval_minutes=qv_merge['css_interval_minutes']
     if 'number_of_css' in qv_merge.keys():
@@ -303,7 +316,14 @@ def run_LLUVMerger(datadir, fn, patterntype, qv_merge, debug=2):
     if 'reference' in qv_merge.keys():
         reference = qv_merge['reference']
 
-    
+    if run_LLUVQuality == 'yes':
+        outdir = os.path.join(datadir, 'RadialMergers_qcd', patterntype)
+    else:
+        outdir = os.path.join(datadir, 'Radials_qcd', patterntype)
+    # Create the directory if it doesn't exist
+    path_outdir = Path(outdir)
+    path_outdir.mkdir(parents=True, exist_ok=True)
+
     rs_output_interval = datetime.timedelta(minutes=css_interval_minutes)
     rs_num = number_of_css
     # (merge average 5*30 min = 150 min or 2.5 hours)
@@ -335,12 +355,12 @@ def run_LLUVMerger(datadir, fn, patterntype, qv_merge, debug=2):
 
     # ordered list of args, order of some options is important,
     # -span and -startwith must be before -source
-    
-    # Must have -angres=5 and -angmethod=short to merge RadialShorts to Radials 
+
+    # Must have -angres=5 and -angmethod=short to merge RadialShorts to Radials
     # so keeping these static here and are not changeable in configfile
     args = ['/Codar/SeaSonde/Apps/Bin/LLUVMerger',
             '-span='+span_hrs_str,
-            '-lluvtype='+lluvtype, 
+            '-lluvtype='+lluvtype,
             '-angres=5',
             '-angmethod=short',
             '-method='+method,
@@ -387,7 +407,7 @@ def run_LLUVMerger(datadir, fn, patterntype, qv_merge, debug=2):
 
         lines = stdout_content.decode('utf-8').split('\n')
         # get line with MergedFile: path and filename from stdout_content
-        if lines[0] == 'No source files found':
+        if lines[0] == 'No source files found' or lines[0] == 'Failure: Can''t find any source to merge.':
             line = lines[0]
         else:
             line = [x for x in lines if 'MergedFile:' in x][0]
@@ -435,6 +455,71 @@ def run_LLUVMerger(datadir, fn, patterntype, qv_merge, debug=2):
             ofn = newfn
         return ofn
 
+
+def run_LLUVQuality(datadir, fn, patterntype, qv_quality, debug=2):
+    """ Run CODAR's LLUVQuality app in subprocess """
+
+    import subprocess
+    from .qcutils import filt_datetime
+
+    ifn = os.path.join(datadir, 'RadialMergers_qcd', patterntype, fn)
+    outdir = os.path.join(datadir, 'Radials_qcd', patterntype)
+    ofn = os.path.join(datadir, 'Radials_qcd', patterntype, fn)
+    # Create the directory if it doesn't exist
+    path_outdir = Path(outdir)
+    path_outdir.mkdir(parents=True, exist_ok=True)
+
+    if patterntype == 'IdealPattern':
+        lluvtype = 'i'
+    elif patterntype == 'MeasPattern':
+        lluvtype = 'm'
+    else:
+        print('Do not recognize patterntype=' + patterntype + ' -- must be IdealPattern or MeasPattern ')
+        return
+
+    # set defaults for required elements of LLUVMerger to generate Radials, in case missing from configfile
+    quality_plist = '/Codar/SeaSonde/Configs/RadialConfigs/LLUVQuality.plist'
+    diag = '4'
+
+    # items that are configurable in qccodar_values['merge'] passed as qv_merge
+    if 'diag' in qv_quality.keys():
+        diag = qv_quality['diag']
+
+    args = ['/Codar/SeaSonde/Apps/RadialTools/SpectraProcessing/LLUVQuality',
+            '-plist='+quality_plist,
+            '-diag='+diag,
+            '-source='+ifn,
+            '-output='+ofn]
+
+    if debug >= 2:
+        print(' '.join(args))
+
+    # NEW WAY to capture both stderr and stdout
+    p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p.wait()
+    (stdout_content, stderr_content) = p.communicate()
+
+    # PIPE is a readable file-like object created when Popen attribute is defined.
+    # communicate() sends stdin (if defined) and waits for exit. Next it gets stdout
+    # and sterr, then it closes all three (stdin, stdout, stderr).
+    # p.communicate() returns tuple (stdout_content, stderr_content).
+
+    # print error and return
+    if stderr_content:
+        print("Error running LLUVQuality()")
+        print(stderr_content)
+        ofn = ""
+        return ofn
+
+    # Check merged file has correct time-of-merge
+    if stdout_content:
+        # stdout_content should look similar to
+        if debug >= 2:
+            print(stdout_content.strip())
+
+        lines = stdout_content.decode('utf-8').split('\n')
+
+    return ofn
 
 def check_headertime(r,fullfn):
     """ Loads merged file, checks if time in file name matches time in header
@@ -541,8 +626,18 @@ def add_diagnostic_tables(r, shortpath):
 
     return r
 
+def remove_table_column(r,colname):
+    for i in r._tables:
+        if r._tables[i]['TableType'][0:4] == 'LLUV':
+            idel = r._tables[i]['data'].columns.get_loc(colname)
+            for ii in range(len(r._tables[i]['_TableHeader'])):
+                del r._tables[i]['_TableHeader'][ii][idel]
+            r._tables[i]['TableColumnTypes'] = r._tables[i]['TableColumnTypes'].replace(" "+ colname, "")
+            r._tables[i]['TableColumns'] = str(int(r._tables[i]['TableColumns'])- 1)
+            del r.data[colname] # have to do this after finding the idel index because r._tables[i]['data'] is altered by this command
+    return r
 
-def fix_empty_radial(r, table_type='LLUV RDL9'):
+def fix_empty_radial(r):
     """Fixes an empty radial (r) Radial object that be can be written out using 
     r.to_ruv() to avoid an error when there is missing table information.
 
@@ -551,7 +646,7 @@ def fix_empty_radial(r, table_type='LLUV RDL9'):
     Parameters
     ----------
     r : Radial object read from LLUVMerger empty radial file 
-    table_type = 'LLUV RDL9'  ensures correct file format used as template
+    LLUVSpec: ensures correct file format used as template
        
 
     Returns
@@ -559,12 +654,18 @@ def fix_empty_radial(r, table_type='LLUV RDL9'):
     r: Radial object, fixed by using re._tables[1]
     """
 
-    if table_type == 'LLUV RDL9':
-        formatfile = Path(__file__).parent.resolve() / 'file_formats' / 'radial_LLUV_RDL9.ruv'
-        # formatfile = './test_empty_Radials_qcd/RDLi_HATY_2020_10_08_2000.ruv'
+    lluvspec = float(r.metadata['LLUVSpec'].split()[0])
+    if lluvspec >= 1.04 and lluvspec < 1.12:
+        formatfile = Path(__file__).parent.resolve() / 'file_formats' / 'radial_LLUVSpec_104-111.ruv'
         re = Radial(formatfile,empty_radial=True)
+    elif lluvspec >= 1.12 and lluvspec < 1.51:
+        formatfile = Path(__file__).parent.resolve() / 'file_formats' / 'radial_LLUVSpec_112-150.ruv'
+        re = Radial(formatfile,empty_radial=True)
+    elif lluvspec >= 1.51:
+        formatfile = Path(__file__).parent.resolve() / 'file_formats' / 'radial_LLUVSpec_151-.ruv'
+        re = Radial(formatfile, empty_radial=True)
     else:
-        print('fix_empty_radial() : Unrecognized table_type "%s"' % (table_type,))
+        print(f'fix_empty_radial() : LLUVSpec {lluvspec:.2f} not supported.')
         return r
 
     ## it would be easy if we knew for sure they would always be key==1 for both
@@ -605,6 +706,8 @@ def do_merge(datadir, fn, pattern, qccodar_values):
     if ofn:
         r = read_lluv_file(ofn)
         r = add_short_metadata(r, qccodar_values)
+        if 'EDVC' in r.data:
+            remove_table_column(r, 'EDVC')
 
         css_interval_minutes = qccodar_values['merge']['css_interval_minutes']
         number_of_css = qccodar_values['merge']['number_of_css']
@@ -634,4 +737,22 @@ def do_merge(datadir, fn, pattern, qccodar_values):
             if r._tables[1]['_TableHeader'] == [[''], ['']]:
                 r = fix_empty_radial(r)
             write_output(r, ofn)
-            return ofn
+            #return ofn
+
+        if qccodar_values['merge']['run_LLUVQuality'] == 'yes':
+            ofn = run_LLUVQuality(datadir, r.file_name, pattern, qccodar_values['LLUVQuality'])
+            if ofn:
+                r = read_lluv_file(ofn)
+                r = add_short_metadata(r, qccodar_values)
+
+                css_interval_minutes = qccodar_values['merge']['css_interval_minutes']
+                number_of_css = qccodar_values['merge']['number_of_css']
+                if 'QCD' in r.metadata:
+                    r.metadata['QCD'].append((
+                        f'QCDSettings: merge ['
+                        f'css_interval_minutes = {css_interval_minutes}(minutes), '
+                        f'number_of_css = {number_of_css}(files)] '
+                    ))
+                write_output(r, ofn)
+
+        return ofn

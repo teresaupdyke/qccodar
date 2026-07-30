@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys
 
-__version__ = '2.0.1'
+__version__ = '2.1.0'
 
 install_requires = [
     'docopt', 
@@ -29,11 +29,11 @@ setup(name='qccodar',
     ],
       keywords='qc codar radials currents ocean science data',
       author='Sara Haines, Teresa Updyke',
-      author_email='sarahaines@unc.edu',
+      author_email='tupdyke@odu.edu',
       maintainer='Teresa Updyke',
       maintainer_email='tupdyke@odu.edu',
 
-      url='http://nccoos.unc.edu',
+      url='https://github.com/rowg/qccodar',
       license='GNU',
       packages=find_packages('src'),
       package_dir={'': 'src'},
@@ -50,8 +50,11 @@ setup(name='qccodar',
         qccodar = qccodar.app:main
       """,
       data_files=[('config', ['src/qccodar/config/qccodar.plist']),
-                  ('file_formats',['src/qccodar/file_formats/radialshort_LLUV_RDL7.ruv']),
-                  ('file_formats',['src/qccodar/file_formats/radial_LLUV_RDL9.ruv'])
+                  ('file_formats',['src/qccodar/file_formats/radialshort_LLUVSpec_112-150.ruv']),
+                  ('file_formats',['src/qccodar/file_formats/radialshort_LLUVSpec_151-.ruv']),
+                  ('file_formats', ['src/qccodar/file_formats/radial_LLUVSpec_104-111.ruv']),
+                  ('file_formats', ['src/qccodar/file_formats/radial_LLUVSpec_112-150.ruv']),
+                  ('file_formats', ['src/qccodar/file_formats/radial_LLUVSpec_151-.ruv'])
                   ]
       #scripts=['qccodar/qcviz/qcviz.py']
       )

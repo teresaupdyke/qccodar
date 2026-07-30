@@ -3,18 +3,18 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python>=3.7, <3.11
+  - python>=3.10, <3.11
   - docopt
   - geopy
   - ipython
   - jupyter
   - matplotlib
   - netcdf4
-  - numpy
+  - numpy<=2.4.6
   - oceans
-  - pandas
+  - pandas=2.2.3
   - seawater
-  - xarray
+  - xarray<=2026.7.0
   - watchdog
   - pip
-  - hfradarpy
+  - hfradarpy=0.1.5.4

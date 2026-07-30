@@ -14,8 +14,11 @@ src/qccodar.egg-info/not-zip-safe
 src/qccodar.egg-info/requires.txt
 src/qccodar.egg-info/top_level.txt
 src/qccodar/config/qccodar.plist
-src/qccodar/file_formats/radial_LLUV_RDL9.ruv
-src/qccodar/file_formats/radialshort_LLUV_RDL7.ruv
+src/qccodar/file_formats/radial_LLUVSpec_104-111.ruv
+src/qccodar/file_formats/radial_LLUVSpec_112-150.ruv
+src/qccodar/file_formats/radial_LLUVSpec_151-.ruv
+src/qccodar/file_formats/radialshort_LLUVSpec_112-150.ruv
+src/qccodar/file_formats/radialshort_LLUVSpec_151-.ruv
 src/qccodar/test/__init__.py
 src/qccodar/test/test_qc.py
 src/qccodar/test/test_qccodar_values.py

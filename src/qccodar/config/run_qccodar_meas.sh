@@ -17,7 +17,8 @@ LOGDIR='/Users/codar/qccodar_files/logs';
 
 
 # Script name with path stripped off
-script=$(basename $0);
+#script=$(basename $0);
+script="run_qccodar_meas"
 
 # Look for lock file.  If it exists, this script is running already so we need
 # to exit

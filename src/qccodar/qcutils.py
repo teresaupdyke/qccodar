@@ -174,12 +174,16 @@ def weighted_velocities(r, numdegrees=3, weight_parameter='MP'):
        The averaged values with range and bearing.
 
     """
-
+    lluvspec = float(r.metadata['LLUVSpec'].split()[0])
     # 
     # order of columns and labels for output data
-    xcol_labels = ['VFLG', 'SPRC', 'BEAR', 'VELO', 'ESPC', 'MAXV', 'MINV', 'EDVC', 'ERSC']
-    xc = get_columns(' '.join(xcol_labels))
-    
+    if lluvspec < 1.51:
+        xcol_labels = ['VFLG', 'SPRC', 'BEAR', 'VELO', 'ESPC', 'MAXV', 'MINV', 'EDVC', 'ERSC']
+        xc = get_columns(' '.join(xcol_labels))
+    else:
+        xcol_labels = ['VFLG', 'SPRC', 'BEAR', 'VELO', 'ESPC', 'EDTP', 'EASN', 'MAXV', 'MINV', 'EDVC', 'ERSC']
+        xc = get_columns(' '.join(xcol_labels))
+
     # data and columns from input Radial object as numpy array
     d = copy.deepcopy(r.data.to_numpy()) # NOTE using np array, not the dataframe
     c = get_columns( ' '.join(r.data.columns.to_list()) ) # dict of column labels, their index
@@ -554,12 +558,10 @@ def add_short_metadata(r,qccodar_values):
     ))
     numdegrees = qccodar_values['weighted_shorts']['numdegrees']
     weight_parameter = qccodar_values['weighted_shorts']['weight_parameter']
-    table_type = qccodar_values['weighted_shorts']['table_type']
     r.metadata['QCD'].append((
         f'QCDSettings: weighted_shorts ['
         f'numdegrees = {numdegrees}(degrees), '
         f'weight_parameter = {weight_parameter}, '
-        f'table_type = {table_type}]'
     ))
 
     return r
@@ -640,7 +642,7 @@ def _trial_qc():
         qc_monopole_snr=dict(monopole_snr_min=5.0),
         qc_loop_snr=dict(loop_snr_min=5.0),
         qc_radialshort_velocity_count=dict(radialshort_velocity_count_min=1.0),
-        weighted_shorts=dict(numdegrees=3,weight_parameter='MP', table_type='LLUV RDL7'),
+        weighted_shorts=dict(numdegrees=3,weight_parameter='MP'),
         merge=dict(css_interval_minutes=30.0,number_of_css=5.0)
     )
 
