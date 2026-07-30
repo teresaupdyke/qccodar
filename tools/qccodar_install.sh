@@ -186,16 +186,35 @@ fi
 
 # Set up the Conda environment for qccodar
 echo "Setting up Conda environment for qccodar..."
+if [[ "$SHELL_TYPE" == "zsh" ]]; then
+    conda init zsh
+elif [[ "$SHELL_TYPE" == "bash" ]]; then
+    conda init bash
+fi
+source ~/${condaversion}/etc/profile.d/conda.sh
+
 cd /Users/codar/qccodar_files/qccodar-main
 conda env create -f environment.yml
 conda activate qccodar
 
+if [ -d "/Users/codar/${condaversion}/envs/qccodar" ]; then
+    echo "qccodar environment has been created."
+else
+    echo "Failed to create qccodar environment."
+    exit 1
+fi
+
 # Install qccodar in the environment
 echo "Installing qccodar..."
 pip install .
-
-# Deactivate the environment
 conda deactivate
+
+if [ -f "/Users/codar/${condaversion}/envs/qccodar/bin/qccodar" ]; then
+    echo "Installation successful"
+else
+    echo "Installation failed. Aborting..."
+    exit 1
+fi
 
 # Radial Metric Output Configuration
 echo "Configuring Radial Metric Output..."
@@ -234,9 +253,9 @@ echo "The closest nominal operating frequency is $SYSTEM_FREQ"
 if [ "$SYSTEM_FREQ" == "5" ]; then
     cp /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/qccodar_5MHz.plist /Users/codar/qccodar_files/qccodar.plist
 elif [ "$SYSTEM_FREQ" == "13" ]; then
-    cp /Users/qccodar_files/qccodar-main/src/qccodar/config/qccodar_13MHz.plist /Users/codar/qccodar_files/qccodar.plist
+    cp /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/qccodar_13MHz.plist /Users/codar/qccodar_files/qccodar.plist
 elif [ "$SYSTEM_FREQ" == "25" ]; then
-    cp /Users/qccodar_files/qccodar-main/src/qccodar/config/qccodar_25MHz.plist /Users/codar/qccodar_files/qccodar.plist
+    cp /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/qccodar_25MHz.plist /Users/codar/qccodar_files/qccodar.plist
 else
     echo "Error: Invalid system frequency selected!"
 fi
@@ -292,7 +311,9 @@ if [ -f "/Codar/SeaSonde/Configs/RadialConfigs/Archivalist_RadialMetric.plist" ]
 
      if [[ "$choice2" == "y" || "$choice2" == "yes" ]]; then
          cp /Codar/SeaSonde/Configs/RadialConfigs/Archivalist_RadialMetric.plist ${backup_dir}/.
+         cp /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/Archivalist_RadialMetric.plist /Codar/SeaSonde/Configs/RadialConfigs/Archivalist_RadialMetric.plist
          echo "Archivalist settings installed. After install, please verify the Archivalist tasks in the SeaSonde Archivalist application!"
+
      else
          echo " "
          echo "PLEASE READ"
@@ -300,8 +321,7 @@ if [ -f "/Codar/SeaSonde/Configs/RadialConfigs/Archivalist_RadialMetric.plist" ]
      fi
    
 else
-    cp /Users/codar/qccodar_files/qccodar-main/src/qccodar/config/Archivalist_RadialMetric.plist /Codar/SeaSonde/Configs/RadialConfigs/Archivalist_RadialMetric.plist
-    echo "Archivalist settings installed. After install, please verify the Archivalist tasks in the SeaSonde Archivalist application!"
+    echo "Archivalist_RadialMetric.plist has NOT been modified.  Be sure the settings will not fill up your hard disk! Please pay careful attention to how you handle antenna response files!  Also, do not keep more metric files in the RadialMetric source directories than short files in the RadialShorts_qcd source directories!"
 fi
 
 echo " "

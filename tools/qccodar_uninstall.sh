@@ -43,6 +43,40 @@ else
 fi
 done
 
+# Create backup
+timestamp=`date "+%Y%m%d_%H%M%S"`
+if [ $? -ne 0 ]; then
+    backup_dir="/Users/codar/qccodar_backup"
+else
+    backup_dir="/Users/codar/qccodar_backup/${timestamp}"
+fi
+echo "Backup directory is ${backup_dir}"
+mkdir -p /Users/codar/qccodar_files/logs
+mkdir -p ${backup_dir}
+
+cp -R /Users/codar/qccodar_files ${backup_dir}
+# Detect the default shell (zsh or bash)
+SHELL_TYPE=$(basename "$SHELL")
+if [[ "$SHELL_TYPE" == "zsh" ]]; then
+      echo "Detected zsh shell."
+      SHELL_FILE=".zshrc"
+elif [[ "$SHELL_TYPE" == "bash" ]]; then
+      echo "Detected bash shell."
+      SHELL_FILE=".bash_profile"
+fi
+BACKUP_CONFIG_FILE=${backup_dir}/backup${SHELL_FILE}
+CONFIG_FILE=/Users/codar/${SHELL_FILE}
+if [ -f "${CONFIG_FILE}" ]; then
+   cp "${CONFIG_FILE}" "${BACKUP_CONFIG_FILE}"
+else
+   touch "${BACKUP_CONFIG_FILE}"
+fi
+ANALYSIS_OPTIONS_FILE="/Codar/SeaSonde/Configs/RadialConfigs/AnalysisOptions.txt"
+cp ${ANALYSIS_OPTIONS_FILE} ${backup_dir}/.
+crontab -l > ${backup_dir}/crontab_backup.txt
+cp /Codar/SeaSonde/Configs/RadialConfigs/Archivalist_RadialMetric.plist ${backup_dir}/.
+echo "Backup copies of the code, shell profile, the crontab, AnalysisOptions.txt, and Archivalist_RadialMetric.plist (if available) can be found in ${backup_dir}"
+
 
 # Remove qccodar files
 echo "Removing qccodar_files"
@@ -103,7 +137,5 @@ echo "Archivalist for Radial Metric tasks have not been altered."
 echo "*******************************************"
 echo " "
 echo "NOTE:"
-echo "As a precaution, a backup of crontab contents was saved to /Users/codar/crontab_backup_copy.txt. You can delete this file if your crontab entries are listed correctly above."
+echo "As a precaution, a backup of crontab contents was saved to ${backup_dir}. You can delete this file if your crontab entries are listed correctly above."
 echo " "
-
-
